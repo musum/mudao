@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="test">
+    <file>ui/resources/img/running.png</file>
+    <file>ui/resources/img/restart1.png</file>
+    <file>ui/resources/img/process.png</file>
+    <file>ui/resources/img/power_exit.png</file>
+    <file>ui/resources/img/setting.png</file>
+    <file>ui/resources/img/Server_setting.png</file>
+    <file>ui/resources/img/terminal.png</file>
+    <file>ui/resources/img/folder.png</file>
+  </qresource>
+</RCC>
