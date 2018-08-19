@@ -1,94 +1,144 @@
 import re
+from configparser import ConfigParser
 
 
-def parse_caidao(self, conf):
+def parse_caidao(conf):
+    ret = {}
     with open(conf, 'rb') as f:
-        c = f.read()
-        self.conf['FLAG'] = re.match(r'<FLAG>(.*)</FLAG', c).group(1)
-        self.conf['UA'] = re.match(r'<UA>(.*)</UA>', c).group(1)
-        self.conf['K1'] = re.match(r'<K1>(.*)</K1>', c).group(1)
-        self.conf['K2'] = re.match(r'<K2>(.*)</K2>', c).group(1)
-        self.conf['PHP_BASE'] = re.match(r'<PHP_BASE>(.*)</PHP_BASE>', c)
-        self.conf['ASP_BASE'] = re.match(r'<ASP_BASE>(.*)</ASP_BASE>', c)
-        self.conf['ASPX_BASE'] = re.match(r'<ASPX_BASE>(.*)</ASPX_BASE>', c)
-        _ = re.match(r'<GETBASEINFO>(.*)</GETBASEINFO>', c)
-        self.conf['GETBASEINFO'] = {}
-        self.conf['GETBASEINFO']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['GETBASEINFO']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['GETBASEINFO']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<SHOWFOLDER>(.*)</SHOWFOLDER>', c)
-        self.conf['SHOWFOLDER'] = {}
-        self.conf['SHOWFOLDER']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['SHOWFOLDER']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['SHOWFOLDER']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<SHOWTXTFILE>(.*)</SHOWTXTFILE>', c)
-        self.conf['SHOWTXTFILE'] = {}
-        self.conf['SHOWTXTFILE']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['SHOWTXTFILE']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['SHOWTXTFILE']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<SAVETXTFILE>(.*)</SAVETXTFILE>', c)
-        self.conf['SAVETXTFILE'] = {}
-        self.conf['SAVETXTFILE']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['SAVETXTFILE']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['SAVETXTFILE']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<DELETEFILE>(.*)</DELETEFILE>', c)
-        self.conf['DELETEFILE'] = {}
-        self.conf['DELETEFILE']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['DELETEFILE']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['DELETEFILE']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<DOWNFILE>(.*)</DOWNFILE>', c)
-        self.conf['DOWNFILE'] = {}
-        self.conf['DOWNFILE']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['DOWNFILE']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['DOWNFILE']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<UPLOADFILE>(.*)</UPLOADFILE>', c)
-        self.conf['UPLOADFILE'] = {}
-        self.conf['UPLOADFILE']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['UPLOADFILE']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['UPLOADFILE']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<PASTEFILE>(.*)</PASTEFILE>', c)
-        self.conf['PASTEFILE'] = {}
-        self.conf['PASTEFILE']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['PASTEFILE']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['PASTEFILE']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<NEWFOLDER>(.*)</NEWFOLDER>', c)
-        self.conf['NEWFOLDER'] = {}
-        self.conf['NEWFOLDER']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['NEWFOLDER']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['NEWFOLDER']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<WGET>(.*)</WGET>', c)
-        self.conf['WGET'] = {}
-        self.conf['WGET']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['WGET']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['WGET']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<SHELL>(.*)</SHELL>', c)
-        self.conf['SHELL'] = {}
-        self.conf['SHELL']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['SHELL']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['SHELL']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<RENAME>(.*)</RENAME>', c)
-        self.conf['RENAME'] = {}
-        self.conf['RENAME']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['RENAME']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['RENAME']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
-        _ = re.match(r'<SETTIME>(.*)</SETTIME>', c)
-        self.conf['SETTIME'] = {}
-        self.conf['SETTIME']['PHP'] = re.match(r'<PHP>(.*)</PHP>', _).group(1)
-        self.conf['SETTIME']['ASP'] = re.match(r'<ASP>(.*)</ASP>', _).group(1)
-        self.conf['SETTIME']['ASPX'] = re.match(r'<ASPX>(.*)</ASPX>', _).group(1)
+        c = f.read().decode('utf-16')
+        #print(c)
+        ret['FLAG'] = re.search(r'<FLAG>(.*)</FLAG>', c).group(1)
+        ret['UA'] = re.search(r'<UA>(.*)</UA>', c).group(1)
+        ret['K1'] = re.search(r'<K1>(.*)</K1>', c).group(1)
+        ret['K2'] = re.search(r'<K2>(.*)</K2>', c).group(1)
+        ret['PHP_BASE'] = re.search(r'<PHP_BASE>(.*)</PHP_BASE>', c, re.DOTALL).group(1).strip()
+        ret['ASP_BASE'] = re.search(r'<ASP_BASE>(.*)</ASP_BASE>', c, re.DOTALL).group(1).strip()
+        ret['ASPX_BASE'] = re.search(r'<ASPX_BASE>(.*)</ASPX_BASE>', c, re.DOTALL).group(1).strip()
+        _ = re.search(r'<GETBASEINFO>(.*)</GETBASEINFO>', c, re.DOTALL).group(1).strip()
+        ret['GETBASEINFO'] = {}
+        ret['GETBASEINFO']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['GETBASEINFO']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['GETBASEINFO']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<SHOWFOLDER>(.*)</SHOWFOLDER>', c, re.DOTALL).group(1).strip()
+        ret['SHOWFOLDER'] = {}
+        ret['SHOWFOLDER']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['SHOWFOLDER']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['SHOWFOLDER']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<SHOWTXTFILE>(.*)</SHOWTXTFILE>', c, re.DOTALL).group(1).strip()
+        ret['SHOWTXTFILE'] = {}
+        ret['SHOWTXTFILE']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['SHOWTXTFILE']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['SHOWTXTFILE']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<SAVETXTFILE>(.*)</SAVETXTFILE>', c, re.DOTALL).group(1).strip()
+        ret['SAVETXTFILE'] = {}
+        ret['SAVETXTFILE']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['SAVETXTFILE']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['SAVETXTFILE']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<DELETEFILE>(.*)</DELETEFILE>', c, re.DOTALL).group(1).strip()
+        ret['DELETEFILE'] = {}
+        ret['DELETEFILE']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['DELETEFILE']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['DELETEFILE']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<DOWNFILE>(.*)</DOWNFILE>', c, re.DOTALL).group(1).strip()
+        ret['DOWNFILE'] = {}
+        ret['DOWNFILE']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['DOWNFILE']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['DOWNFILE']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<UPLOADFILE>(.*)</UPLOADFILE>', c, re.DOTALL).group(1).strip()
+        ret['UPLOADFILE'] = {}
+        ret['UPLOADFILE']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['UPLOADFILE']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['UPLOADFILE']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<PASTEFILE>(.*)</PASTEFILE>', c, re.DOTALL).group(1).strip()
+        ret['PASTEFILE'] = {}
+        ret['PASTEFILE']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['PASTEFILE']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['PASTEFILE']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<NEWFOLDER>(.*)</NEWFOLDER>', c, re.DOTALL).group(1).strip()
+        ret['NEWFOLDER'] = {}
+        ret['NEWFOLDER']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['NEWFOLDER']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['NEWFOLDER']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<WGET>(.*)</WGET>', c, re.DOTALL).group(1).strip()
+        ret['WGET'] = {}
+        ret['WGET']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['WGET']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['WGET']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<SHELL>(.*)</SHELL>', c, re.DOTALL).group(1).strip()
+        ret['SHELL'] = {}
+        ret['SHELL']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['SHELL']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['SHELL']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<RENAME>(.*)</RENAME>', c, re.DOTALL).group(1).strip()
+        ret['RENAME'] = {}
+        ret['RENAME']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['RENAME']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['RENAME']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
+        _ = re.search(r'<SETTIME>(.*)</SETTIME>', c, re.DOTALL).group(1).strip()
+        ret['SETTIME'] = {}
+        ret['SETTIME']['PHP'] = re.search(r'<PHP>(.*)</PHP>', _, re.DOTALL).group(1).strip()
+        ret['SETTIME']['ASP'] = re.search(r'<ASP>(.*)</ASP>', _, re.DOTALL).group(1).strip()
+        ret['SETTIME']['ASPX'] = re.search(r'<ASPX>(.*)</ASPX>', _, re.DOTALL).group(1).strip()
 
-        self.conf['DB_PHP_MYSQL_DBLIST'] = re.match(r'<DB_PHP_MYSQL_DBLIST>(.*)</DB_PHP_MYSQL_DBLIST>', c)
-        self.conf['DB_PHP_MYSQL_TABLELIST'] = re.match(r'<DB_PHP_MYSQL_TABLELIST>(.*)</DB_PHP_MYSQL_TABLELIST>', c)
-        self.conf['DB_PHP_MYSQL_COLUMNLIST'] = re.match(r'<DB_PHP_MYSQL_COLUMNLIST>(.*)</DB_PHP_MYSQL_COLUMNLIST>', c)
-        self.conf['DB_PHP_MYSQL_EXECUTESQL'] = re.match(r'<DB_PHP_MYSQL_EXECUTESQL>(.*)</DB_PHP_MYSQL_EXECUTESQL>', c)
+        ret['DB_PHP_MYSQL_DBLIST'] = re.search(r'<DB_PHP_MYSQL_DBLIST>(.*)</DB_PHP_MYSQL_DBLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_MYSQL_TABLELIST'] = re.search(r'<DB_PHP_MYSQL_TABLELIST>(.*)</DB_PHP_MYSQL_TABLELIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_MYSQL_COLUMNLIST'] = re.search(r'<DB_PHP_MYSQL_COLUMNLIST>(.*)</DB_PHP_MYSQL_COLUMNLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_MYSQL_EXECUTESQL'] = re.search(r'<DB_PHP_MYSQL_EXECUTESQL>(.*)</DB_PHP_MYSQL_EXECUTESQL>', c, re.DOTALL).group(1).strip()
 
-        self.conf['DB_PHP_POSTGRESQL_DBLIST'] = re.match(r'<DB_PHP_POSTGRESQL_DBLIST>(.*)</DB_PHP_POSTGRESQL_DBLIST>', c)
-        self.conf['DB_PHP_POSTGRESQL_TABLELIST'] = re.match(r'<DB_PHP_POSTGRESQL_TABLELIST>(.*)</DB_PHP_POSTGRESQL_TABLELIST>', c)
-        self.conf['DB_PHP_POSTGRESQL_COLUMNLIST'] = re.match(r'<DB_PHP_POSTGRESQL_COLUMNLIST>(.*)</DB_PHP_POSTGRESQL_COLUMNLIST>', c)
-        self.conf['DB_PHP_POSTGRESQL_EXECUTESQL'] = re.match(r'<DB_PHP_POSTGRESQL_EXECUTESQL>(.*)</DB_PHP_POSTGRESQL_EXECUTESQL>', c)
+        ret['DB_PHP_POSTGRESQL_DBLIST'] = re.search(r'<DB_PHP_POSTGRESQL_DBLIST>(.*)</DB_PHP_POSTGRESQL_DBLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_POSTGRESQL_TABLELIST'] = re.search(r'<DB_PHP_POSTGRESQL_TABLELIST>(.*)</DB_PHP_POSTGRESQL_TABLELIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_POSTGRESQL_COLUMNLIST'] = re.search(r'<DB_PHP_POSTGRESQL_COLUMNLIST>(.*)</DB_PHP_POSTGRESQL_COLUMNLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_POSTGRESQL_EXECUTESQL'] = re.search(r'<DB_PHP_POSTGRESQL_EXECUTESQL>(.*)</DB_PHP_POSTGRESQL_EXECUTESQL>', c, re.DOTALL).group(1).strip()
 
-        self.conf['DB_PHP_INFORMIX_DBLIST'] = re.match(r'<DB_PHP_INFORMIX_DBLIST>(.*)</DB_PHP_INFORMIX_DBLIST>', c)
-        self.conf['DB_PHP_INFORMIX_TABLELIST'] = re.match(r'<DB_PHP_INFORMIX_TABLELIST>(.*)</DB_PHP_INFORMIX_TABLELIST>', c)
-        self.conf['DB_PHP_INFORMIX__COLUMNLIST'] = re.match(r'<DB_PHP_INFORMIX__COLUMNLIST>(.*)</DB_PHP_INFORMIX__COLUMNLIST>', c)
-        self.conf['DB_PHP_INFORMIX_EXECUTESQL'] = re.match(r'<DB_PHP_INFORMIX_EXECUTESQL>(.*)</DB_PHP_INFORMIX_EXECUTESQL>', c)
+        ret['DB_PHP_INFORMIX_DBLIST'] = re.search(r'<DB_PHP_INFORMIX_DBLIST>(.*)</DB_PHP_INFORMIX_DBLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_INFORMIX_TABLELIST'] = re.search(r'<DB_PHP_INFORMIX_TABLELIST>(.*)</DB_PHP_INFORMIX_TABLELIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_INFORMIX__COLUMNLIST'] = re.search(r'<DB_PHP_INFORMIX__COLUMNLIST>(.*)</DB_PHP_INFORMIX__COLUMNLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_INFORMIX_EXECUTESQL'] = re.search(r'<DB_PHP_INFORMIX_EXECUTESQL>(.*)</DB_PHP_INFORMIX_EXECUTESQL>', c, re.DOTALL).group(1).strip()
 
+        ret['DB_PHP_ORACLE_DBLIST'] = re.search(r'<DB_PHP_ORACLE_DBLIST>(.*)</DB_PHP_ORACLE_DBLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_ORACLE_TABLELIST'] = re.search(r'<DB_PHP_ORACLE_TABLELIST>(.*)</DB_PHP_ORACLE_TABLELIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_ORACLE_COLUMNLIST'] = re.search(r'<DB_PHP_ORACLE_COLUMNLIST>(.*)</DB_PHP_ORACLE_COLUMNLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_ORACLE_EXECUTESQL'] = re.search(r'<DB_PHP_ORACLE_EXECUTESQL>(.*)</DB_PHP_ORACLE_EXECUTESQL>', c, re.DOTALL).group(1).strip()
+
+        ret['DB_PHP_MSSQL_DBLIST'] = re.search(r'<DB_PHP_MSSQL_DBLIST>(.*)</DB_PHP_MSSQL_DBLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_MSSQL_TABLELIST'] = re.search(r'<DB_PHP_MSSQL_TABLELIST>(.*)</DB_PHP_MSSQL_TABLELIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_MSSQL_COLUMNLIST'] = re.search(r'<DB_PHP_MSSQL_COLUMNLIST>(.*)</DB_PHP_MSSQL_COLUMNLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_PHP_MSSQL_EXECUTESQL'] = re.search(r'<DB_PHP_MSSQL_EXECUTESQL>(.*)</DB_PHP_MSSQL_EXECUTESQL>', c, re.DOTALL).group(1).strip()
+
+        ret['DB_ASP_ADO_DBLIST'] = re.search(r'<DB_ASP_ADO_DBLIST>(.*)</DB_ASP_ADO_DBLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_ASP_ADO_TABLELIST'] = re.search(r'<DB_ASP_ADO_TABLELIST>(.*)</DB_ASP_ADO_TABLELIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_ASP_ADO_COLUMNLIST'] = re.search(r'<DB_ASP_ADO_COLUMNLIST>(.*)</DB_ASP_ADO_COLUMNLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_ASP_ADO_EXECUTESQL'] = re.search(r'<DB_ASP_ADO_EXECUTESQL>(.*)</DB_ASP_ADO_EXECUTESQL>', c, re.DOTALL).group(1).strip()
+
+        ret['DB_ASPX_ADO_DBLIST'] = re.search(r'<DB_ASPX_ADO_DBLIST>(.*)</DB_ASPX_ADO_DBLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_ASPX_ADO_TABLELIST'] = re.search(r'<DB_ASPX_ADO_TABLELIST>(.*)</DB_ASPX_ADO_TABLELIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_ASPX_ADO_COLUMNLIST'] = re.search(r'<DB_ASPX_ADO_COLUMNLIST>(.*)</DB_ASPX_ADO_COLUMNLIST>', c, re.DOTALL).group(1).strip()
+        ret['DB_ASPX_ADO_EXECUTESQL'] = re.search(r'<DB_ASPX_ADO_EXECUTESQL>(.*)</DB_ASPX_ADO_EXECUTESQL>', c, re.DOTALL).group(1).strip()
+
+        return ret
+
+
+class Config(ConfigParser):
+    def __init__(self, conf=None):
+        self.conf = conf
+
+    def save(self, path=None):
+        path = path or self.conf
+        with open(path, 'w') as f:
+            self.write(f)
+
+    def load(self, path=None):
+        path = path or self.conf
+        try:
+            self.read(path)
+        except IOError:
+            print('File not existed')
+
+
+if __name__ == "__main__":
+    conf = '/home/uuu/Desktop/caidao.conf'
+    _ = parse_caidao(conf)
+    for k, v in _.items():
+        print('%s: %s' % (k, v))
+
+    Config().save('mudao.ini')

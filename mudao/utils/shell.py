@@ -1,4 +1,4 @@
-import re
+from mudao.utils.tool import parse_caidao
 
 
 class Shell(object):
@@ -6,13 +6,14 @@ class Shell(object):
         self.url = url
         self.pwd = pwd
         self.type = type
-        self.conf = {}
+        self.conf = parse_caidao('caidao.conf')
         self.payload = None
 
     def generate_payload(self, fun='info', **kwargs):
         pass
 
-    def load_conf(self, con):
+    @staticmethod
+    def load_conf(con):
         pass
 
 
