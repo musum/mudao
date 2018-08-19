@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,11 +12,17 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(900, 600)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setMinimumSize(QtCore.QSize(900, 600))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName("verticalLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(0, 0, 891, 511))
         self.tabWidget.setAutoFillBackground(True)
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
         self.tabWidget.setTabsClosable(False)
@@ -24,8 +30,15 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.tab)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.mainTable = QtWidgets.QTableWidget(self.tab)
-        self.mainTable.setGeometry(QtCore.QRect(0, 0, 891, 481))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.mainTable.sizePolicy().hasHeightForWidth())
+        self.mainTable.setSizePolicy(sizePolicy)
+        self.mainTable.setMinimumSize(QtCore.QSize(901, 501))
         self.mainTable.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.mainTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.mainTable.setObjectName("mainTable")
@@ -48,12 +61,14 @@ class Ui_MainWindow(object):
         self.mainTable.horizontalHeader().setCascadingSectionResizes(True)
         self.mainTable.horizontalHeader().setDefaultSectionSize(200)
         self.mainTable.horizontalHeader().setStretchLastSection(True)
+        self.verticalLayout_2.addWidget(self.mainTable)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/test/ui/resources/img/process.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.tab, icon, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.tabWidget.addTab(self.tab_2, "")
+        self.verticalLayout.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -68,7 +83,7 @@ class Ui_MainWindow(object):
         self.toolBar_about.setObjectName("toolBar_about")
         MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar_about)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 900, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 900, 23))
         self.menubar.setObjectName("menubar")
         self.menu_file = QtWidgets.QMenu(self.menubar)
         self.menu_file.setObjectName("menu_file")
@@ -184,4 +199,4 @@ class Ui_MainWindow(object):
         self.action_del.setToolTip(_translate("MainWindow", "删除Shell"))
         self.action_del.setShortcut(_translate("MainWindow", "Ctrl+Shift+R"))
 
-import resource_rc
+import mudao.resource_rc
