@@ -2,6 +2,7 @@ import sys
 
 import os
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QDir, QModelIndex
 from PyQt5.QtCore import pyqtSignal as Signal
 
@@ -27,25 +28,52 @@ class FilePannel(QWidget, Ui_Form):
         self.action_folderAdd.triggered.connect(self.new_folder)
         self.rightView.customContextMenuRequested.connect(self._right_menu)
 
-        self.folder_model = QFileSystemModel(self)
-        self.file_model = QFileSystemModel(self)
-        self.config_model()
+        self.rootl = QTreeWidgetItem(self.leftView)
+        self.rootr = QTreeWidgetItem(self.rightView)
 
-    def config_model(self):
-        self.folder_model.setRootPath(None)
-        self.folder_model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
-        self.leftView.setModel(self.folder_model)
-        self.leftView.setRootIndex(self.folder_model.index(None))
-        self.leftView.clicked[QModelIndex].connect(self.clicked_onfolder)
-        self.leftView.hideColumn(1)
-        self.leftView.hideColumn(2)
-        self.leftView.hideColumn(3)
+        # self.folder_model = QFileSystemModel(self)
+        # self.file_model = QFileSystemModel(self)
+        # self.config_model()
 
-        self.file_model.setFilter(QDir.Files)
-        self.rightView.setModel(self.file_model)
-        self.file_model.setReadOnly(False)
-        self.rightView.setColumnWidth(0, 200)
-        self.rightView.setSelectionMode(QAbstractItemView.ExtendedSelection)
+    def _add_row(self, data, view, root=None):
+        if view.topLevelItemCount() == 0:
+            for d in data:
+                item = self.make_item(d)
+                root.addChild(item)
+                # view.addTopLevelItem(item)
+            return
+
+        for d in data:
+            item = self.make_item(d)
+            root.addChild(item)
+
+    def make_item(self, it, icon='folder'):
+        item = QTreeWidgetItem()
+        if isinstance(it, (list, tuple)):
+            for k, v in enumerate(it):
+                item.setText(k, v)
+            item.setIcon(0, QIcon("./images/%s.png" % it[1]))
+        elif isinstance(it, str):
+            item.setText(0, it)
+            item.setIcon(0, QIcon("./images/%s.png" % icon))
+
+        return item
+
+    # def config_model(self):
+    #     self.folder_model.setRootPath(None)
+    #     self.folder_model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
+    #     self.leftView.setModel(self.folder_model)
+    #     self.leftView.setRootIndex(self.folder_model.index(None))
+    #     self.leftView.clicked[QModelIndex].connect(self.clicked_onfolder)
+    #     self.leftView.hideColumn(1)
+    #     self.leftView.hideColumn(2)
+    #     self.leftView.hideColumn(3)
+    #
+    #     self.file_model.setFilter(QDir.Files)
+    #     self.rightView.setModel(self.file_model)
+    #     self.file_model.setReadOnly(False)
+    #     self.rightView.setColumnWidth(0, 200)
+    #     self.rightView.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
     def _right_menu(self, point):
         menu = QMenu()
@@ -67,7 +95,7 @@ class FilePannel(QWidget, Ui_Form):
         print(path)
         # self.sig_upload(path)
 
-    def download(self,):
+    def download(self):
         path, _ = QFileDialog.getSaveFileName(self, "Save file", "", "All files (*.*)")
         print(path)
         # self.sig_download(path)
@@ -84,7 +112,9 @@ class FilePannel(QWidget, Ui_Form):
     def clicked_onfolder(self, index):
         selection_model = self.leftView.selectionModel()
         index = selection_model.currentIndex()
+        print(index)
         dir_path = self.folder_model.filePath(index)
+        print(dir_path)
         self.file_model.setRootPath(dir_path)
         self.rightView.setRootIndex(self.file_model.index(dir_path))
 
