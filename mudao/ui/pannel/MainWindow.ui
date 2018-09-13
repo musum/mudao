@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
+    <width>950</width>
     <height>600</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>900</width>
+    <width>950</width>
     <height>600</height>
    </size>
   </property>
@@ -36,7 +36,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="tabsClosable">
        <bool>false</bool>
@@ -185,8 +185,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>900</width>
-     <height>23</height>
+     <width>950</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -222,11 +222,19 @@
    <addaction name="action_del"/>
   </widget>
   <action name="action_import">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/test/ui/resources/img/import.png</normaloff>:/test/ui/resources/img/import.png</iconset>
+   </property>
    <property name="text">
     <string>导入</string>
    </property>
   </action>
   <action name="action_export">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/test/ui/resources/img/export.png</normaloff>:/test/ui/resources/img/export.png</iconset>
+   </property>
    <property name="text">
     <string>导出</string>
    </property>
@@ -298,6 +306,10 @@
    </property>
   </action>
   <action name="action_add">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/test/ui/resources/img/add.png</normaloff>:/test/ui/resources/img/add.png</iconset>
+   </property>
    <property name="text">
     <string>添加</string>
    </property>
@@ -309,6 +321,10 @@
    </property>
   </action>
   <action name="action_edit">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/test/ui/resources/img/edit.png</normaloff>:/test/ui/resources/img/edit.png</iconset>
+   </property>
    <property name="text">
     <string>编辑</string>
    </property>
@@ -320,6 +336,10 @@
    </property>
   </action>
   <action name="action_del">
+   <property name="icon">
+    <iconset resource="../../resource.qrc">
+     <normaloff>:/test/ui/resources/img/del.png</normaloff>:/test/ui/resources/img/del.png</iconset>
+   </property>
    <property name="text">
     <string>删除</string>
    </property>
