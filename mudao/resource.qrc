@@ -1,18 +1,18 @@
 <RCC>
   <qresource prefix="test">
-    <file>ui/resources/img/edit.png</file>
-    <file>ui/resources/img/delete.png</file>
-    <file>ui/resources/img/del.png</file>
-    <file>ui/resources/img/export.png</file>
-    <file>ui/resources/img/import.png</file>
-    <file>ui/resources/img/add.png</file>
-    <file>ui/resources/img/running.png</file>
-    <file>ui/resources/img/restart1.png</file>
-    <file>ui/resources/img/process.png</file>
-    <file>ui/resources/img/power_exit.png</file>
-    <file>ui/resources/img/setting.png</file>
-    <file>ui/resources/img/Server_setting.png</file>
-    <file>ui/resources/img/terminal.png</file>
-    <file>ui/resources/img/folder.png</file>
+    <file>ui/images/edit.png</file>
+    <file>ui/images/delete.png</file>
+    <file>ui/images/del.png</file>
+    <file>ui/images/export.png</file>
+    <file>ui/images/import.png</file>
+    <file>ui/images/add.png</file>
+    <file>ui/images/running.png</file>
+    <file>ui/images/restart1.png</file>
+    <file>ui/images/process.png</file>
+    <file>ui/images/power_exit.png</file>
+    <file>ui/images/setting.png</file>
+    <file>ui/images/Server_setting.png</file>
+    <file>ui/images/terminal.png</file>
+    <file>ui/images/folder.png</file>
   </qresource>
 </RCC>

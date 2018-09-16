@@ -66,7 +66,7 @@ class Ui_Form(object):
         self.rightView.setSizePolicy(sizePolicy)
         self.rightView.setMinimumSize(QtCore.QSize(200, 0))
         self.rightView.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
-        self.rightView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.rightView.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked)
         self.rightView.setIconSize(QtCore.QSize(16, 16))
         self.rightView.setObjectName("rightView")
         item_0 = QtWidgets.QTreeWidgetItem(self.rightView)

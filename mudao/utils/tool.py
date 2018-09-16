@@ -118,6 +118,35 @@ def parse_caidao(conf):
         return ret
 
 
+CONF = parse_caidao('../config/caidao.conf')
+
+
+def parse_connstr(connstr):
+    dbtype = re.search(r'<T>(.*)</T>', connstr).group(1)
+    host = re.search(r'<H>(.*)</H>', connstr).group(1)
+    user = re.search(r'<U>(.*)</U>', connstr).group(1)
+    pwd = re.search(r'<P>(.*)</P>', connstr).group(1)
+    dbn = re.search(r'<N>(.*)</N>', connstr).group(1)
+    return dbtype, host, user, pwd, dbn
+
+
+def parse_ado(connstr):
+    # dbtype = re.search(r'<T>(.*)</T>', connstr).group(1)
+    conn = re.search(r'<C>(.*)</C>', connstr).group(1)
+    return conn
+
+
+def request(method, url, data):
+    pass
+
+
+def generate(payload, type='php', config=None):
+    flag = config['FLAG']
+    k1 = config['K1']
+    k2 = config['K2']
+    base = config[type.upper() + '_BASE']
+
+
 class Config(ConfigParser):
     def __init__(self, conf=None):
         self.conf = conf
@@ -130,15 +159,17 @@ class Config(ConfigParser):
     def load(self, path=None):
         path = path or self.conf
         try:
-            self.read(path)
+            self.read(path, encoding='utf-8')
         except IOError:
             print('File not existed')
 
 
 if __name__ == "__main__":
-    conf = '/home/uuu/Desktop/caidao.conf'
+    conf = '../config/caidao.conf'
     _ = parse_caidao(conf)
     for k, v in _.items():
         print('%s: %s' % (k, v))
 
-    Config().save('mudao.ini')
+    # Config().save('mudao.ini')
+    # c = Config('../config/conf.ini').load()
+    # print(c.sections())

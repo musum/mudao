@@ -46,7 +46,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="icon">
-        <iconset resource="../../resource.qrc">
+        <iconset>
          <normaloff>:/test/ui/resources/img/process.png</normaloff>:/test/ui/resources/img/process.png</iconset>
        </attribute>
        <attribute name="title">
@@ -186,7 +186,7 @@
      <x>0</x>
      <y>0</y>
      <width>950</width>
-     <height>20</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -224,7 +224,7 @@
   <action name="action_import">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/import.png</normaloff>:/test/ui/resources/img/import.png</iconset>
+     <normaloff>:/test/ui/images/import.png</normaloff>:/test/ui/images/import.png</iconset>
    </property>
    <property name="text">
     <string>导入</string>
@@ -233,7 +233,7 @@
   <action name="action_export">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/export.png</normaloff>:/test/ui/resources/img/export.png</iconset>
+     <normaloff>:/test/ui/images/export.png</normaloff>:/test/ui/images/export.png</iconset>
    </property>
    <property name="text">
     <string>导出</string>
@@ -242,7 +242,7 @@
   <action name="action_quit">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/power_exit.png</normaloff>:/test/ui/resources/img/power_exit.png</iconset>
+     <normaloff>:/test/ui/images/power_exit.png</normaloff>:/test/ui/images/power_exit.png</iconset>
    </property>
    <property name="text">
     <string>退出</string>
@@ -251,7 +251,7 @@
   <action name="action_file">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/folder.png</normaloff>:/test/ui/resources/img/folder.png</iconset>
+     <normaloff>:/test/ui/images/folder.png</normaloff>:/test/ui/images/folder.png</iconset>
    </property>
    <property name="text">
     <string>文件管理</string>
@@ -266,7 +266,7 @@
   <action name="action_cmd">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/terminal.png</normaloff>:/test/ui/resources/img/terminal.png</iconset>
+     <normaloff>:/test/ui/images/terminal.png</normaloff>:/test/ui/images/terminal.png</iconset>
    </property>
    <property name="text">
     <string>终端模拟</string>
@@ -281,7 +281,7 @@
   <action name="action_data">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/process.png</normaloff>:/test/ui/resources/img/process.png</iconset>
+     <normaloff>:/test/ui/images/process.png</normaloff>:/test/ui/images/process.png</iconset>
    </property>
    <property name="text">
     <string>数据库管理</string>
@@ -296,7 +296,7 @@
   <action name="action_about">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/restart1.png</normaloff>:/test/ui/resources/img/restart1.png</iconset>
+     <normaloff>:/test/ui/images/restart1.png</normaloff>:/test/ui/images/restart1.png</iconset>
    </property>
    <property name="text">
     <string> About</string>
@@ -308,7 +308,7 @@
   <action name="action_add">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/add.png</normaloff>:/test/ui/resources/img/add.png</iconset>
+     <normaloff>:/test/ui/images/add.png</normaloff>:/test/ui/images/add.png</iconset>
    </property>
    <property name="text">
     <string>添加</string>
@@ -323,7 +323,7 @@
   <action name="action_edit">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/edit.png</normaloff>:/test/ui/resources/img/edit.png</iconset>
+     <normaloff>:/test/ui/images/edit.png</normaloff>:/test/ui/images/edit.png</iconset>
    </property>
    <property name="text">
     <string>编辑</string>
@@ -338,7 +338,7 @@
   <action name="action_del">
    <property name="icon">
     <iconset resource="../../resource.qrc">
-     <normaloff>:/test/ui/resources/img/del.png</normaloff>:/test/ui/resources/img/del.png</iconset>
+     <normaloff>:/test/ui/images/delete.png</normaloff>:/test/ui/images/delete.png</iconset>
    </property>
    <property name="text">
     <string>删除</string>

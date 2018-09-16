@@ -16,6 +16,8 @@ class FilePannel(QWidget, Ui_Form):
     sig_upload = Signal(str)
     sig_download = Signal(str)
     sig_wget = Signal(str)
+    sig_double_clicked = Signal(str)
+    sig_path_enter = Signal(str)
 
     def __init__(self, parent=None):
         super(FilePannel, self).__init__(parent)
@@ -28,34 +30,123 @@ class FilePannel(QWidget, Ui_Form):
         self.action_folderAdd.triggered.connect(self.new_folder)
         self.rightView.customContextMenuRequested.connect(self._right_menu)
 
-        self.rootl = QTreeWidgetItem(self.leftView)
-        self.rootr = QTreeWidgetItem(self.rightView)
+        self.pushButton.clicked.connect(self.on_path_enter)
+
+        self.leftView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_left_double_clicked)
+        self.leftView.itemSelectionChanged.connect(self.on_select_folder)
+
+        self.rightView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_right_double_clicked)
+        self.rightView.itemSelectionChanged.connect(self.on_select_file)
+
+        self.leftView.clear()
+        self.rightView.clear()
+
+        self.current_folder = None
+        self.current_file = None
 
         # self.folder_model = QFileSystemModel(self)
         # self.file_model = QFileSystemModel(self)
         # self.config_model()
 
-    def _add_row(self, data, view, root=None):
-        if view.topLevelItemCount() == 0:
-            for d in data:
-                item = self.make_item(d)
-                root.addChild(item)
-                # view.addTopLevelItem(item)
-            return
+    def on_path_enter(self):
+        path = self.comboBox.currentText()
+        self.sig_path_enter.emit(path)
 
+    def on_select_folder(self):
+        current = self.leftView.currentItem()
+        self.current_folder = self.get_path(current, 0)
+        self.comboBox.setCurrentText(self.current_folder)
+        print(self.comboBox.currentText())
+
+    def on_select_file(self):
+        sep = '/' if self.current_folder.startswith('/') else '\\'
+        current = self.rightView.currentItem()
+        self.current_file = sep.join((self.current_folder, current.text(0)))
+        self.comboBox.setCurrentText(self.current_file)
+
+    def on_left_double_clicked(self, it, idx):
+        self.sig_double_clicked.emit(self.current_folder)
+
+    def on_right_double_clicked(self, it, idx):
+        self.sig_double_clicked.emit(self.current_file)
+
+    def do_list(self, path):
+        print(path)
+        return [('a', 'file', '1kb', '20180818'), ('b', 'folder', '4kb', '20180818'), ('c', 'file', '2kb', '20180818')]
+
+    def get_path(self, it, idx, sep='\\'):
+        path = it.text(idx)
+        parent = it.parent()
+        while parent:
+            path = sep.join((parent.text(idx), path))
+            parent = parent.parent()
+        return path
+        # self.sig_current_folder_changed.emit(path)
+        # data = self.do_list(path)
+        # for d in data:
+        #     if d[1] == 'folder':
+        #         self.add_item(d[0], it)
+        # self.make_right(data)
+
+    def get_file(self, it, idx):
+        file = tuple([it.text(i) for i in range(it.columnCount())])
+        self.sig_current_filename_changed.emit(file)
+
+    def make_left(self, fullpath):
+        sep = '/' if fullpath.startswith('/') else '\\'
+        fullpath = fullpath.split(sep)
+        if fullpath[0] == '':
+            fullpath[0] = '/'
+        root = self.add_item(fullpath[0], self.leftView)
+        for p in fullpath[1:]:
+            root = self.add_item(p, root)
+
+    def make_right(self, data):
+        self.rightView.clear()
         for d in data:
-            item = self.make_item(d)
-            root.addChild(item)
+            self.add_item(d, self.rightView)
 
-    def make_item(self, it, icon='folder'):
+    def add_item(self, data, root):
+        NEW = True
+        item = None
+        name = data[0] if isinstance(data, tuple) else str(data)
+
+        if isinstance(root, QTreeWidget):
+            for i in range(root.topLevelItemCount()):
+                if name == root.topLevelItem(i).text(0):
+                    item = root.topLevelItem(i)
+                    NEW = False
+                    break
+            if NEW:
+                item = self.make_item(data, 'disk')
+                root.addTopLevelItem(item)
+        elif isinstance(root, QTreeWidgetItem):
+            for i in range(root.childCount()):
+                if name == root.child(i).text(0):
+                    item = root.child(i)
+                    NEW = False
+                    break
+            if NEW:
+                item = self.make_item(data)
+                root.addChild(item)
+        return item
+
+    @staticmethod
+    def make_item(it, icon='folder'):
+        if isinstance(it, tuple):
+            icon = it[1]
+
+        if icon not in ('disk', 'folder', 'file', 'image'):
+            icon = 'binary'
+
         item = QTreeWidgetItem()
-        if isinstance(it, (list, tuple)):
+        if isinstance(it, tuple):
             for k, v in enumerate(it):
                 item.setText(k, v)
-            item.setIcon(0, QIcon("./images/%s.png" % it[1]))
-        elif isinstance(it, str):
+        else:
+            it = str(it)
             item.setText(0, it)
-            item.setIcon(0, QIcon("./images/%s.png" % icon))
+        item.setIcon(0, QIcon("./images/file_icons/%s_24px.png" % icon))
 
         return item
 
