@@ -7,6 +7,8 @@ from mudao.ui.uiFile import FilePannel
 from mudao.ui.uiTextEdit import TextPannel
 from mudao.ui.uiCmd import CmdPannel
 
+from mudao.model.filemanager import FileManager
+
 from mudao.utils.tool import CONF
 
 
@@ -55,25 +57,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # File manage action
     def show_file(self):
-        fileManager = FilePannel(self)
-        fileManager.sig_edit.connect(lambda f, p: self.edit_file(f, p))
-        fileManager.sig_newFile.connect(lambda f, p: self.new_file(f, p))
-        fileManager.sig_double_clicked.connect(lambda p: self.list_dir(p))
-        for i in ['C:', 'D:']:
-            fileManager.add_item(i, fileManager.leftView)
-
-        # self._add_row(['folder', 'file'], self.leftView, self.leftView.topLevelItem(0))
-
-        fileManager.make_left('D:\\a\\b\\c')
-        fileManager.make_left('D:\\a\\c')
-
-        for r in [('folder', 'folder', '', ''), ('file', 'file', '', '')]:
-            fileManager.add_item(r, fileManager.rightView)
-
-        self.add_new_tab(fileManager, 'File')
-
-    def list_dir(self, path):
-        print(path)
+        f = FileManager('http://localhost/test.php', 'a', 'php', parent=self)
+        f.list_dir('.')
+        self.add_new_tab(f, 'File')
 
     def show_textEdit(self, fm, path, content, editable):
         textEditor = TextPannel(self, fm, path, editable)
@@ -82,16 +68,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             textEditor.textEdit.setText(content)
         self.add_new_tab(textEditor, 'TextEdit')
 
-    def edit_file(self, fm, path):
-        print(path)
-        self.show_textEdit(fm, path, 'test content', editable=True)
-
-    def new_file(self, fm, path):
-        print(path)
-        self.show_textEdit(fm, path, '', editable=True)
-
-    def save_file(self, path):
-        self.fileManager.save(path)
 
     # Database manage action
     def show_database(self):

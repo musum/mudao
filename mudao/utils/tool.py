@@ -1,6 +1,9 @@
 import re
 from configparser import ConfigParser
 
+from urllib.request import urlopen, Request
+from urllib.error import *
+
 
 def parse_caidao(conf):
     ret = {}
@@ -136,8 +139,15 @@ def parse_ado(connstr):
     return conn
 
 
-def request(method, url, data):
-    pass
+def request(url, data=None, code='utf-8'):
+    req = Request(url, data=data.encode(code))
+    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0')
+    try:
+        rsp = urlopen(req)
+        return rsp.status, rsp.reason, rsp.read()# .decode(code)
+    except Exception as e:
+        print(e)
+        return 999, 'Exception', e
 
 
 def generate(payload, type='php', config=None):
