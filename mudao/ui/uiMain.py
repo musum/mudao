@@ -1,4 +1,6 @@
 import sys
+
+import os
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
@@ -8,6 +10,7 @@ from mudao.ui.uiTextEdit import TextPannel
 from mudao.ui.uiCmd import CmdPannel
 
 from mudao.model.filemanager import FileManager
+from mudao.utils.sqlite import sqlite as db
 
 from mudao.utils.tool import CONF
 
@@ -41,6 +44,58 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # XStream.stdout().messageWritten.connect(self._system_output)
         # XStream.stderr().messageWritten.connect(self._system_output)
 
+        self.db = self.init_db()
+
+    def init_db(self, dbf='mudao.db'):
+        if not os.path.exists(dbf):
+            sqlList = ["""\
+            CREATE TABLE 'box' (
+            'id' INTEGER PRIMARY KEY AUTOINCREMENT,
+            'url' VARCHAR(128),
+            'pwd' VARCHAR(8),
+            'type' VARCHAR(4),
+            's_group' VARCHAR(32),
+            'sql_con' TEXT,
+            'comment' TEXT,
+            'geo' VARCHAR(4),
+            'status' VARCHAR(4),
+            'c_time' TIMESTAMP not null default (datetime('now','localtime')),
+            'e_time' TIMESTAMP not null default (datetime('now','localtime'))
+            );
+            """,
+            """\
+            CREATE TABLE 'group_list' (
+            'group_id' INTEGER PRIMARY KEY,
+            'group_name' VARCHAR(64),
+            'counting' INT
+            );
+            
+            """,
+            """\
+            CREATE TABLE 'box_cache' (
+            'id' INTEGER PRIMARY KEY AUTOINCREMENT,
+            'sid' INTEGER,
+            'cache_name' TEXT,
+            'cache_content' BLOB
+            );
+            
+            """,
+            """\
+            create trigger box_Update before update on box
+            for each row
+            begin
+            update box set e_time = datetime('now','localtime') where id=old.id;
+            end;
+            """
+            ]
+            database = db(dbf)
+            for sql in sqlList:
+                database.execute(sql)
+        else:
+            database = db(dbf)
+
+        return database
+
     def add_shell(self):
         pass
 
@@ -58,7 +113,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # File manage action
     def show_file(self):
         f = FileManager('http://localhost/test.php', 'a', 'php', parent=self)
-        f.list_dir('.')
         self.add_new_tab(f, 'File')
 
     def show_textEdit(self, fm, path, content, editable):
@@ -67,7 +121,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if content:
             textEditor.textEdit.setText(content)
         self.add_new_tab(textEditor, 'TextEdit')
-
 
     # Database manage action
     def show_database(self):

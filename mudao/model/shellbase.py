@@ -17,6 +17,10 @@ class Shell(object):
         self._k2 = CONF.get('K2', 'k2')
         self._k3 = CONF.get('K3', 'k3')
 
+        self.root = None
+        self.disk = None
+        self.info = None
+
     def getbase(self):
         pl = CONF.get(self._type.upper() + '_BASE', '')
         if self._type.lower() == 'php':
