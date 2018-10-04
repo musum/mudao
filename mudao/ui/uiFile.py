@@ -7,19 +7,20 @@ from PyQt5.QtCore import QDir, QModelIndex
 from PyQt5.QtCore import pyqtSignal as Signal
 
 from mudao.ui.pannel.file import Ui_Form
+from mudao.model.filemanager import FileManager
 
 
 class FilePannel(QWidget, Ui_Form):
     sig_newFile = Signal(object, str)
-    sig_newFolder = Signal(str)
+    # sig_newFolder = Signal(str)
     sig_edit = Signal(object, str)
-    sig_upload = Signal(str)
-    sig_download = Signal(str)
-    sig_wget = Signal(str)
-    sig_double_clicked = Signal(str)
-    sig_path_enter = Signal(str)
+    # sig_upload = Signal(str)
+    # sig_download = Signal(str)
+    # sig_wget = Signal(str)
+    # sig_double_clicked = Signal(str)
+    # sig_path_enter = Signal(str)
 
-    def __init__(self, parent=None):
+    def __init__(self, url, pwd, type, coder='utf-8', parent=None):
         super(FilePannel, self).__init__(parent)
         self.setupUi(self)
         self.action_upload.triggered.connect(self.upload)
@@ -44,19 +45,85 @@ class FilePannel(QWidget, Ui_Form):
         self.current_folder = None
         self.current_file = None
 
+        self.coder = coder
+        self.filemanager = FileManager(url, pwd, type, coder)
+        self.webRoot = self.path = self.tmpAttr = None
+        self.mw = self.parentWidget()
+
         # self.folder_model = QFileSystemModel(self)
         # self.file_model = QFileSystemModel(self)
         # self.config_model()
 
+        # for i in ['C:', 'D:']:
+        #     self.add_item(i, self.leftView)
+        #
+        # # self._add_row(['folder', 'file'], self.leftView, self.leftView.topLevelItem(0))
+        #
+        # self.make_left('D:\\a\\b\\c')
+        # self.make_left('D:\\a\\c')
+        #
+        # for r in [('folder', 'folder', '', ''), ('file', 'file', '', '')]:
+        #     self.add_item(r, self.rightView)
+
+    def init(self):
+        # add status to mainWindow
+        self.mw.statusBar().showMessage('Get base info...')
+        info = self.chk_data(self.filemanager.getinfo())
+        if info:
+            self.mw.statusBar().showMessage('Get base OK :)')
+            self.webRoot, self.path, _ = info.split('\t')
+            self.comboBox.setCurrentText(self.webRoot)
+            self.make_left(self.webRoot)
+            # Get webRoot files and make right view
+            self.list_dir(self.webRoot)
+        else:
+            self.comboBox.setCurrentText('ERR :(')
+            self.mw.statusBar().showMessage('Get base ERR :(')
+
+    def chk_data(self, ret):
+        data = ''
+        if ret[0] != 200:
+            QMessageBox.information(self, ret[1], str(ret[2]))
+            return data
+        try:
+            data = ret[2].decode(self.coder)
+        except Exception as e:
+            QMessageBox.information(self, 'ERR', str(e))
+
+        return data
+
+    def list_dir(self, path):
+        # todo check data in database
+        self.mw.statusBar().showMessage('Get %s files...' % path)
+        try:
+            files = self.chk_data(self.filemanager.showfolder(path))
+        except Exception as e:
+            print(e)
+        if files:
+            self.mw.statusBar().showMessage('Get %s OK :)' % path)
+            files = files.split('\n')
+            self.make_right([f.split('\t') for f in files if f])
+        else:
+            self.mw.statusBar().showMessage('Get %s ERR :(' % path)
+
+    def save_file(self, path, data):
+        ret = self.filemanager.savefile(path, data)
+        if ret[0] == 200:
+            self.mw.statusBar().showMessage('Save file OK :)')
+        else:
+            self.mw.statusBar().showMessage('ERR :(')
+        return self
+
     def on_path_enter(self):
         path = self.comboBox.currentText()
-        self.sig_path_enter.emit(path)
+        self.make_left(path)
+        self.list_dir(path)
 
     def on_select_folder(self):
         current = self.leftView.currentItem()
         self.current_folder = self.get_path(current, 0)
         self.comboBox.setCurrentText(self.current_folder)
-        print(self.comboBox.currentText())
+        self.list_dir(self.current_folder)
 
     def on_select_file(self):
         sep = '/' if self.current_folder.startswith('/') else '\\'
@@ -65,10 +132,20 @@ class FilePannel(QWidget, Ui_Form):
         self.comboBox.setCurrentText(self.current_file)
 
     def on_left_double_clicked(self, it, idx):
-        self.sig_double_clicked.emit(self.current_folder)
+        path = self.get_path(it, idx)
+        self.comboBox.setCurrentText(path)
+        self.list_dir(path)
 
     def on_right_double_clicked(self, it, idx):
-        self.sig_double_clicked.emit(self.current_file)
+        file = self.get_file(it, idx)
+        path = self.current_folder + '/' + file
+        self.comboBox.setCurrentText(path)
+        # check item type
+        if it[1] in ('folder', 'f'):
+            self.make_left(path)
+            self.list_dir(path)
+        else:
+            self.sig_edit.emit(self, path)
 
     def do_list(self, path):
         print(path)
@@ -89,8 +166,8 @@ class FilePannel(QWidget, Ui_Form):
         # self.make_right(data)
 
     def get_file(self, it, idx):
-        file = tuple([it.text(i) for i in range(it.columnCount())])
-        self.sig_current_filename_changed.emit(file)
+        self.current_file = tuple([it.text(i) for i in range(it.columnCount())])
+        return self.current_file
 
     def make_left(self, fullpath):
         sep = '/' if fullpath.startswith('/') else '\\'
@@ -104,12 +181,14 @@ class FilePannel(QWidget, Ui_Form):
     def make_right(self, data):
         self.rightView.clear()
         for d in data:
+            if d[0] in ('./', '../'):
+                continue
             self.add_item(d, self.rightView)
 
     def add_item(self, data, root):
         NEW = True
         item = None
-        name = data[0] if isinstance(data, tuple) else str(data)
+        name = data[0] if isinstance(data, (tuple, list)) else str(data)
 
         if isinstance(root, QTreeWidget):
             for i in range(root.topLevelItemCount()):
@@ -129,18 +208,24 @@ class FilePannel(QWidget, Ui_Form):
             if NEW:
                 item = self.make_item(data)
                 root.addChild(item)
+            item.setExpanded(True)
         return item
 
     @staticmethod
     def make_item(it, icon='folder'):
-        if isinstance(it, tuple):
-            icon = it[1]
+        if isinstance(it, (tuple, list)):
+            if it[0].endswith('/'):
+                icon = 'folder'
+            elif '.' in it[0]:
+                icon = 'file'
+            else:
+                icon = 'binary'
 
         if icon not in ('disk', 'folder', 'file', 'image'):
             icon = 'binary'
 
         item = QTreeWidgetItem()
-        if isinstance(it, tuple):
+        if isinstance(it, (tuple, list)):
             for k, v in enumerate(it):
                 item.setText(k, v)
         else:

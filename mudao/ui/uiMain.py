@@ -112,15 +112,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # File manage action
     def show_file(self):
-        f = FileManager('http://localhost/test.php', 'a', 'php', parent=self)
-        self.add_new_tab(f, 'File')
+        def edit_file(fm, path):
+            print(path)
+            self.show_textEdit(fm, path, newfile=False, editable=True)
 
-    def show_textEdit(self, fm, path, content, editable):
-        textEditor = TextPannel(self, fm, path, editable)
-        # textEditor.sig_fileSave.connect(lambda x: self.save_file(x))
-        if content:
-            textEditor.textEdit.setText(content)
+        def new_file(fm, path):
+            print(path)
+            self.show_textEdit(fm, path, newfile=True, editable=True)
+
+        f = FilePannel('http://localhost/test.php', 'a', 'php', coder='gbk', parent=self)
+        f.sig_edit.connect(edit_file)
+        f.sig_newFile.connect(new_file)
+        self.add_new_tab(f, 'File')
+        f.init()
+
+    def show_textEdit(self, fm, path, newfile=True, editable=False):
+        def save(path, content):
+            fm.save_file(path, content)
+
+        content = self.chk_data(fm.fm.showtext(path)) if not newfile else ''
+        textEditor = TextPannel(path, content, editable, self)
+        textEditor.sig_fileSave.connect(lambda p, c: save(p, c))
         self.add_new_tab(textEditor, 'TextEdit')
+        if not content and not newfile:
+            self.statusbar.showMessage('Get file contents err :(')
+        elif content:
+            self.statusbar.showMessage('Get file contents OK :)')
 
     # Database manage action
     def show_database(self):

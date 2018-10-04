@@ -6,13 +6,13 @@ from mudao.ui.pannel.edit import Ui_Form
 
 
 class TextPannel(QWidget, Ui_Form):
-    # sig_fileSave = Signal(str)
+    sig_fileSave = Signal(str, str)
 
-    def __init__(self, parent=None, fm=None, path='test', editable=False):
+    def __init__(self, path='test', content='', editable=True, parent=None):
         super(TextPannel, self).__init__(parent)
         self.setupUi(self)
-        self.fileManger = fm
         self.pathEdit.setText(path)
+        self.textEdit.setText(content)
         self.editable = editable
         self.pushButton.setDisabled(not self.editable)
         self.textEdit.setReadOnly(not self.editable)
@@ -21,4 +21,6 @@ class TextPannel(QWidget, Ui_Form):
 
     def save_file(self):
         print('save file')
-        self.fileManger.save(self.pathEdit.text())
+        print(self.textEdit.document())
+        if self.textEdit.document():
+            self.sig_fileSave.emit(self.pathEdit.text(), self.textEdit.document())
