@@ -47,7 +47,7 @@ class FilePannel(QWidget, Ui_Form):
 
         self.coder = coder
         self.filemanager = FileManager(url, pwd, type, coder)
-        self.webRoot = self.path = self.tmpAttr = None
+        self.webRoot = self.path = self.tmpAttr = self.os = None
         self.mw = self.parentWidget()
 
         # self.folder_model = QFileSystemModel(self)
@@ -72,10 +72,14 @@ class FilePannel(QWidget, Ui_Form):
         if info:
             self.mw.statusBar().showMessage('Get base OK :)')
             self.webRoot, self.path, _ = info.split('\t')
+            self.os = 'lnx' if self.webRoot.startswith('/') else 'win'
             self.comboBox.setCurrentText(self.webRoot)
             self.make_left(self.webRoot)
             # Get webRoot files and make right view
-            self.list_dir(self.webRoot)
+            try:
+                self.list_dir(self.webRoot)
+            except Exception as e:
+                print(e)
         else:
             self.comboBox.setCurrentText('ERR :(')
             self.mw.statusBar().showMessage('Get base ERR :(')
@@ -100,9 +104,14 @@ class FilePannel(QWidget, Ui_Form):
         except Exception as e:
             print(e)
         if files:
+            sep = '/' if path.startswith('/') else '\\'
             self.mw.statusBar().showMessage('Get %s OK :)' % path)
-            files = files.split('\n')
-            self.make_right([f.split('\t') for f in files if f])
+            files = [f.split('\t') for f in files.split('\n') if f]
+            folders = [f for f in files if f[0].endswith('/') and f[0] not in ('../', './')]
+            files = [f for f in files if not f[0].endswith('/')]
+            self.make_right(files)
+            for f in folders:
+                self.make_left(sep.join((path, f[0][:-1])))
         else:
             self.mw.statusBar().showMessage('Get %s ERR :(' % path)
 
@@ -137,19 +146,12 @@ class FilePannel(QWidget, Ui_Form):
         self.list_dir(path)
 
     def on_right_double_clicked(self, it, idx):
+        print('double clicked')
         file = self.get_file(it, idx)
-        path = self.current_folder + '/' + file
-        self.comboBox.setCurrentText(path)
-        # check item type
-        if it[1] in ('folder', 'f'):
-            self.make_left(path)
-            self.list_dir(path)
-        else:
-            self.sig_edit.emit(self, path)
-
-    def do_list(self, path):
-        print(path)
-        return [('a', 'file', '1kb', '20180818'), ('b', 'folder', '4kb', '20180818'), ('c', 'file', '2kb', '20180818')]
+        sep = '/' if self.current_folder.startswith('/') else '\\'
+        path = sep.join((self.current_folder, file))
+        # self.comboBox.setCurrentText(path)
+        self.sig_edit.emit(self, path)
 
     def get_path(self, it, idx, sep='\\'):
         path = it.text(idx)
@@ -176,6 +178,7 @@ class FilePannel(QWidget, Ui_Form):
             fullpath[0] = '/'
         root = self.add_item(fullpath[0], self.leftView)
         for p in fullpath[1:]:
+            p = p[:-1] if p.endswith('/') else p
             root = self.add_item(p, root)
 
     def make_right(self, data):
@@ -199,6 +202,7 @@ class FilePannel(QWidget, Ui_Form):
             if NEW:
                 item = self.make_item(data, 'disk')
                 root.addTopLevelItem(item)
+            item.setExpanded(True)
         elif isinstance(root, QTreeWidgetItem):
             for i in range(root.childCount()):
                 if name == root.child(i).text(0):
@@ -227,6 +231,7 @@ class FilePannel(QWidget, Ui_Form):
         item = QTreeWidgetItem()
         if isinstance(it, (tuple, list)):
             for k, v in enumerate(it):
+                v = v[:-1] if v.endswith('/') else v
                 item.setText(k, v)
         else:
             it = str(it)
@@ -277,6 +282,7 @@ class FilePannel(QWidget, Ui_Form):
         # self.sig_download(path)
 
     def edit_file(self):
+        print('edit file')
         self.sig_edit.emit(self, 'test')
 
     def save(self, path):
