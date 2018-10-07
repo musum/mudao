@@ -13,6 +13,8 @@ from mudao.model.filemanager import FileManager
 from mudao.utils.sqlite import sqlite as db
 
 from mudao.utils.tool import CONF
+from mudao.utils.logger import logger as log
+log.setLevel('DEBUG')
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -112,34 +114,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # File manage action
     def show_file(self):
-        def edit_file(fm, path):
-            print(path)
-            self.show_textEdit(fm, path, newfile=False, editable=True)
-
-        def new_file(fm, path):
-            print(path)
-            self.show_textEdit(fm, path, newfile=True, editable=True)
         try:
-            f = FilePannel('http://localhost/test.php', 'a', 'php', coder='gbk', parent=self)
+            f = FilePannel('http://172.17.0.2/test.php', 'a', 'php', coder='gbk', parent=self)
             f.init()
-            f.sig_edit.connect(edit_file)
-            f.sig_newFile.connect(new_file)
+            f.sig_edit.connect(lambda f, p: self.show_textEdit(f, p, newfile=False, editable=True))
+            f.sig_newFile.connect(lambda f, p: self.show_textEdit(f, p, newfile=True, editable=True))
             self.add_new_tab(f, 'File')
         except Exception as e:
             print(e)
 
     def show_textEdit(self, fm, path, newfile=True, editable=False):
-        def save(path, content):
-            fm.save_file(path, content)
-
-        content = self.chk_data(fm.fm.showtext(path)) if not newfile else ''
-        textEditor = TextPannel(path, content, editable, self)
-        textEditor.sig_fileSave.connect(lambda p, c: save(p, c))
+        textEditor = TextPannel(path, newfile, editable, fm)
         self.add_new_tab(textEditor, 'TextEdit')
-        if not content and not newfile:
-            self.statusbar.showMessage('Get file contents err :(')
-        elif content:
-            self.statusbar.showMessage('Get file contents OK :)')
 
     # Database manage action
     def show_database(self):

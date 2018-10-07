@@ -2,6 +2,7 @@ from urllib.request import urlopen, Request
 from urllib.error import *
 
 from mudao.utils.tool import CONF
+from mudao.utils.logger import logger as log
 
 
 class Shell(object):
@@ -25,11 +26,12 @@ class Shell(object):
             pl = pl % (self._flag, 'action', self._flag)
         elif self._type.lower() == 'aspx':
             pl = pl % (self._flag, 65001, 'action', self._flag)
-
+        # log.debug('Shell Base: %s' % pl)
         return pl
 
     def generate(self, pl, code='utf-8'):
         pl = pl.encode(code)
+        # log.debug('Playload: %s' % pl)
         if self._type.lower() is 'asp':
             import binascii as ba
             ret = self._base.replace('action', ba.hexlify(pl).decode(code))
@@ -54,6 +56,7 @@ class Shell(object):
 
     def POST(self, params):
         data = self._pwd + '=' + params
+        log.debug('Params: %s' % params)
         return self.request(self._url, data)
 
     @staticmethod

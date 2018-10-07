@@ -1,26 +1,35 @@
-import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import pyqtSignal as Signal
 
 from mudao.ui.pannel.edit import Ui_Form
 
 
 class TextPannel(QWidget, Ui_Form):
-    sig_fileSave = Signal(str, str)
 
-    def __init__(self, path='test', content='', editable=True, parent=None):
+    def __init__(self, path='test', newfile=False, editable=True, parent=None):
         super(TextPannel, self).__init__(parent)
         self.setupUi(self)
+        # Get filepannel operation
+        self.fpannel = parent
         self.pathEdit.setText(path)
-        self.textEdit.setText(content)
+        if not newfile:
+            self.textEdit.setText(self.get_content())
+        else:
+            self.textEdit.setText('')
         self.editable = editable
-        self.pushButton.setDisabled(not self.editable)
+        self.pushButtonSave.setDisabled(not self.editable)
         self.textEdit.setReadOnly(not self.editable)
-        self.pushButton.clicked.connect(self.save_file)
-        # self.action_save.triggered.connect(self.save_file)
+        self.pushButtonSave.clicked.connect(self.save_file)
+        self.pushButtonLoad.clicked.connect(self.load_file)
+
+    def get_content(self):
+        return self.fpannel.chk_data(self.fpannel.filemanager.showtxt(self.pathEdit.text()))
 
     def save_file(self):
         print('save file')
-        print(self.textEdit.document())
         if self.textEdit.document():
-            self.sig_fileSave.emit(self.pathEdit.text(), self.textEdit.document())
+            self.fpannel.save_file(self.pathEdit.text(), self.textEdit.toPlainText())
+
+    def load_file(self):
+        print('load file')
+        content = self.get_content()
+        self.textEdit.setText(content)

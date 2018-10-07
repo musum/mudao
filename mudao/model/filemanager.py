@@ -11,8 +11,8 @@ class FileManager(Shell):
         params = self.generate(pl)
         return self.POST(params)
 
-    def showtext(self, path):
-        pl = CONF.get('SHOWTEXTFILE').get(self._type.upper()) % path
+    def showtxt(self, path):
+        pl = CONF.get('SHOWTXTFILE').get(self._type.upper()) % path
         params = self.generate(pl)
         return self.POST(params)
 

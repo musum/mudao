@@ -1,6 +1,8 @@
 import sys
 
 import os
+from PyQt5 import QtCore
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QDir, QModelIndex
@@ -35,9 +37,11 @@ class FilePannel(QWidget, Ui_Form):
 
         self.leftView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_left_double_clicked)
         self.leftView.itemSelectionChanged.connect(self.on_select_folder)
+        # self.leftView.itemClicked()
 
         self.rightView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_right_double_clicked)
-        self.rightView.itemSelectionChanged.connect(self.on_select_file)
+        self.rightView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_select_file)
+        # self.rightView.itemSelectionChanged.connect(self.on_select_file)
 
         self.leftView.clear()
         self.rightView.clear()
@@ -47,7 +51,7 @@ class FilePannel(QWidget, Ui_Form):
 
         self.coder = coder
         self.filemanager = FileManager(url, pwd, type, coder)
-        self.webRoot = self.path = self.tmpAttr = self.os = None
+        self.webRoot = self.path = self.tmpAttr = self.os = self.sep = None
         self.mw = self.parentWidget()
 
         # self.folder_model = QFileSystemModel(self)
@@ -67,12 +71,14 @@ class FilePannel(QWidget, Ui_Form):
 
     def init(self):
         # add status to mainWindow
-        self.mw.statusBar().showMessage('Get base info...')
+        self.mw.statusbar.showMessage('Get server info...')
         info = self.chk_data(self.filemanager.getinfo())
         if info:
-            self.mw.statusBar().showMessage('Get base OK :)')
+            self.mw.statusbar.showMessage('Get server info OK :)')
             self.webRoot, self.path, _ = info.split('\t')
             self.os = 'lnx' if self.webRoot.startswith('/') else 'win'
+            self.sep = '/' if self.os is 'lnx' else '\\'
+            self.current_folder = self.webRoot
             self.comboBox.setCurrentText(self.webRoot)
             self.make_left(self.webRoot)
             # Get webRoot files and make right view
@@ -82,7 +88,7 @@ class FilePannel(QWidget, Ui_Form):
                 print(e)
         else:
             self.comboBox.setCurrentText('ERR :(')
-            self.mw.statusBar().showMessage('Get base ERR :(')
+            self.mw.statusbar.showMessage('Get server info ERR :(')
 
     def chk_data(self, ret):
         data = ''
@@ -98,29 +104,29 @@ class FilePannel(QWidget, Ui_Form):
 
     def list_dir(self, path):
         # todo check data in database
-        self.mw.statusBar().showMessage('Get %s files...' % path)
+        self.mw.statusbar.showMessage('Get %s files...' % path)
         try:
             files = self.chk_data(self.filemanager.showfolder(path))
         except Exception as e:
             print(e)
         if files:
-            sep = '/' if path.startswith('/') else '\\'
-            self.mw.statusBar().showMessage('Get %s OK :)' % path)
+            # sep = '/' if path.startswith('/') else '\\'
+            self.mw.statusbar.showMessage('Get %s OK :)' % path)
             files = [f.split('\t') for f in files.split('\n') if f]
             folders = [f for f in files if f[0].endswith('/') and f[0] not in ('../', './')]
             files = [f for f in files if not f[0].endswith('/')]
             self.make_right(files)
             for f in folders:
-                self.make_left(sep.join((path, f[0][:-1])))
+                self.make_left(self.sep.join((path, f[0][:-1])).replace('//', '/'))
         else:
-            self.mw.statusBar().showMessage('Get %s ERR :(' % path)
+            self.mw.statusbar.showMessage('Get %s ERR :(' % path)
 
     def save_file(self, path, data):
         ret = self.filemanager.savefile(path, data)
         if ret[0] == 200:
-            self.mw.statusBar().showMessage('Save file OK :)')
+            self.mw.statusbar.showMessage('Save file OK :)')
         else:
-            self.mw.statusBar().showMessage('ERR :(')
+            self.mw.statusbar.showMessage('ERR :(')
         return self
 
     def on_path_enter(self):
@@ -135,9 +141,13 @@ class FilePannel(QWidget, Ui_Form):
         self.list_dir(self.current_folder)
 
     def on_select_file(self):
-        sep = '/' if self.current_folder.startswith('/') else '\\'
+        if qApp.mouseButtons() & QtCore.Qt.RightButton:
+            print('right button')
+        elif qApp.mouseButtons() & QtCore.Qt.LeftButton:
+            print('left button')
+        # sep = '/' if self.current_folder.startswith('/') else '\\'
         current = self.rightView.currentItem()
-        self.current_file = sep.join((self.current_folder, current.text(0)))
+        self.current_file = self.sep.join((self.current_folder, current.text(0)))
         self.comboBox.setCurrentText(self.current_file)
 
     def on_left_double_clicked(self, it, idx):
@@ -148,17 +158,19 @@ class FilePannel(QWidget, Ui_Form):
     def on_right_double_clicked(self, it, idx):
         print('double clicked')
         file = self.get_file(it, idx)
-        sep = '/' if self.current_folder.startswith('/') else '\\'
-        path = sep.join((self.current_folder, file))
+        # sep = '/' if self.current_folder.startswith('/') else '\\'
+        path = self.sep.join((self.current_folder, file))
         # self.comboBox.setCurrentText(path)
         self.sig_edit.emit(self, path)
 
-    def get_path(self, it, idx, sep='\\'):
+    def get_path(self, it, idx):
         path = it.text(idx)
         parent = it.parent()
         while parent:
-            path = sep.join((parent.text(idx), path))
+            path = self.sep.join((parent.text(idx), path))
             parent = parent.parent()
+        if self.os is 'lnx':
+            path = path.replace('//', '/')
         return path
         # self.sig_current_folder_changed.emit(path)
         # data = self.do_list(path)
@@ -168,8 +180,8 @@ class FilePannel(QWidget, Ui_Form):
         # self.make_right(data)
 
     def get_file(self, it, idx):
-        self.current_file = tuple([it.text(i) for i in range(it.columnCount())])
-        return self.current_file
+        # self.current_file = tuple([it.text(i) for i in range(it.columnCount())])
+        return it.text(0)
 
     def make_left(self, fullpath):
         sep = '/' if fullpath.startswith('/') else '\\'
@@ -315,12 +327,8 @@ class FilePannel(QWidget, Ui_Form):
         self.rightView.update()
 
     def new_file(self):
-        index = self.leftView.selectedIndexes()
-        if len(index) > 0:
-            path = self.folder_model.filePath(index[0])
-            self.sig_newFile.emit(self, path + '/New text.txt')
-        else:
-            print("Please, select folder")
+        path = self.sep.join((self.current_folder, 'New text.txt'))
+        self.sig_newFile.emit(path)
 
     def delete_file(self):
         indexes = self.rightView.selectedIndexes()
