@@ -238,10 +238,66 @@
     <string>编辑</string>
    </property>
    <property name="toolTip">
-    <string>编辑</string>
+    <string>编辑文件</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="action_rename">
+   <property name="text">
+    <string>重命名</string>
+   </property>
+   <property name="toolTip">
+    <string>重命名文件</string>
+   </property>
+  </action>
+  <action name="action_view">
+   <property name="text">
+    <string>查看</string>
+   </property>
+   <property name="toolTip">
+    <string>查看文件</string>
+   </property>
+  </action>
+  <action name="action_chstamp">
+   <property name="text">
+    <string>修改时间</string>
+   </property>
+   <property name="toolTip">
+    <string>修改文件时间</string>
+   </property>
+  </action>
+  <action name="action_delete">
+   <property name="text">
+    <string>删除</string>
+   </property>
+   <property name="toolTip">
+    <string>删除文件</string>
+   </property>
+  </action>
+  <action name="action_copy">
+   <property name="text">
+    <string>复制</string>
+   </property>
+   <property name="toolTip">
+    <string>复制文件</string>
+   </property>
+  </action>
+  <action name="action_paste">
+   <property name="text">
+    <string>粘贴</string>
+   </property>
+   <property name="toolTip">
+    <string>粘贴文件</string>
+   </property>
+  </action>
+  <action name="action_cut">
+   <property name="text">
+    <string>剪切</string>
+   </property>
+   <property name="toolTip">
+    <string>剪切文件</string>
    </property>
   </action>
  </widget>

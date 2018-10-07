@@ -14,7 +14,7 @@ from mudao.utils.sqlite import sqlite as db
 
 from mudao.utils.tool import CONF
 from mudao.utils.logger import logger as log
-log.setLevel('DEBUG')
+log.setLevel('INFO')
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -115,10 +115,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # File manage action
     def show_file(self):
         try:
-            f = FilePannel('http://172.17.0.2/test.php', 'a', 'php', coder='gbk', parent=self)
+            # f = FilePannel('http://172.17.0.2/test.php', 'a', 'php', coder='gbk', parent=self)
+            f = FilePannel('http://localhost/test.php', 'a', 'php', coder='gbk', parent=self)
             f.init()
-            f.sig_edit.connect(lambda f, p: self.show_textEdit(f, p, newfile=False, editable=True))
-            f.sig_newFile.connect(lambda f, p: self.show_textEdit(f, p, newfile=True, editable=True))
+            f.sig_edit.connect(lambda fm, p: self.show_textEdit(fm, p, newfile=False, editable=True))
+            f.sig_newFile.connect(lambda fm, p: self.show_textEdit(fm, p, newfile=True, editable=True))
             self.add_new_tab(f, 'File')
         except Exception as e:
             print(e)

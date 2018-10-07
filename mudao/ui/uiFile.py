@@ -1,11 +1,13 @@
 import sys
 
 import os
+
+import time
 from PyQt5 import QtCore
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QDir, QModelIndex
+from PyQt5.QtCore import QDir, QModelIndex, QTime
 from PyQt5.QtCore import pyqtSignal as Signal
 
 from mudao.ui.pannel.file import Ui_Form
@@ -14,13 +16,7 @@ from mudao.model.filemanager import FileManager
 
 class FilePannel(QWidget, Ui_Form):
     sig_newFile = Signal(object, str)
-    # sig_newFolder = Signal(str)
     sig_edit = Signal(object, str)
-    # sig_upload = Signal(str)
-    # sig_download = Signal(str)
-    # sig_wget = Signal(str)
-    # sig_double_clicked = Signal(str)
-    # sig_path_enter = Signal(str)
 
     def __init__(self, url, pwd, type, coder='utf-8', parent=None):
         super(FilePannel, self).__init__(parent)
@@ -28,16 +24,24 @@ class FilePannel(QWidget, Ui_Form):
         self.action_upload.triggered.connect(self.upload)
         self.action_download.triggered.connect(self.download)
         self.action_wget.triggered.connect(self.wget)
-        self.action_edit.triggered.connect(self.edit_file)
         self.action_fileAdd.triggered.connect(self.new_file)
         self.action_folderAdd.triggered.connect(self.new_folder)
+        self.action_edit.triggered.connect(self.edit_file)
+        self.action_view.triggered.connect(self.view_file)
+        self.action_delete.triggered.connect(self.delete_file)
+        self.action_rename.triggered.connect(self.rename_file)
+        self.action_chstamp.triggered.connect(self.change_stamp)
+        self.action_copy.triggered.connect(self.copy_file)
+        self.action_cut.triggered.connect(self.move_file)
+        self.action_paste.triggered.connect(self.paste_file)
+
         self.rightView.customContextMenuRequested.connect(self._right_menu)
 
         self.pushButton.clicked.connect(self.on_path_enter)
 
         self.leftView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_left_double_clicked)
         self.leftView.itemSelectionChanged.connect(self.on_select_folder)
-        # self.leftView.itemClicked()
+        # self.leftView.
 
         self.rightView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_right_double_clicked)
         self.rightView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_select_file)
@@ -145,6 +149,12 @@ class FilePannel(QWidget, Ui_Form):
             print('right button')
         elif qApp.mouseButtons() & QtCore.Qt.LeftButton:
             print('left button')
+            # tick = QTime.currentTime().msec()
+            # while QTime.currentTime().msec() - tick < 500:
+            #     if QTime.currentTime().msec() - tick > 300 and qApp.mouseButtons() & QtCore.Qt.LeftButton:
+            #         print('edit name')
+            #         break
+
         # sep = '/' if self.current_folder.startswith('/') else '\\'
         current = self.rightView.currentItem()
         self.current_file = self.sep.join((self.current_folder, current.text(0)))
@@ -269,14 +279,25 @@ class FilePannel(QWidget, Ui_Form):
     #     self.rightView.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
     def _right_menu(self, point):
+        # init right menu
         menu = QMenu()
         menu.addAction(self.action_upload)
         menu.addAction(self.action_download)
         menu.addAction(self.action_wget)
         menu.addSeparator()
-        menu.addAction(self.action_edit)
         menu.addAction(self.action_fileAdd)
         menu.addAction(self.action_folderAdd)
+
+        menu.addSeparator()
+        menu.addAction(self.action_view)
+        menu.addAction(self.action_edit)
+        menu.addAction(self.action_delete)
+        menu.addAction(self.action_rename)
+        menu.addAction(self.action_chstamp)
+        menu.addSeparator()
+        menu.addAction(self.action_copy)
+        menu.addAction(self.action_cut)
+        menu.addAction(self.action_paste)
         menu.exec_(self.rightView.viewport().mapToGlobal(point))
 
     def new_folder(self):
@@ -296,6 +317,12 @@ class FilePannel(QWidget, Ui_Form):
     def edit_file(self):
         print('edit file')
         self.sig_edit.emit(self, 'test')
+
+    def view_file(self):
+        pass
+
+    def change_stamp(self):
+        pass
 
     def save(self, path):
         print(path)
@@ -354,17 +381,6 @@ class FilePannel(QWidget, Ui_Form):
             new_filename = new_path + '/' + self.file_model.fileName(i)
             # shutil.copy2(self.file_model.filePath(i), new_filename)
 
-    def colapse(self):
-        self.leftView.collapseAll()
-
-    def go_to(self):
-        dir_path = self.goto_lineedit.text().replace('\\', '/')
-        print(dir_path)
-        self.file_model.setRootPath(dir_path)
-        self.rightView.setRootIndex(self.file_model.index(dir_path))
-
-        #self.file_model.setRootPath()
-
     def move_file(self):
         print("MOVE")
         ask = QFileDialog.getExistingDirectory(self, "Open Directory", "/home",
@@ -377,6 +393,9 @@ class FilePannel(QWidget, Ui_Form):
         for i in indexes:
             new_filename = new_path + '/' + self.file_model.fileName(i)
             # shutil.move(self.file_model.filePath(i), new_filename)
+
+    def paste_file(self):
+        print('paste file')
 
     def new_folder(self):
         index = self.leftView.selectedIndexes()
@@ -403,6 +422,17 @@ class FilePannel(QWidget, Ui_Form):
         else:
             index = index[0]
         self.leftView.edit(index)
+
+    def colapse(self):
+        self.leftView.collapseAll()
+
+    def go_to(self):
+        dir_path = self.goto_lineedit.text().replace('\\', '/')
+        print(dir_path)
+        self.file_model.setRootPath(dir_path)
+        self.rightView.setRootIndex(self.file_model.index(dir_path))
+
+        #self.file_model.setRootPath()
 
 
 if __name__ == '__main__':
