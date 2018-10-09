@@ -1,17 +1,60 @@
-import sys
-
 import os
-
-import time
-from PyQt5 import QtCore
+import sys
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QDir, QModelIndex, QTime
+from PyQt5.QtCore import Qt, QVariant
 from PyQt5.QtCore import pyqtSignal as Signal
 
 from mudao.ui.pannel.file import Ui_Form
 from mudao.model.filemanager import FileManager
+
+
+class Delegate(QItemDelegate):
+
+    def __init__(self, parent=None):
+        super(QItemDelegate, self).__init__(parent)
+        self.closeEditor.connect(self.emit_data)
+
+    # def createEditor(self, parent, option, index):
+    #     # Create editor object of QLineEdit
+    #     if index.column() == 0:
+    #         editor = QLineEdit(parent)
+    #         editor.setMaximumWidth(100)
+    #         editor.returnPressed.connect(self.commitAndCloseEditor)
+    #         # self.connect(editor, SIGNAL("returnPressed()"), self.commitAndCloseEditor)
+    #         return editor
+    #     else:
+    #         return QItemDelegate.createEditor(self, parent, option, index)
+    #
+    def emit_data(self, editor):
+        # print('emit data')
+        print(editor.text())
+    #
+    # def commitAndCloseEditor(self):
+    #     editor = self.sender()
+    #     if isinstance(editor, (QLineEdit)):
+    #
+    #         # call to commitData is essential in Qt5
+    #         self.commitData.emit(editor)
+    #         self.closeEditor.emit(editor)
+    #         # self.emit_data(editor.text())
+    #
+    # def setEditorData(self, editor, index):
+    #     # text = index.model().data(index, Qt.DisplayRole).value()
+    #     text = index.model().data(index, Qt.DisplayRole)
+    #     if index.column() == 0:
+    #         editor.setText(text)
+    #     else:
+    #         QItemDelegate.setEditorData(self, editor, index)
+    #
+    # def setModelData(self, editor, model, index):
+    #     # Method uses model.setData()!
+    #     # Make sure that you implemented setData() method
+    #     if index.column() == 0:
+    #         model.setData(index, QVariant(editor.text()))
+    #     else:
+    #         QItemDelegate.setModelData(self, editor, model, index)
 
 
 class FilePannel(QWidget, Ui_Form):
@@ -41,11 +84,18 @@ class FilePannel(QWidget, Ui_Form):
 
         self.leftView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_left_double_clicked)
         self.leftView.itemSelectionChanged.connect(self.on_select_folder)
-        # self.leftView.
+        # self.leftView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_left_data_handle)
+
+        delegate = QItemDelegate()
+        delegate.closeEditor.connect(self._emit_rename_folder)
+        self.leftView.setItemDelegate(delegate)
 
         self.rightView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_right_double_clicked)
         self.rightView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_select_file)
         # self.rightView.itemSelectionChanged.connect(self.on_select_file)
+        delegate1 = QItemDelegate()
+        delegate1.closeEditor.connect(self._emit_rename_file)
+        self.rightView.setItemDelegate(delegate1)
 
         self.leftView.clear()
         self.rightView.clear()
@@ -57,21 +107,6 @@ class FilePannel(QWidget, Ui_Form):
         self.filemanager = FileManager(url, pwd, type, coder)
         self.webRoot = self.path = self.tmpAttr = self.os = self.sep = None
         self.mw = self.parentWidget()
-
-        # self.folder_model = QFileSystemModel(self)
-        # self.file_model = QFileSystemModel(self)
-        # self.config_model()
-
-        # for i in ['C:', 'D:']:
-        #     self.add_item(i, self.leftView)
-        #
-        # # self._add_row(['folder', 'file'], self.leftView, self.leftView.topLevelItem(0))
-        #
-        # self.make_left('D:\\a\\b\\c')
-        # self.make_left('D:\\a\\c')
-        #
-        # for r in [('folder', 'folder', '', ''), ('file', 'file', '', '')]:
-        #     self.add_item(r, self.rightView)
 
     def init(self):
         # add status to mainWindow
@@ -125,14 +160,6 @@ class FilePannel(QWidget, Ui_Form):
         else:
             self.mw.statusbar.showMessage('Get %s ERR :(' % path)
 
-    def save_file(self, path, data):
-        ret = self.filemanager.savefile(path, data)
-        if ret[0] == 200:
-            self.mw.statusbar.showMessage('Save file OK :)')
-        else:
-            self.mw.statusbar.showMessage('ERR :(')
-        return self
-
     def on_path_enter(self):
         path = self.comboBox.currentText()
         self.make_left(path)
@@ -145,9 +172,9 @@ class FilePannel(QWidget, Ui_Form):
         self.list_dir(self.current_folder)
 
     def on_select_file(self):
-        if qApp.mouseButtons() & QtCore.Qt.RightButton:
+        if qApp.mouseButtons() & Qt.RightButton:
             print('right button')
-        elif qApp.mouseButtons() & QtCore.Qt.LeftButton:
+        elif qApp.mouseButtons() & Qt.LeftButton:
             print('left button')
             # tick = QTime.currentTime().msec()
             # while QTime.currentTime().msec() - tick < 500:
@@ -194,14 +221,15 @@ class FilePannel(QWidget, Ui_Form):
         return it.text(0)
 
     def make_left(self, fullpath):
-        sep = '/' if fullpath.startswith('/') else '\\'
-        fullpath = fullpath.split(sep)
+        # sep = '/' if fullpath.startswith('/') else '\\'
+        fullpath = fullpath.split(self.sep)
         if fullpath[0] == '':
             fullpath[0] = '/'
         root = self.add_item(fullpath[0], self.leftView)
         for p in fullpath[1:]:
             p = p[:-1] if p.endswith('/') else p
             root = self.add_item(p, root)
+        return root
 
     def make_right(self, data):
         self.rightView.clear()
@@ -262,22 +290,6 @@ class FilePannel(QWidget, Ui_Form):
 
         return item
 
-    # def config_model(self):
-    #     self.folder_model.setRootPath(None)
-    #     self.folder_model.setFilter(QDir.AllDirs | QDir.NoDotAndDotDot)
-    #     self.leftView.setModel(self.folder_model)
-    #     self.leftView.setRootIndex(self.folder_model.index(None))
-    #     self.leftView.clicked[QModelIndex].connect(self.clicked_onfolder)
-    #     self.leftView.hideColumn(1)
-    #     self.leftView.hideColumn(2)
-    #     self.leftView.hideColumn(3)
-    #
-    #     self.file_model.setFilter(QDir.Files)
-    #     self.rightView.setModel(self.file_model)
-    #     self.file_model.setReadOnly(False)
-    #     self.rightView.setColumnWidth(0, 200)
-    #     self.rightView.setSelectionMode(QAbstractItemView.ExtendedSelection)
-
     def _right_menu(self, point):
         # init right menu
         menu = QMenu()
@@ -300,75 +312,73 @@ class FilePannel(QWidget, Ui_Form):
         menu.addAction(self.action_paste)
         menu.exec_(self.rightView.viewport().mapToGlobal(point))
 
-    def new_folder(self):
-        print('new folder')
-        self.sig_newFolder.emit(self, 'test new folder')
-
     def upload(self):
         path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "All files (*.*)")
-        print(path)
-        # self.sig_upload(path)
+        rpath = self.sep.join((self.current_folder, os.path.split(path)[1]))
+        print(rpath)
+        with open(path, 'rb') as f:
+            self.filemanager.uploadfile(rpath, f.read().hex())
+        print('ok')
 
     def download(self):
         path, _ = QFileDialog.getSaveFileName(self, "Save file", "", "All files (*.*)")
         print(path)
-        # self.sig_download(path)
-
-    def edit_file(self):
-        print('edit file')
-        self.sig_edit.emit(self, 'test')
-
-    def view_file(self):
-        pass
-
-    def change_stamp(self):
-        pass
-
-    def save(self, path):
-        print(path)
+        with open(path, 'wb') as f:
+            f.write(self.filemanager.downfile(self.current_file)[2])
 
     def wget(self):
         pass
 
-    def clicked_onfolder(self, index):
-        selection_model = self.leftView.selectionModel()
-        index = selection_model.currentIndex()
-        print(index)
-        dir_path = self.folder_model.filePath(index)
-        print(dir_path)
-        self.file_model.setRootPath(dir_path)
-        self.rightView.setRootIndex(self.file_model.index(dir_path))
-
-    def open_file(self):
-        index = self.rightView.selectedIndexes()
-        if not index:
-            return
-        else:
-            index = index[0]
-        file_path = self.file_model.filePath(index).replace('/', '\\')
-        print(file_path)
-        extention = os.path.splitext(file_path)[-1]
-        print(extention)
-        # if extention in ['.txt', '.py']:
-        #     text_editor.Application.main(file_path)
-        self.rightView.update()
-
     def new_file(self):
         path = self.sep.join((self.current_folder, 'New text.txt'))
-        self.sig_newFile.emit(path)
+        self.sig_newFile.emit(self, path)
 
     def delete_file(self):
-        indexes = self.rightView.selectedIndexes()
-        for i in indexes:
-            self.file_model.remove(i)
+        path = self.get_path(self.rightView.currentItem(), 0)
+        print('del %s' % self.current_file)
+        self.filemanager.deletefile(self.current_file)
+
+    def edit_file(self):
+        path = self.get_path(self.rightView.currentItem(), 0)
+        self.sig_edit.emit(self, path)
+
+    def view_file(self):
+        self.edit_file()
+
+    def save_file(self, path, data):
+        ret = self.filemanager.savefile(path, data)
+        if ret[0] == 200:
+            self.mw.statusbar.showMessage('Save file OK :)')
+        else:
+            self.mw.statusbar.showMessage('ERR :(')
+        return self
 
     def rename_file(self):
-        index = self.rightView.selectedIndexes()
-        if not index:
+        item = self.rightView.currentItem()
+        self.prename = self.get_path(item, 0)
+        item.setFlags(item.flags() | Qt.ItemIsEditable)
+        self.rightView.editItem(item, 0)
+
+    def change_stamp(self):
+        pass
+
+    def _emit_rename_file(self, editor):
+        newname = self.sep.join((self.current_folder, editor.text()))
+        if newname == self.prename:
+            self.prename = None
             return
-        else:
-            index = index[0]
-        self.rightView.edit(index)
+        print('rename %s to %s' % (self.prename, newname))
+        self.filemanager.rename(self.prename, newname)
+
+    def new_folder(self):
+        path = self.sep.join((self.current_folder, "newfolder"))
+        item = self.make_left(path)
+        item.setFlags(item.flags() | Qt.ItemIsEditable)
+        self.leftView.editItem(item, 0)
+
+    def _emit_rename_folder(self, editor):
+        path = self.sep.join((self.current_folder, editor.text()))
+        self.filemanager.newfolder(path)
 
     def copy_file(self):
         print("COPY")
@@ -396,43 +406,6 @@ class FilePannel(QWidget, Ui_Form):
 
     def paste_file(self):
         print('paste file')
-
-    def new_folder(self):
-        index = self.leftView.selectedIndexes()
-        if len(index) > 0:
-            path = self.folder_model.filePath(index[0])
-            for i in range(1, 9999999999999999):
-                if not os.path.isdir(os.path.join(path, "newfolder{}".format(i))):
-                    file_name = os.path.join(path, "newfolder{}".format(i))
-                    break
-            file_name = os.path.abspath(file_name)
-            self.sig_newFolder.emit(self, file_name)
-        else:
-            print("Please, select folder")
-
-    def delete_folder(self):
-        indexes = self.leftView.selectedIndexes()
-        for i in indexes:
-            self.folder_model.remove(i)
-
-    def rename_folder(self):
-        index = self.leftView.selectedIndexes()
-        if not index:
-            return
-        else:
-            index = index[0]
-        self.leftView.edit(index)
-
-    def colapse(self):
-        self.leftView.collapseAll()
-
-    def go_to(self):
-        dir_path = self.goto_lineedit.text().replace('\\', '/')
-        print(dir_path)
-        self.file_model.setRootPath(dir_path)
-        self.rightView.setRootIndex(self.file_model.index(dir_path))
-
-        #self.file_model.setRootPath()
 
 
 if __name__ == '__main__':
