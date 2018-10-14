@@ -1,67 +1,24 @@
 import os
 import sys
+import time
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QVariant
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtCore import pyqtSignal as Signal
 
 from mudao.ui.pannel.file import Ui_Form
-from mudao.model.filemanager import FileManager
-
-
-class Delegate(QItemDelegate):
-
-    def __init__(self, parent=None):
-        super(QItemDelegate, self).__init__(parent)
-        self.closeEditor.connect(self.emit_data)
-
-    # def createEditor(self, parent, option, index):
-    #     # Create editor object of QLineEdit
-    #     if index.column() == 0:
-    #         editor = QLineEdit(parent)
-    #         editor.setMaximumWidth(100)
-    #         editor.returnPressed.connect(self.commitAndCloseEditor)
-    #         # self.connect(editor, SIGNAL("returnPressed()"), self.commitAndCloseEditor)
-    #         return editor
-    #     else:
-    #         return QItemDelegate.createEditor(self, parent, option, index)
-    #
-    def emit_data(self, editor):
-        # print('emit data')
-        print(editor.text())
-    #
-    # def commitAndCloseEditor(self):
-    #     editor = self.sender()
-    #     if isinstance(editor, (QLineEdit)):
-    #
-    #         # call to commitData is essential in Qt5
-    #         self.commitData.emit(editor)
-    #         self.closeEditor.emit(editor)
-    #         # self.emit_data(editor.text())
-    #
-    # def setEditorData(self, editor, index):
-    #     # text = index.model().data(index, Qt.DisplayRole).value()
-    #     text = index.model().data(index, Qt.DisplayRole)
-    #     if index.column() == 0:
-    #         editor.setText(text)
-    #     else:
-    #         QItemDelegate.setEditorData(self, editor, index)
-    #
-    # def setModelData(self, editor, model, index):
-    #     # Method uses model.setData()!
-    #     # Make sure that you implemented setData() method
-    #     if index.column() == 0:
-    #         model.setData(index, QVariant(editor.text()))
-    #     else:
-    #         QItemDelegate.setModelData(self, editor, model, index)
+from mudao.ui.uiWget import DlgWget
+from mudao.utils.tool import human_size
+from mudao.utils.logger import logger as log
 
 
 class FilePannel(QWidget, Ui_Form):
     sig_newFile = Signal(object, str)
     sig_edit = Signal(object, str)
+    sig_rename = Signal(object, int)
 
-    def __init__(self, url, pwd, type, coder='utf-8', parent=None):
+    def __init__(self, shell, parent=None):
         super(FilePannel, self).__init__(parent)
         self.setupUi(self)
         self.action_upload.triggered.connect(self.upload)
@@ -78,35 +35,85 @@ class FilePannel(QWidget, Ui_Form):
         self.action_cut.triggered.connect(self.move_file)
         self.action_paste.triggered.connect(self.paste_file)
 
+        self.sig_rename.connect(self.rename)
+
         self.rightView.customContextMenuRequested.connect(self._right_menu)
 
         self.pushButton.clicked.connect(self.on_path_enter)
 
         self.leftView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_left_double_clicked)
-        self.leftView.itemSelectionChanged.connect(self.on_select_folder)
-        # self.leftView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_left_data_handle)
+        # self.leftView.itemSelectionChanged.connect(self.on_select_changed)
+        self.leftView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_select)
 
         delegate = QItemDelegate()
-        delegate.closeEditor.connect(self._emit_rename_folder)
+        delegate.closeEditor.connect(self._emit_rename)
         self.leftView.setItemDelegate(delegate)
 
         self.rightView.itemDoubleClicked['QTreeWidgetItem*', 'int'].connect(self.on_right_double_clicked)
-        self.rightView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_select_file)
-        # self.rightView.itemSelectionChanged.connect(self.on_select_file)
-        delegate1 = QItemDelegate()
-        delegate1.closeEditor.connect(self._emit_rename_file)
-        self.rightView.setItemDelegate(delegate1)
+        self.rightView.itemPressed['QTreeWidgetItem*', 'int'].connect(self.on_select)
+        setattr(self.rightView, 'mousePressEvent', lambda v: self.mousePressEvent(v, self.rightView))
+        setattr(self.leftView, 'mousePressEvent', lambda v: self.mousePressEvent(v, self.leftView))
+        # self.rightView.itemSelectionChanged.connect(self.on_select_changed)
+        # delegate1 = QItemDelegate()
+        # delegate1.closeEditor.connect(self._emit_rename_file)
+        self.rightView.setItemDelegate(delegate)
 
         self.leftView.clear()
         self.rightView.clear()
+        self.rightView.setColumnWidth(0, 200)
+        self.rightView.setColumnWidth(1, 200)
 
         self.current_folder = None
         self.current_file = None
+        self.last_select = None
+        self.current_select = None
+        self.click_tick = 0
+        self.action = None
 
-        self.coder = coder
-        self.filemanager = FileManager(url, pwd, type, coder)
-        self.webRoot = self.path = self.tmpAttr = self.os = self.sep = None
+        self.filemanager = shell
+        self.coder = self.filemanager.encoder
+        self.webRoot = self.path = self.tmpAttr = self.os = self.sep = self.file2paste = None
         self.mw = self.parentWidget()
+
+        self.menu_small = self.menu_full = None
+        self.init_menu()
+        self.menu = self.menu_small
+
+    def mousePressEvent(self, evt, view):
+        view.clearSelection()
+        self.menu = self.menu_small
+        QTreeWidget.mousePressEvent(view, evt)
+
+    def init_menu(self):
+        self.menu_small = QMenu()
+        self.menu_small.addAction(self.action_upload)
+        # self.menu_small.addAction(self.action_download)
+        self.menu_small.addAction(self.action_wget)
+        self.menu_small.addSeparator()
+        subMenu = self.menu_small.addMenu('新建')
+        subMenu.addAction(self.action_fileAdd)
+        subMenu.addAction(self.action_folderAdd)
+        self.menu_small.addSeparator()
+        self.menu_small.addAction(self.action_paste)
+
+        self.menu_full = QMenu()
+        # self.menu_full.addAction(self.action_upload)
+        self.menu_full.addAction(self.action_download)
+        # self.menu_full.addAction(self.action_wget)
+        # self.menu_full.addSeparator()
+        # subMenu = self.menu_full.addMenu('新建')
+        # subMenu.addAction(self.action_fileAdd)
+        # subMenu.addAction(self.action_folderAdd)
+        # self.menu_full.addSeparator()
+        self.menu_full.addAction(self.action_view)
+        self.menu_full.addAction(self.action_edit)
+        self.menu_full.addAction(self.action_delete)
+        self.menu_full.addAction(self.action_rename)
+        self.menu_full.addAction(self.action_chstamp)
+        self.menu_full.addSeparator()
+        self.menu_full.addAction(self.action_copy)
+        self.menu_full.addAction(self.action_cut)
+        # self.menu_full.addAction(self.action_paste)
 
     def init(self):
         # add status to mainWindow
@@ -124,35 +131,43 @@ class FilePannel(QWidget, Ui_Form):
             try:
                 self.list_dir(self.webRoot)
             except Exception as e:
-                print(e)
+                log.exception(e)
         else:
             self.comboBox.setCurrentText('ERR :(')
             self.mw.statusbar.showMessage('Get server info ERR :(')
 
     def chk_data(self, ret):
+        log.debug(ret)
         data = ''
         if ret[0] != 200:
             QMessageBox.information(self, ret[1], str(ret[2]))
             return data
         try:
-            data = ret[2].decode(self.coder)
+            data = ret[2]       # .decode(self.coder)
+            log.info('Get data:\n%s' % data)
+            if data == '1':
+                self.mw.statusbar.showMessage('Operation finished :)')
+            else:
+                self.mw.statusbar.showMessage('Operation failed :(')
         except Exception as e:
             QMessageBox.information(self, 'ERR', str(e))
-
+            log.exception(e)
         return data
+
+    def do_action(self, *args):
+        action = getattr(self.filemanager, self.action, None)
+        if action:
+            return self.chk_data(action(*args))
 
     def list_dir(self, path):
         # todo check data in database
         self.mw.statusbar.showMessage('Get %s files...' % path)
-        try:
-            files = self.chk_data(self.filemanager.showfolder(path))
-        except Exception as e:
-            print(e)
+        files = self.chk_data(self.filemanager.showfolder(path))
         if files:
             # sep = '/' if path.startswith('/') else '\\'
             self.mw.statusbar.showMessage('Get %s OK :)' % path)
-            files = [f.split('\t') for f in files.split('\n') if f]
-            folders = [f for f in files if f[0].endswith('/') and f[0] not in ('../', './')]
+            files = [f.split('\t') for f in files.split('\n') if f and './' not in f]
+            folders = [f for f in files if f[0].endswith('/')]
             files = [f for f in files if not f[0].endswith('/')]
             self.make_right(files)
             for f in folders:
@@ -165,27 +180,33 @@ class FilePannel(QWidget, Ui_Form):
         self.make_left(path)
         self.list_dir(path)
 
-    def on_select_folder(self):
-        current = self.leftView.currentItem()
-        self.current_folder = self.get_path(current, 0)
-        self.comboBox.setCurrentText(self.current_folder)
-        self.list_dir(self.current_folder)
+    def on_select(self, item, idx):
+        self.last_select = self.current_select
+        self.current_select = item
+        if item.treeWidget() is self.leftView:
+            self.current_folder = self.get_path(item, 0)
+            self.comboBox.setCurrentText(self.current_folder)
+        elif item.treeWidget() is self.rightView:
+            self.current_file = self.sep.join((self.current_folder, item.text(0)))
+            self.comboBox.setCurrentText(self.current_file)
 
-    def on_select_file(self):
         if qApp.mouseButtons() & Qt.RightButton:
-            print('right button')
-        elif qApp.mouseButtons() & Qt.LeftButton:
-            print('left button')
-            # tick = QTime.currentTime().msec()
-            # while QTime.currentTime().msec() - tick < 500:
-            #     if QTime.currentTime().msec() - tick > 300 and qApp.mouseButtons() & QtCore.Qt.LeftButton:
-            #         print('edit name')
-            #         break
+            self.menu = self.menu_full
 
-        # sep = '/' if self.current_folder.startswith('/') else '\\'
-        current = self.rightView.currentItem()
-        self.current_file = self.sep.join((self.current_folder, current.text(0)))
-        self.comboBox.setCurrentText(self.current_file)
+        elif qApp.mouseButtons() & Qt.LeftButton:
+            # print('left button')
+            tick = time.time()
+            # action_rename: check item equal last_select and time delta in rang (0.5, 1) sec
+            if self.last_select and item == self.last_select and 0.5 < (tick - self.click_tick) < 1:
+                # print('rename')
+                if item.treeWidget() is self.leftView:
+                    self.action = 'newfolder'
+                elif item.treeWidget() is self.rightView and idx == 0:
+                    self.action = 'rename'
+                elif item.treeWidget() is self.rightView and idx == 1:
+                    self.action = 'settime'
+                self.sig_rename.emit(self.last_select, idx)
+            self.click_tick = tick
 
     def on_left_double_clicked(self, it, idx):
         path = self.get_path(it, idx)
@@ -193,8 +214,8 @@ class FilePannel(QWidget, Ui_Form):
         self.list_dir(path)
 
     def on_right_double_clicked(self, it, idx):
-        print('double clicked')
-        file = self.get_file(it, idx)
+        # print('double clicked')
+        file = it.text(0)
         # sep = '/' if self.current_folder.startswith('/') else '\\'
         path = self.sep.join((self.current_folder, file))
         # self.comboBox.setCurrentText(path)
@@ -216,9 +237,9 @@ class FilePannel(QWidget, Ui_Form):
         #         self.add_item(d[0], it)
         # self.make_right(data)
 
-    def get_file(self, it, idx):
-        # self.current_file = tuple([it.text(i) for i in range(it.columnCount())])
-        return it.text(0)
+    # def get_file(self, it, idx):
+    #     # self.current_file = tuple([it.text(i) for i in range(it.columnCount())])
+    #     return it.text(0)
 
     def make_left(self, fullpath):
         # sep = '/' if fullpath.startswith('/') else '\\'
@@ -285,6 +306,7 @@ class FilePannel(QWidget, Ui_Form):
                 item.setText(k, v)
         else:
             it = str(it)
+            it = it[:-1] if it.endswith('/') else it
             item.setText(0, it)
         item.setIcon(0, QIcon("./images/file_icons/%s_24px.png" % icon))
 
@@ -292,120 +314,132 @@ class FilePannel(QWidget, Ui_Form):
 
     def _right_menu(self, point):
         # init right menu
-        menu = QMenu()
-        menu.addAction(self.action_upload)
-        menu.addAction(self.action_download)
-        menu.addAction(self.action_wget)
-        menu.addSeparator()
-        menu.addAction(self.action_fileAdd)
-        menu.addAction(self.action_folderAdd)
-
-        menu.addSeparator()
-        menu.addAction(self.action_view)
-        menu.addAction(self.action_edit)
-        menu.addAction(self.action_delete)
-        menu.addAction(self.action_rename)
-        menu.addAction(self.action_chstamp)
-        menu.addSeparator()
-        menu.addAction(self.action_copy)
-        menu.addAction(self.action_cut)
-        menu.addAction(self.action_paste)
-        menu.exec_(self.rightView.viewport().mapToGlobal(point))
+        self.menu.exec_(self.rightView.viewport().mapToGlobal(point))
 
     def upload(self):
         path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "All files (*.*)")
         rpath = self.sep.join((self.current_folder, os.path.split(path)[1]))
-        print(rpath)
+        log.debug('Upload file to %s' % rpath)
+        if not path:
+            return
         with open(path, 'rb') as f:
-            self.filemanager.uploadfile(rpath, f.read().hex())
-        print('ok')
+            self.chk_data(self.filemanager.uploadfile(rpath, f.read().hex()))
 
     def download(self):
         path, _ = QFileDialog.getSaveFileName(self, "Save file", "", "All files (*.*)")
-        print(path)
-        with open(path, 'wb') as f:
-            f.write(self.filemanager.downfile(self.current_file)[2])
+        current = self.rightView.currentItem()
+        if not path or not current:
+            return
+
+        # data = self.chk_data(self.filemanager.downfile(self.current_file))
+        log.debug('Download file %s' % self.current_file)
+        ret = self.filemanager.downfile(self.sep.join((self.current_folder, current.text(0))))
+        log.debug(ret)
+        if ret[0] == 200:
+            with open(path, 'wb') as f:
+                f.write(ret[2].encode(self.coder))
+            self.mw.statusbar.showMessage('Save data success :)')
+        else:
+            self.mw.statusbar.showMessage('Download failed :(')
 
     def wget(self):
-        pass
+        # def _wget(url, path):
+        #     self.chk_data(self.filemanager.wget(url, path))
+
+        dlg = DlgWget(self)
+        # dlg.sig_wget.connect(_wget)
+        dlg.show()
 
     def new_file(self):
         path = self.sep.join((self.current_folder, 'New text.txt'))
         self.sig_newFile.emit(self, path)
 
     def delete_file(self):
-        path = self.get_path(self.rightView.currentItem(), 0)
-        print('del %s' % self.current_file)
-        self.filemanager.deletefile(self.current_file)
+        # path = self.get_path(self.rightView.currentItem(), 0)
+        log.debug('del %s' % self.current_file)
+        self.chk_data(self.filemanager.deletefile(self.current_file))
 
     def edit_file(self):
         path = self.get_path(self.rightView.currentItem(), 0)
         self.sig_edit.emit(self, path)
 
-    def view_file(self):
-        self.edit_file()
+    def view_file(self, path):
+        return self.chk_data(self.filemanager.showtxt(path))
 
     def save_file(self, path, data):
-        ret = self.filemanager.savefile(path, data)
-        if ret[0] == 200:
-            self.mw.statusbar.showMessage('Save file OK :)')
-        else:
-            self.mw.statusbar.showMessage('ERR :(')
-        return self
+        self.chk_data(self.filemanager.savefile(path, data))
+        # ret = self.filemanager.savefile(path, data)
+        # if ret[0] == 200:
+        #     self.mw.statusbar.showMessage('Save file OK :)')
+        # else:
+        #     self.mw.statusbar.showMessage('ERR :(')
+        # return self
+
+    def rename(self, item, idx):
+        self.oldname = self.get_path(item, idx)
+        view = item.treeWidget()
+        if view is self.rightView and idx == 0:
+            self.oldname = self.sep.join((self.current_folder, self.oldname))
+        item.setFlags(item.flags() | Qt.ItemIsEditable)
+        view.editItem(item, idx)
 
     def rename_file(self):
-        item = self.rightView.currentItem()
-        self.prename = self.get_path(item, 0)
-        item.setFlags(item.flags() | Qt.ItemIsEditable)
-        self.rightView.editItem(item, 0)
+        self.action = 'rename'
+        # item = self.rightView.currentItem()
+        self.sig_rename.emit(self.current_select, 0)
 
     def change_stamp(self):
-        pass
+        self.action = 'settime'
+        self.sig_rename.emit(self.current_select, 1)
 
-    def _emit_rename_file(self, editor):
-        newname = self.sep.join((self.current_folder, editor.text()))
-        if newname == self.prename:
-            self.prename = None
-            return
-        print('rename %s to %s' % (self.prename, newname))
-        self.filemanager.rename(self.prename, newname)
+    def _emit_rename(self, editor):
+        if self.action is 'rename':
+            new_name = self.sep.join((self.current_folder, editor.text()))
+            if new_name == self.oldname:
+                return
+            self.mw.statusbar.showMessage('rename %s to %s' % (self.oldname, new_name))
+            # self.chk_data(self.filemanager.rename(self.oldname, new_name))
+            self.do_action(*(self.oldname, new_name))
+
+        elif self.action is 'newfolder':
+            new_name = self.sep.join((self.current_folder, editor.text()))
+            self.mw.statusbar.showMessage('Create folder %s' % new_name)
+            # self.chk_data(self.filemanager.newfolder(newname))
+            self.do_action(*(new_name,))
+
+        elif self.action is 'settime':
+            newtime = editor.text()
+            fname = self.sep.join((self.current_folder, self.last_select.text(0)))
+            self.mw.statusbar.showMessage('Change time from %s to %s' % (self.oldname, newtime))
+            # self.chk_data(self.filemanager.newfolder(newname))
+            self.do_action(*(fname, newtime))
 
     def new_folder(self):
+        self.action = 'newfolder'
         path = self.sep.join((self.current_folder, "newfolder"))
+        self.oldname = path
         item = self.make_left(path)
         item.setFlags(item.flags() | Qt.ItemIsEditable)
         self.leftView.editItem(item, 0)
 
-    def _emit_rename_folder(self, editor):
-        path = self.sep.join((self.current_folder, editor.text()))
-        self.filemanager.newfolder(path)
+    # def _emit_rename_folder(self, editor):
+    #     path = self.sep.join((self.current_folder, editor.text()))
+    #     self.filemanager.newfolder(path)
 
     def copy_file(self):
-        print("COPY")
-        ask = QFileDialog.getExistingDirectory(self, "Open Directory", "/home",
-                                               QFileDialog.ShowDirsOnly |
-                                               QFileDialog.DontResolveSymlinks)
-        new_path = ask.replace('\\', '/')
-        indexes = self.rightView.selectedIndexes()[::4]
-        for i in indexes:
-            new_filename = new_path + '/' + self.file_model.fileName(i)
-            # shutil.copy2(self.file_model.filePath(i), new_filename)
+        self.action = 'copy'
+        self.file2paste = self.current_file
 
     def move_file(self):
-        print("MOVE")
-        ask = QFileDialog.getExistingDirectory(self, "Open Directory", "/home",
-                                               QFileDialog.ShowDirsOnly |
-                                               QFileDialog.DontResolveSymlinks)
-        if ask == '':
-            return
-        new_path = ask.replace('\\', '/')
-        indexes = self.rightView.selectedIndexes()[::4]
-        for i in indexes:
-            new_filename = new_path + '/' + self.file_model.fileName(i)
-            # shutil.move(self.file_model.filePath(i), new_filename)
+        self.action = 'move'
+        self.file2paste = self.current_file
 
     def paste_file(self):
-        print('paste file')
+        if self.action in ('copy', 'move'):
+            self.action = 'pastefile'
+            path = self.current_folder
+            dst = self.sep.join((path, self.file2paste))
+            self.do_action(*(self.file2paste, dst))
 
 
 if __name__ == '__main__':

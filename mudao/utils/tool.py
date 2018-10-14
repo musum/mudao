@@ -121,6 +121,36 @@ def parse_caidao(conf):
 CONF = parse_caidao('../config/caidao.conf')
 
 
+def parse(nn, base, dot=2):
+    n = nn / base
+    m = nn % base
+    return '.'.join((str(n), str(m)[:dot]))
+
+
+def human_size(num, dot=2):
+    base = {'B': 1, 'K': 1024, 'M': 1048576, 'G': 1073741824, 'T': 1099511627776, 'P': 1125899906842624}
+    if num >= base['M']:
+        if num < base['G']:
+            return parse(num, base['M'], dot) + ' M'
+        elif num < base['T']:
+            return parse(num, base['G'], dot) + ' G'
+        elif num < base['P']:
+            return parse(num, base['T'], dot) + ' T'
+        else:
+            return parse(num, base['P'], dot) + ' P'
+    elif num < base['K']:
+        return parse(num, base['B'], dot) + ' B'
+    else:
+        return parse(num, base['K'], dot) + ' K'
+
+
+def parse_result(html, flag):
+    pat = re.compile(r'%s(.*?)%s' % (flag, flag), re.DOTALL)
+    ret = pat.findall(html)
+    if ret:
+        return ret[0]
+    return ''
+
 
 def generate(payload, type='php', config=None):
     flag = config['FLAG']

@@ -14,19 +14,19 @@ class Ui_Terminal(object):
         Terminal.resize(1175, 660)
         self.verticalLayout = QtWidgets.QVBoxLayout(Terminal)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.textEdit = QtWidgets.QTextEdit(Terminal)
-        self.textEdit.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
-        self.textEdit.setMouseTracking(True)
-        self.textEdit.setTabletTracking(True)
-        self.textEdit.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
-        self.textEdit.setStyleSheet("font-size: 18px ;")
-        self.textEdit.setObjectName("textEdit")
-        self.verticalLayout.addWidget(self.textEdit)
+        self.edt_text = QtWidgets.QPlainTextEdit(Terminal)
+        self.edt_text.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
+        self.edt_text.setMouseTracking(True)
+        self.edt_text.setTabletTracking(True)
+        self.edt_text.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.edt_text.setStyleSheet("font-size: 18px ;")
+        self.edt_text.setObjectName("edt_text")
+        self.verticalLayout.addWidget(self.edt_text)
 
         self.retranslateUi(Terminal)
         QtCore.QMetaObject.connectSlotsByName(Terminal)
 
     def retranslateUi(self, Terminal):
         _translate = QtCore.QCoreApplication.translate
-        Terminal.setWindowTitle(_translate("Terminal", "Form"))
+        Terminal.setWindowTitle(_translate("Terminal", "CMD"))
 

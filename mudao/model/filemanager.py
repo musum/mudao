@@ -56,8 +56,8 @@ class FileManager(Shell):
         params = self.generate(pl)
         return self.POST(params)
 
-    def settime(self, time):
-        pl = CONF.get('SETTIME').get(self._type.upper()) % time
+    def settime(self, fname, time):
+        pl = CONF.get('SETTIME').get(self._type.upper()) % (fname, time)
         params = self.generate(pl)
         return self.POST(params)
 

@@ -1,7 +1,8 @@
+import binascii as ba
+import base64 as b64
 from urllib.request import urlopen, Request
-from urllib.error import *
 
-from mudao.utils.tool import CONF
+from mudao.utils.tool import CONF, parse_result
 from mudao.utils.logger import logger as log
 
 
@@ -12,11 +13,43 @@ class Shell(object):
         self._pwd = pwd
         self._type = type
         self._encoder = encoder
-        self._base = self.getbase()
         self._flag = CONF.get('FLAG', 'M@M')
         self._k1 = CONF.get('K1', 'k1')
         self._k2 = CONF.get('K2', 'k2')
         self._k3 = CONF.get('K3', 'k3')
+        self._base = self.getbase()
+
+    @property
+    def url(self):
+        return self._url
+
+    @url.setter
+    def url(self, u):
+        self._url = u
+
+    @property
+    def pwd(self):
+        return self._pwd
+
+    @pwd.setter
+    def pwd(self, p):
+        self._pwd = p
+
+    @property
+    def encoder(self):
+        return self._encoder
+
+    @encoder.setter
+    def encoder(self, enc):
+        self._encoder = enc
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, ty):
+        self._type = ty
 
     def getbase(self):
         pl = CONF.get(self._type.upper() + '_BASE', '')
@@ -31,14 +64,15 @@ class Shell(object):
 
     def generate(self, pl, code='utf-8'):
         pl = pl.encode(code)
-        # log.debug('Playload: %s' % pl)
-        if self._type.lower() is 'asp':
-            import binascii as ba
-            ret = self._base.replace('action', ba.hexlify(pl).decode(code))
-        else:
-            import base64 as b64
-            ret = self._base.replace('action', b64.b64encode(pl).decode(code))
-        return ret
+        if self._type.lower() == 'asp':
+            return self._base.replace('action', ba.hexlify(pl).decode(code))
+
+        if self._type.lower() == 'php':
+            flag = 'print "%s";' % self._flag
+            pl = flag + pl.decode(code) + flag
+            pl = pl.encode(code)
+        log.debug('Playload: %s' % pl.decode(code))
+        return self._base.replace('action', b64.b64encode(pl).decode(code))
 
     def getinfo(self):
         pl = CONF.get('GETBASEINFO').get(self._type.upper())
@@ -52,20 +86,19 @@ class Shell(object):
 
     def GET(self, params):
         url = self._url + '?' + self._pwd + '=' + params
-        return self.request(url)
+        return self.request(url, code=self.encoder)
 
     def POST(self, params):
         data = self._pwd + '=' + params
         log.debug('Params: %s' % params)
-        return self.request(self._url, data)
+        return self.request(self._url, data, self.encoder)
 
-    @staticmethod
-    def request(url, data=None, code='utf-8'):
+    def request(self, url, data=None, code='utf-8'):
         req = Request(url, data=data.encode(code))
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0')
         try:
             rsp = urlopen(req)
-            return rsp.status, rsp.reason, rsp.read()   # .decode(code)
+            return rsp.status, rsp.reason, parse_result(rsp.read().decode(code), self._flag)   # .decode(code)
         except Exception as e:
             print(e)
             return 999, 'Exception', e
