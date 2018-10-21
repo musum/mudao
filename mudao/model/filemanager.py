@@ -1,10 +1,10 @@
-from mudao.model.shellbase import Shell
+from mudao.model import ShellBase
 from mudao.utils.tool import CONF
 
 
-class FileManager(Shell):
-    def __init__(self, shell_url=None, shell_pass=None, shell_type=None, encoder=None):
-        super(FileManager, self).__init__(shell_url, shell_pass, shell_type, encoder)
+class FileManager(ShellBase):
+    def __init__(self, **kwargs):
+        super(FileManager, self).__init__(**kwargs)
 
     def showfolder(self, path):
         pl = CONF.get('SHOWFOLDER').get(self._type.upper()) % path

@@ -1,6 +1,9 @@
 import re
 from configparser import ConfigParser
 
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QTreeWidgetItem, QTreeWidget
+
 
 def parse_caidao(conf):
     ret = {}
@@ -152,11 +155,58 @@ def parse_result(html, flag):
     return ''
 
 
-def generate(payload, type='php', config=None):
-    flag = config['FLAG']
-    k1 = config['K1']
-    k2 = config['K2']
-    base = config[type.upper() + '_BASE']
+def add_item(data, root):
+    NEW = True
+    item = None
+    name = data[0] if isinstance(data, (tuple, list)) else str(data)
+
+    if isinstance(root, QTreeWidget):
+        for i in range(root.topLevelItemCount()):
+            if name == root.topLevelItem(i).text(0):
+                item = root.topLevelItem(i)
+                NEW = False
+                break
+        if NEW:
+            item = make_item(data, 'disk')
+            root.addTopLevelItem(item)
+        item.setExpanded(True)
+    elif isinstance(root, QTreeWidgetItem):
+        for i in range(root.childCount()):
+            if name == root.child(i).text(0):
+                item = root.child(i)
+                NEW = False
+                break
+        if NEW:
+            item = make_item(data)
+            root.addChild(item)
+        item.setExpanded(True)
+    return item
+
+
+def make_item(it, icon='folder'):
+    if isinstance(it, (tuple, list)):
+        if it[0].endswith('/'):
+            icon = 'folder'
+        elif '.' in it[0]:
+            icon = 'file'
+        else:
+            icon = 'binary'
+
+    if icon not in ('disk', 'folder', 'file', 'image'):
+        icon = 'binary'
+
+    item = QTreeWidgetItem()
+    if isinstance(it, (tuple, list)):
+        for k, v in enumerate(it):
+            v = v[:-1] if v.endswith('/') else v
+            item.setText(k, v)
+    else:
+        it = str(it)
+        it = it[:-1] if it.endswith('/') else it
+        item.setText(0, it)
+    item.setIcon(0, QIcon("./images/file_icons/%s_24px.png" % icon))
+
+    return item
 
 
 class Config(ConfigParser):

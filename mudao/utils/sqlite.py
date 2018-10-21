@@ -1,7 +1,9 @@
 import sqlite3 as db
 
+from mudao.utils.logger import logger as log
 
-class sqlite:
+
+class SQLite:
     def __init__(self, dbf):
         self.conn = db.connect(dbf)
         self.cursor = self.conn.cursor()
@@ -22,21 +24,7 @@ class sqlite:
                 return dict(zip([j[0] for j in self.cursor.description], result))
         return result
 
-    def getList(self, tableName, colums, condition, orders='', limits=''):
-        sql = "SELECT "+colums+" FROM " + tableName + " WHERE 1=1"
-        _data = []
-        if  type(condition) == dict:
-            for i in condition.keys():
-                sql += " AND "+i+"=?"
-            _data = condition.values()
-        else:
-            sql += condition
-        sql += ' order by '+orders if orders else ''
-        sql += ' limit '+limits if limits else ''
-        result = self.fetchAll(sql, _data)
-        return [] if result is None else result
-
-    def getOne(self, tableName, colums, condition, orders='', limits=''):
+    def getList(self, tableName, colums="*", condition="", orders="", limits=""):
         sql = "SELECT "+colums+" FROM " + tableName + " WHERE 1=1"
         _data = []
         if type(condition) == dict:
@@ -45,13 +33,26 @@ class sqlite:
             _data = condition.values()
         else:
             sql += condition
-        sql += ' order by '+orders if orders else ''
-        sql += ' limit '+limits if limits else ''
+        sql += " order by "+orders if orders else ""
+        sql += " limit "+limits if limits else ""
+        result = self.fetchAll(sql, _data)
+        return [] if result is None else result
+
+    def getOne(self, tableName, colums="*", condition="", orders="", limits=""):
+        sql = "SELECT "+colums+" FROM " + tableName + " WHERE 1=1"
+        _data = []
+        if type(condition) == dict:
+            for i in condition.keys():
+                sql += " AND "+i+"=?"
+            _data = condition.values()
+        else:
+            sql += condition
+        sql += " order by "+orders if orders else ""
+        sql += " limit "+limits if limits else ""
         return self.fetchOne(sql, _data)
 
     def insert(self, tableName, data):
-        sql = "INSERT INTO " + tableName + " ("+','.join(data.keys())+") VALUES ("+("?,"*len(data))[:-1]+")"
-        print(sql)
+        sql = "INSERT INTO " + tableName + " ("+",".join(data.keys())+") VALUES ("+("?,"*len(data))[:-1]+")"
         status = self.cursor.execute(sql, data.values())
         self.conn.commit()
         return status
@@ -93,7 +94,8 @@ class sqlite:
         return status
 
     def execute(self, sql, data=[]):
-        print(sql)
+        st = 'Excute sql: %s with data (%s)' if data else 'Excute sql: %s'
+        log.debug(st % sql)
         status = self.cursor.execute(sql, data)
         self.conn.commit()
         return status

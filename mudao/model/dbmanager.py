@@ -1,22 +1,28 @@
 import re
-from mudao.model.shellbase import Shell
+from mudao.model import ShellBase
 from mudao.utils.tool import CONF
 
 
-class DBManager(Shell):
-    def __init__(self, shell_url=None, shell_pass=None, shell_type=None, encoder=None):
-        super(DBManager, self).__init__(shell_url, shell_pass, shell_type, encoder)
+class DBManager(ShellBase):
+    def __init__(self, **kwargs):
+        super(DBManager, self).__init__(**kwargs)
 
-    def get_data(self, connstr, cmd):
-        if cmd.upper() not in ('DBLIST', 'TABLELIST', 'COLUMNLIST', 'EXECUTESQL'):
+    def get_data(self, connstr, action, sql=None):
+        if action.upper() not in ('DBLIST', 'TABLELIST', 'COLUMNLIST', 'EXECUTESQL'):
             return None
         if self._type.lower() == 'php':
             dbtype, hst, usr, pwd, dbn = self.parse_connstr(connstr)
             key = 'DB_PHP' + dbtype.upper()
-            pl = CONF.get(key).get(cmd) % (hst, usr, pwd, dbn)
+            if sql:
+                pl = CONF.get(key).get(action) % (hst, usr, pwd, dbn, sql)
+            else:
+                pl = CONF.get(key).get(action) % (hst, usr, pwd, dbn)
         elif self._type.lower() in ('asp', 'aspx'):
             conn = self.parse_ado(connstr)
-            pl = CONF.get('DB_' + self._type.upper() + '_ADO').get(cmd) % conn
+            if sql:
+                pl = CONF.get('DB_' + self._type.upper() + '_ADO').get(action) % (conn, sql)
+            else:
+                pl = CONF.get('DB_' + self._type.upper() + '_ADO').get(action) % conn
         params = self.generate(pl)
         return self.POST(params)
 

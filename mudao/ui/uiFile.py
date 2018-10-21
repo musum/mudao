@@ -4,12 +4,12 @@ import time
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt
 from PyQt5.QtCore import pyqtSignal as Signal
 
 from mudao.ui.pannel.file import Ui_Form
 from mudao.ui.uiWget import DlgWget
-from mudao.utils.tool import human_size
+from mudao.utils.tool import add_item, human_size
 from mudao.utils.logger import logger as log
 
 
@@ -71,7 +71,7 @@ class FilePannel(QWidget, Ui_Form):
         self.action = None
 
         self.filemanager = shell
-        self.coder = self.filemanager.encoder
+        self.coder = self.filemanager.encoding
         self.webRoot = self.path = self.tmpAttr = self.os = self.sep = self.file2paste = None
         self.mw = self.parentWidget()
 
@@ -234,7 +234,7 @@ class FilePannel(QWidget, Ui_Form):
         # data = self.do_list(path)
         # for d in data:
         #     if d[1] == 'folder':
-        #         self.add_item(d[0], it)
+        #         add_item(d[0], it)
         # self.make_right(data)
 
     # def get_file(self, it, idx):
@@ -246,10 +246,10 @@ class FilePannel(QWidget, Ui_Form):
         fullpath = fullpath.split(self.sep)
         if fullpath[0] == '':
             fullpath[0] = '/'
-        root = self.add_item(fullpath[0], self.leftView)
+        root = add_item(fullpath[0], self.leftView)
         for p in fullpath[1:]:
             p = p[:-1] if p.endswith('/') else p
-            root = self.add_item(p, root)
+            root = add_item(p, root)
         return root
 
     def make_right(self, data):
@@ -257,60 +257,60 @@ class FilePannel(QWidget, Ui_Form):
         for d in data:
             if d[0] in ('./', '../'):
                 continue
-            self.add_item(d, self.rightView)
+            add_item(d, self.rightView)
 
-    def add_item(self, data, root):
-        NEW = True
-        item = None
-        name = data[0] if isinstance(data, (tuple, list)) else str(data)
-
-        if isinstance(root, QTreeWidget):
-            for i in range(root.topLevelItemCount()):
-                if name == root.topLevelItem(i).text(0):
-                    item = root.topLevelItem(i)
-                    NEW = False
-                    break
-            if NEW:
-                item = self.make_item(data, 'disk')
-                root.addTopLevelItem(item)
-            item.setExpanded(True)
-        elif isinstance(root, QTreeWidgetItem):
-            for i in range(root.childCount()):
-                if name == root.child(i).text(0):
-                    item = root.child(i)
-                    NEW = False
-                    break
-            if NEW:
-                item = self.make_item(data)
-                root.addChild(item)
-            item.setExpanded(True)
-        return item
-
-    @staticmethod
-    def make_item(it, icon='folder'):
-        if isinstance(it, (tuple, list)):
-            if it[0].endswith('/'):
-                icon = 'folder'
-            elif '.' in it[0]:
-                icon = 'file'
-            else:
-                icon = 'binary'
-
-        if icon not in ('disk', 'folder', 'file', 'image'):
-            icon = 'binary'
-
-        item = QTreeWidgetItem()
-        if isinstance(it, (tuple, list)):
-            for k, v in enumerate(it):
-                v = v[:-1] if v.endswith('/') else v
-                item.setText(k, v)
-        else:
-            it = str(it)
-            it = it[:-1] if it.endswith('/') else it
-            item.setText(0, it)
-        item.setIcon(0, QIcon("./images/file_icons/%s_24px.png" % icon))
-
-        return item
+    # def add_item(self, data, root):
+    #     NEW = True
+    #     item = None
+    #     name = data[0] if isinstance(data, (tuple, list)) else str(data)
+    # 
+    #     if isinstance(root, QTreeWidget):
+    #         for i in range(root.topLevelItemCount()):
+    #             if name == root.topLevelItem(i).text(0):
+    #                 item = root.topLevelItem(i)
+    #                 NEW = False
+    #                 break
+    #         if NEW:
+    #             item = self.make_item(data, 'disk')
+    #             root.addTopLevelItem(item)
+    #         item.setExpanded(True)
+    #     elif isinstance(root, QTreeWidgetItem):
+    #         for i in range(root.childCount()):
+    #             if name == root.child(i).text(0):
+    #                 item = root.child(i)
+    #                 NEW = False
+    #                 break
+    #         if NEW:
+    #             item = self.make_item(data)
+    #             root.addChild(item)
+    #         item.setExpanded(True)
+    #     return item
+    # 
+    # @staticmethod
+    # def make_item(it, icon='folder'):
+    #     if isinstance(it, (tuple, list)):
+    #         if it[0].endswith('/'):
+    #             icon = 'folder'
+    #         elif '.' in it[0]:
+    #             icon = 'file'
+    #         else:
+    #             icon = 'binary'
+    # 
+    #     if icon not in ('disk', 'folder', 'file', 'image'):
+    #         icon = 'binary'
+    # 
+    #     item = QTreeWidgetItem()
+    #     if isinstance(it, (tuple, list)):
+    #         for k, v in enumerate(it):
+    #             v = v[:-1] if v.endswith('/') else v
+    #             item.setText(k, v)
+    #     else:
+    #         it = str(it)
+    #         it = it[:-1] if it.endswith('/') else it
+    #         item.setText(0, it)
+    #     item.setIcon(0, QIcon("./images/file_icons/%s_24px.png" % icon))
+    # 
+    #     return item
 
     def _right_menu(self, point):
         # init right menu
@@ -324,6 +324,7 @@ class FilePannel(QWidget, Ui_Form):
             return
         with open(path, 'rb') as f:
             self.chk_data(self.filemanager.uploadfile(rpath, f.read().hex()))
+        self.list_dir(self.current_folder)
 
     def download(self):
         path, _ = QFileDialog.getSaveFileName(self, "Save file", "", "All files (*.*)")

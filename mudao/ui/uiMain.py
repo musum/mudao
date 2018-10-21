@@ -1,18 +1,15 @@
 import sys
 
-import os
-from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from mudao.ui.pannel.MainWindow import Ui_MainWindow
+from mudao.ui.uiShellConf import ShellConfPannel
 from mudao.ui.uiFile import FilePannel
 from mudao.ui.uiTextEdit import TextPannel
 from mudao.ui.uiCmd import CmdPannel
 
 from mudao.model.filemanager import FileManager
-from mudao.utils.sqlite import sqlite as db
-
-from mudao.utils.tool import CONF
+from mudao.model import Box
 from mudao.utils.logger import logger as log
 log.setLevel('DEBUG')
 
@@ -35,6 +32,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mainTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.mainTable.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.mainTable.customContextMenuRequested.connect(self._right_menu)
+        self.mainTable.itemPressed.connect(self.on_shell_select)
 
         self.tabWidget.removeTab(1)
         self.tabWidget.currentChanged.connect(self.current_tab_changed)
@@ -46,63 +44,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # XStream.stdout().messageWritten.connect(self._system_output)
         # XStream.stderr().messageWritten.connect(self._system_output)
 
-        self.db = self.init_db()
+        self.db = Box()
+        self.shell = None
 
-    def init_db(self, dbf='mudao.db'):
-        if not os.path.exists(dbf):
-            sqlList = ["""\
-            CREATE TABLE 'box' (
-            'id' INTEGER PRIMARY KEY AUTOINCREMENT,
-            'url' VARCHAR(128),
-            'pwd' VARCHAR(8),
-            'type' VARCHAR(4),
-            's_group' VARCHAR(32),
-            'sql_con' TEXT,
-            'comment' TEXT,
-            'geo' VARCHAR(4),
-            'status' VARCHAR(4),
-            'c_time' TIMESTAMP not null default (datetime('now','localtime')),
-            'e_time' TIMESTAMP not null default (datetime('now','localtime'))
-            );
-            """,
-            """\
-            CREATE TABLE 'group_list' (
-            'group_id' INTEGER PRIMARY KEY,
-            'group_name' VARCHAR(64),
-            'counting' INT
-            );
-            
-            """,
-            """\
-            CREATE TABLE 'box_cache' (
-            'id' INTEGER PRIMARY KEY AUTOINCREMENT,
-            'sid' INTEGER,
-            'cache_name' TEXT,
-            'cache_content' BLOB
-            );
-            
-            """,
-            """\
-            create trigger box_Update before update on box
-            for each row
-            begin
-            update box set e_time = datetime('now','localtime') where id=old.id;
-            end;
-            """
-            ]
-            database = db(dbf)
-            for sql in sqlList:
-                database.execute(sql)
-        else:
-            database = db(dbf)
+    def update_table(self):
+        pass
 
-        return database
+    def get_row(self, idx):
+        pass
+
+    def add_row(self, data):
+        pass
+
+    def on_shell_select(self, it):
+        print(it)
+        print(it.text())
+        print(self.mainTable.rowAt(0))
 
     def add_shell(self):
-        pass
+        pannel = ShellConfPannel()
+        self.pannel.sig_emit_shell.connect(self.db.add_shell)
+        pannel.show()
 
     def edit_shell(self):
-        pass
+        pannel = ShellConfPannel()
 
     def delete_shell(self):
         pass
@@ -116,7 +81,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def show_file(self):
         try:
             # f = FilePannel('http://172.17.0.2/test.php', 'a', 'php', coder='gbk', parent=self)
-            shell = FileManager('http://localhost/test.php', 'a', 'php', 'gbk')
+            shell = FileManager(url='http://localhost/test.php', pwd='a', type='php', encoding='gbk')
             f = FilePannel(shell, parent=self)
             f.init()
             f.sig_edit.connect(lambda fm, p: self.show_textEdit(fm, p, newfile=False, editable=True))

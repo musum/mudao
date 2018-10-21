@@ -16,6 +16,11 @@ from mudao.utils.logger import logger
 # from utils import XStream
 
 
+class MuDao(MainWindow):
+    def __init__(self):
+        super().__init__(parent=None)
+
+
 def main(*args, **kwargs):
     app = QApplication(*args)
     win = MainWindow()
