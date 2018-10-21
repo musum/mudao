@@ -28,6 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.action_file.triggered.connect(self.show_file)
         self.action_data.triggered.connect(self.show_database)
 
+        self.mainTable.setColumnWidth(0, 200)
         self.mainTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.mainTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.mainTable.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -48,26 +49,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.shell = None
 
     def update_table(self):
-        pass
+        # header = ['URL', 'PWD', 'TYPE', 'ENCODING', 'CATEGORY', 'SQLCONF', 'TAG', 'IPGEO', 'STATUS', 'CREATE', 'UPDATE']
+        # self.mainTable.setHorizontalHeaderLabels(header)
+        self.mainTable.clear()
+        shells = self.db.get_shell()
+        for shell in shells:
+            self.add_row(shell.values())
 
-    def get_row(self, idx):
-        pass
+    def get_row(self):
+        rdata = []
+        for item in self.mainTable.selectedItems():
+            rdata.append(item.text())
+        return rdata
 
     def add_row(self, data):
-        pass
+        cc = self.mainTable.columnCount()
+        rc = self.mainTable.rowCount()
+        rc += 1
+        for i in range(min(cc, len(data))):
+            self.mainTable.setItem(rc, i, QTableWidgetItem(data[i]))
 
     def on_shell_select(self, it):
-        print(it)
-        print(it.text())
-        print(self.mainTable.rowAt(0))
+        print(self.get_row())
 
     def add_shell(self):
-        pannel = ShellConfPannel()
-        self.pannel.sig_emit_shell.connect(self.db.add_shell)
+        pannel = ShellConfPannel(parent=self)
+        pannel.sig_emit_shell.connect(self.on_shell_added)
         pannel.show()
 
-    def edit_shell(self):
-        pannel = ShellConfPannel()
+    def on_shell_added(self, shell):
+        self.db.add_shell(shell)
+        self.update_table()
+
+    def edit_shell(self, shell):
+        pannel = ShellConfPannel(shell, self)
 
     def delete_shell(self):
         pass

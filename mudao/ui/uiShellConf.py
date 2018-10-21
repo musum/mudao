@@ -12,10 +12,10 @@ class ShellConfPannel(QDialog, Ui_Dialog):
     def __init__(self, shell=None, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        # self.shell = dict(url='', pwd='', type='', s_group='default', encoding='utf-8',
-        #                   sql_conn='', comment='', state='', geo='')
+        self.shell_default = dict(url='', pwd='', type='', category='default', encoding='utf-8',
+                                  sqlconf='', tag='', status='', geo='')
         self.action = 'update' if shell else 'insert'
-        self.shell = shell if shell else Shell('', '', '', 'utf-8', sqlconf='', category='default', tag='')
+        self.shell = shell or Shell(**self.shell_default)
         self.init_view()
         self.btnAdd.clicked.connect(self.on_btn_clicked)
         self.cbo_category.currentTextChanged.connect(self.on_category_changed)
@@ -59,6 +59,6 @@ class ShellConfPannel(QDialog, Ui_Dialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = AddPannel()
+    win = ShellConfPannel()
     win.show()
     sys.exit(app.exec_())
