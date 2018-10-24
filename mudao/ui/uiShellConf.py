@@ -16,6 +16,7 @@ class ShellConfPannel(QDialog, Ui_Dialog):
                                   sqlconf='', tag='', status='', geo='')
         self.action = 'update' if shell else 'insert'
         self.shell = shell or Shell(**self.shell_default)
+        self.shell.type = self.shell.url[self.shell.url.rindex('.') + 1:] if self.shell.url and not self.shell.type else ''
         self.init_view()
         self.btnAdd.clicked.connect(self.on_btn_clicked)
         self.cbo_category.currentTextChanged.connect(self.on_category_changed)
@@ -28,7 +29,7 @@ class ShellConfPannel(QDialog, Ui_Dialog):
         self.btnAdd.setText(btn_text)
         self.url.setText(self.shell.url)
         self.pwd.setText(self.shell.pwd)
-        self.cbo_shelltype.setCurrentText(self.shell.type)
+        self.cbo_shelltype.setCurrentText(self.shell.type.upper())
         self.cbo_category.setCurrentText(self.shell.category)
         self.cbo_encoding.setCurrentText(self.shell.encoding)
         # self.dbconf.setText(self.shell.sqlconf)

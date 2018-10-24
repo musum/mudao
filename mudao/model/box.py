@@ -82,8 +82,11 @@ class Box(object):
         return self.db.update('box', data, dict(id=sid))
 
     def delete_shell(self, sid):
-        log.delete('Delete shell %s' % sid)
-        return self.db.delete('box', dict(id=sid))
+        log.debug('Delete shell %s' % sid)
+        if isinstance(sid, dict):
+            return self.db.delete('box', sid)
+        else:
+            return self.db.delete('box', dict(id=sid))
 
     def add_path(self, sid, path, content):
         log.debug('Add site (%s) path (%s) cache (%)' % (sid, path, content))
