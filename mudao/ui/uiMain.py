@@ -47,14 +47,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.db = Box()
         self.shell = None
+        self.update_table()
 
     def update_table(self):
         # header = ['URL', 'PWD', 'TYPE', 'ENCODING', 'CATEGORY', 'SQLCONF', 'TAG', 'IPGEO', 'STATUS', 'CREATE', 'UPDATE']
         # self.mainTable.setHorizontalHeaderLabels(header)
-        self.mainTable.clear()
+        self.clear_table()
         shells = self.db.get_shell()
         for shell in shells:
-            self.add_row(shell.values())
+            self.add_row(shell)
+
+    def clear_table(self):
+        for r in range(self.mainTable.rowCount()):
+            self.mainTable.removeRow(r)
 
     def get_row(self):
         rdata = []
@@ -63,11 +68,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return rdata
 
     def add_row(self, data):
+        data.pop('id')
         cc = self.mainTable.columnCount()
         rc = self.mainTable.rowCount()
-        rc += 1
+        self.mainTable.insertRow(rc)
+        # self.mainTable.setRowCount(rc)
         for i in range(min(cc, len(data))):
-            self.mainTable.setItem(rc, i, QTableWidgetItem(data[i]))
+            item = QTableWidgetItem(list(data.values())[i])
+            self.mainTable.setItem(rc, i, item)
+        self.mainTable.update()
 
     def on_shell_select(self, it):
         print(self.get_row())

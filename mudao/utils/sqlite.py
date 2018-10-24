@@ -53,8 +53,9 @@ class SQLite:
 
     def insert(self, tableName, data):
         sql = "INSERT INTO " + tableName + " ("+",".join(data.keys())+") VALUES ("+("?,"*len(data))[:-1]+")"
-        status = self.cursor.execute(sql, data.values())
-        self.conn.commit()
+        status = self.execute(sql, data.values())
+        # status = self.cursor.execute(sql, data.values())
+        # self.conn.commit()
         return status
 
     def delete(self, tableName, condition):
@@ -66,8 +67,9 @@ class SQLite:
             _data = condition.values()
         else:
             sql += condition
-        status = self.cursor.execute(sql, _data)
-        self.conn.commit()
+        status = self.execute(sql, _data)
+        # status = self.cursor.execute(sql, _data)
+        # self.conn.commit()
         return status
 
     def update(self, tableName, data, condition):
@@ -89,13 +91,15 @@ class SQLite:
             _data += condition.values()
         else:
             sql = sql + condition
-        status = self.cursor.execute(sql, _data)
-        self.conn.commit()
+        status = self.execute(sql, _data)
+        # status = self.cursor.execute(sql, _data)
+        # self.conn.commit()
         return status
 
     def execute(self, sql, data=[]):
-        st = 'Excute sql: %s with data (%s)' if data else 'Excute sql: %s'
-        log.debug(st % sql)
+        data = tuple(data)
+        st = 'Excute sql: %s with data %s' if data else 'Excute sql: %s'
+        log.debug(st % (sql, data))
         status = self.cursor.execute(sql, data)
         self.conn.commit()
         return status

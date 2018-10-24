@@ -46,6 +46,7 @@ class ShellConfPannel(QDialog, Ui_Dialog):
     def on_btn_clicked(self):
         self.update_shell()
         self.sig_emit_shell.emit(self.shell.to_dict())
+        self.hide()
 
     def on_category_changed(self):
         self.shell.category = self.cbo_category.currentText().lower()
