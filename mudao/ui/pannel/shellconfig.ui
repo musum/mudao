@@ -41,17 +41,12 @@
    </item>
    <item>
     <property name="text">
-     <string>Default</string>
+     <string>default</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Group1</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Add...</string>
+     <string>group1</string>
     </property>
    </item>
   </widget>

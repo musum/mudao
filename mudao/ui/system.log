@@ -936,3 +936,8 @@ test.php	2018-10-14 16:41:16	36	0666
 2018-10-24 08:19:08,872:73:DEBUG:Get shell with sid: None
 2018-10-24 08:21:03,219:73:DEBUG:Get shell with sid: None
 2018-10-24 08:21:25,746:73:DEBUG:Get shell with sid: None
+2018-10-24 21:56:12,212:73:DEBUG:Get shell with sid: None
+2018-10-24 21:56:45,657:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': '', 'encoding': 'utf-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-24 21:56:45,657:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', '', 'utf-8', '', 'default', '')
+2018-10-24 21:56:46,016:73:DEBUG:Get shell with sid: None
+2018-10-24 22:00:25,909:73:DEBUG:Get shell with sid: None
