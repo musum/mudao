@@ -28,9 +28,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.action_file.triggered.connect(self.show_file)
         self.action_data.triggered.connect(self.show_database)
 
-        self.mainTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.mainTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.mainTable.setSelectionBehavior(QAbstractItemView.SelectRows)
+        # self.mainTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # self.mainTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        # self.mainTable.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.mainTable.setColumnWidth(0, 300)
+        self.mainTable.setColumnWidth(1, 80)
+        self.mainTable.setColumnWidth(2, 300)
+        self.mainTable.setColumnWidth(3, 200)
         self.mainTable.customContextMenuRequested.connect(self._right_menu)
         self.mainTable.itemPressed.connect(self.on_shell_select)
 
@@ -46,17 +50,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.db = Box()
         self.shell = None
+        self.shell_map = {}
         self.update_table()
 
     def update_table(self):
-        # header = ['URL', 'PWD', 'TYPE', 'ENCODING', 'CATEGORY', 'SQLCONF', 'TAG', 'IPGEO', 'STATUS', 'CREATE', 'UPDATE']
-        # self.mainTable.setHorizontalHeaderLabels(header)
-        self.clear_table()
+        self.mainTable.clear()
         shells = self.db.get_shell()
         for shell in shells:
             self.add_row(shell)
 
     def clear_table(self):
+        # self.mainTable.clear()
+        # self.shell_map = {}
         for r in range(self.mainTable.rowCount()):
             self.mainTable.removeRow(r)
 
@@ -66,22 +71,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             rdata.append(item.text())
         return rdata
 
-    def add_row(self, data):
-        data.pop('id')
-        cc = self.mainTable.columnCount()
+    def add_row(self, data, show_columns=['url', 'pwd', 'sqlconf', 'geo', 'status', 'e_time']):
+        # cc = self.mainTable.columnCount()
+        self.mainTable.setColumnCount(len(show_columns))
         rc = self.mainTable.rowCount()
-        self.mainTable.setColumnWidth(0, 400)
         self.mainTable.insertRow(rc)
-        # self.mainTable.setRowCount(rc)
-        for i in range(min(cc, len(data))):
-            item = QTableWidgetItem(list(data.values())[i])
-            self.mainTable.setItem(rc, i, item)
+        cc = 0
+        for k in show_columns:
+            item = QTableWidgetItem(data.get(k, ''))
+            self.mainTable.setItem(rc, cc, item)
+            cc += 1
+
+        self.shell_map[rc] = data['id']
         self.mainTable.update()
 
-    def on_shell_select(self, it):
-        k = ['url', 'pwd', 'type', 'encoding', 'category', 'sqlconf', 'tag']
-        v = self.get_row()[:-4]
-        self.shell = Shell(**dict(zip(k, v)))
+    def on_shell_select(self):
+        sid = self.shell_map[self.mainTable.currentRow()]
+        self.shell = Shell(**self.db.get_shell(int(sid)))
 
     def add_shell(self):
         pannel = ShellConfPannel(parent=self)
@@ -90,20 +96,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_shell_added(self, shell):
         self.db.add_shell(shell)
-        self.update_table()
+        self.shell = self.db.get_shell(shell)
+        self.add_row(self.shell)
 
-    def edit_shell(self, shell):
+    def edit_shell(self):
         pannel = ShellConfPannel(self.shell, self)
         pannel.sig_emit_shell.connect(self.on_shell_updated)
         pannel.show()
 
     def on_shell_updated(self, shell):
-        self.db.update_shell(shell)
+        self.shell.update(shell)
+        self.db.update_shell(self.shell.id, self.shell)
         self.update_table()
 
     def delete_shell(self):
-        self.db.delete_shell(self.shell)
-        self.update_table()
+        self.db.delete_shell(self.shell.get_id())
+        # self.update_table()
+        self.mainTable.removeRow(self.mainTable.currentRow())
 
     # Terminal execute action
     def show_cmd(self):

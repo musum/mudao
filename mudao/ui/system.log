@@ -941,3 +941,77 @@ test.php	2018-10-14 16:41:16	36	0666
 2018-10-24 21:56:45,657:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', '', 'utf-8', '', 'default', '')
 2018-10-24 21:56:46,016:73:DEBUG:Get shell with sid: None
 2018-10-24 22:00:25,909:73:DEBUG:Get shell with sid: None
+2018-10-25 22:20:39,586:73:DEBUG:Get shell with sid: None
+2018-10-25 22:23:17,130:73:DEBUG:Get shell with sid: None
+2018-10-25 22:27:21,974:73:DEBUG:Get shell with sid: None
+2018-10-25 22:28:51,971:73:DEBUG:Get shell with sid: None
+2018-10-25 22:29:00,676:73:DEBUG:Get shell with sid: None
+2018-10-25 22:30:51,696:73:DEBUG:Get shell with sid: None
+2018-10-25 22:31:35,758:73:DEBUG:Get shell with sid: None
+2018-10-25 22:36:08,944:73:DEBUG:Get shell with sid: None
+2018-10-25 22:42:03,591:73:DEBUG:Get shell with sid: None
+2018-10-25 22:45:33,820:73:DEBUG:Get shell with sid: None
+2018-10-25 22:47:25,851:73:DEBUG:Get shell with sid: None
+2018-10-25 22:47:51,294:73:DEBUG:Get shell with sid: None
+2018-10-25 22:48:01,481:73:DEBUG:Get shell with sid: None
+2018-10-25 22:49:31,462:73:DEBUG:Get shell with sid: None
+2018-10-25 22:49:45,143:73:DEBUG:Get shell with sid: None
+2018-10-25 22:50:27,248:73:DEBUG:Get shell with sid: None
+2018-10-25 22:50:42,926:73:DEBUG:Get shell with sid: None
+2018-10-25 22:50:50,429:73:DEBUG:Get shell with sid: None
+2018-10-25 22:52:11,971:73:DEBUG:Get shell with sid: None
+2018-10-25 23:01:01,865:73:DEBUG:Get shell with sid: None
+2018-10-25 23:03:49,708:73:DEBUG:Get shell with sid: None
+2018-10-25 23:06:36,407:73:DEBUG:Get shell with sid: None
+2018-10-25 23:08:06,609:73:DEBUG:Get shell with sid: None
+2018-10-25 23:15:31,319:73:DEBUG:Get shell with sid: None
+2018-10-25 23:16:31,535:73:DEBUG:Get shell with sid: None
+2018-10-25 23:17:19,552:73:DEBUG:Get shell with sid: None
+2018-10-25 23:17:20,395:73:DEBUG:Get shell with sid: 1
+2018-10-25 23:18:00,658:73:DEBUG:Get shell with sid: None
+2018-10-25 23:18:01,594:73:DEBUG:Get shell with sid: 1
+2018-10-25 23:24:28,346:73:DEBUG:Get shell with sid: None
+2018-10-25 23:24:30,467:73:DEBUG:Get shell with sid: 1
+2018-10-25 23:33:52,833:74:DEBUG:Get all shell
+2018-10-25 23:34:40,914:74:DEBUG:Get all shell
+2018-10-25 23:34:51,850:76:DEBUG:Get shell with sid: 1
+2018-10-25 23:40:38,514:74:DEBUG:Get all shell
+2018-10-25 23:41:13,956:69:DEBUG:Add shell: {'url': 'http://127.0.0.1/test.php', 'pwd': 'test', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-25 23:41:13,956:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://127.0.0.1/test.php', 'test', 'php', 'UTF-8', '', 'default', '')
+2018-10-25 23:42:08,947:74:DEBUG:Get all shell
+2018-10-25 23:42:34,020:69:DEBUG:Add shell: {'url': 'http://localhost/test.php', 'pwd': 'a', 'type': 'php', 'encoding': 'UTF-8', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-25 23:42:34,020:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://localhost/test.php', 'a', 'php', 'UTF-8', '', 'default', '')
+2018-10-25 23:43:59,310:74:DEBUG:Get all shell
+2018-10-25 23:44:01,136:76:DEBUG:Get shell with sid: 3
+2018-10-25 23:44:02,610:87:DEBUG:Delete shell None
+2018-10-25 23:44:02,610:102:DEBUG:Excute sql: DELETE FROM box WHERE 1=1 AND id=? with data (None,)
+2018-10-25 23:44:02,610:74:DEBUG:Get all shell
+2018-10-25 23:44:33,794:74:DEBUG:Get all shell
+2018-10-25 23:46:40,654:74:DEBUG:Get all shell
+2018-10-25 23:46:42,151:76:DEBUG:Get shell with sid: 3
+2018-10-25 23:48:03,450:74:DEBUG:Get all shell
+2018-10-25 23:48:04,355:76:DEBUG:Get shell with sid: 3
+2018-10-25 23:48:05,389:87:DEBUG:Delete shell 3
+2018-10-25 23:48:05,389:102:DEBUG:Excute sql: DELETE FROM box WHERE 1=1 AND id=? with data (3,)
+2018-10-25 23:48:11,021:76:DEBUG:Get shell with sid: 2
+2018-10-25 23:48:13,853:87:DEBUG:Delete shell 2
+2018-10-25 23:48:13,853:102:DEBUG:Excute sql: DELETE FROM box WHERE 1=1 AND id=? with data (2,)
+2018-10-25 23:48:31,579:69:DEBUG:Add shell: {'url': 'http://127.0.0.1/test.pp', 'pwd': 'a', 'type': 'aspx', 'encoding': 'Euc-KR', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-25 23:48:31,580:102:DEBUG:Excute sql: INSERT INTO box (url,pwd,type,encoding,sqlconf,category,tag) VALUES (?,?,?,?,?,?,?) with data ('http://127.0.0.1/test.pp', 'a', 'aspx', 'Euc-KR', '', 'default', '')
+2018-10-25 23:48:31,874:76:DEBUG:Get shell with sid: {'url': 'http://127.0.0.1/test.pp', 'pwd': 'a', 'type': 'aspx', 'encoding': 'Euc-KR', 'sqlconf': '', 'category': 'default', 'tag': ''}
+2018-10-25 23:48:37,917:76:DEBUG:Get shell with sid: 4
+2018-10-26 00:00:31,421:74:DEBUG:Get all shell
+2018-10-26 00:00:36,242:76:DEBUG:Get shell with sid: 4
+2018-10-26 00:00:40,298:76:DEBUG:Get shell with sid: 1
+2018-10-26 00:00:56,069:76:DEBUG:Get shell with sid: 4
+2018-10-26 00:02:05,793:74:DEBUG:Get all shell
+2018-10-26 00:02:06,729:76:DEBUG:Get shell with sid: 4
+2018-10-26 00:02:37,181:74:DEBUG:Get all shell
+2018-10-26 00:02:43,327:76:DEBUG:Get shell with sid: 4
+2018-10-26 00:03:28,758:74:DEBUG:Get all shell
+2018-10-26 00:04:24,341:74:DEBUG:Get all shell
+2018-10-26 00:04:25,386:76:DEBUG:Get shell with sid: 4
+2018-10-26 00:04:29,391:83:DEBUG:Update shell 4 with data: <Shell {'id': 4, 'url': 'http://127.0.0.1/test.pp', 'pwd': 'aa', 'type': '', 'encoding': 'Euc-KR', 'category': 'default', 'sqlconf': '', 'tag': '', 'geo': None, 'status': None, 'c_time': '2018-10-25 23:48:31', 'e_time': '2018-10-25 23:48:31'}>
+2018-10-26 00:05:31,199:74:DEBUG:Get all shell
+2018-10-26 00:05:32,572:76:DEBUG:Get shell with sid: 4
+2018-10-26 00:05:36,867:83:DEBUG:Update shell 4 with data: <Shell {'id': 4, 'url': 'http://127.0.0.1/test.pp', 'pwd': 'aa', 'type': '', 'encoding': 'Euc-KR', 'category': 'default', 'sqlconf': '', 'tag': '', 'geo': None, 'status': None, 'c_time': '2018-10-25 23:48:31', 'e_time': '2018-10-25 23:48:31'}>

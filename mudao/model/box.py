@@ -70,12 +70,14 @@ class Box(object):
         self.db.insert('box', shell)
 
     def get_shell(self, sid=None):
+        if not sid:
+            log.debug('Get all shell')
+            return self.db.getList('box')
         log.debug('Get shell with sid: %s' % sid)
         if isinstance(sid, int):
             return self.db.getOne('box', condition={'id': sid})
         elif isinstance(sid, dict):
             return self.db.getOne('box', condition=sid)
-        return self.db.getList('box')
 
     def update_shell(self, sid, data):
         log.debug('Update shell %s with data: %s' % (sid, data))

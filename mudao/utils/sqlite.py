@@ -10,7 +10,7 @@ class SQLite:
 
     def fetchAll(self, sql, data=[]):
         result = None
-        if self.cursor.execute(sql, data):
+        if self.cursor.execute(sql, list(data)):
             result = self.cursor.fetchall()
             if len(result) > 0:
                 return [dict(zip([j[0] for j in self.cursor.description], i)) for i in result]
@@ -18,7 +18,7 @@ class SQLite:
 
     def fetchOne(self, sql, data=[]):
         result = None
-        if self.cursor.execute(sql, data):
+        if self.cursor.execute(sql, list(data)):
             result = self.cursor.fetchone()
             if result != None:
                 return dict(zip([j[0] for j in self.cursor.description], result))
@@ -100,6 +100,6 @@ class SQLite:
         data = tuple(data)
         st = 'Excute sql: %s with data %s' if data else 'Excute sql: %s'
         log.debug(st % (sql, data))
-        status = self.cursor.execute(sql, data)
+        status = self.cursor.execute(sql, list(data))
         self.conn.commit()
         return status
