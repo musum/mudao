@@ -54,7 +54,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_table()
 
     def update_table(self):
-        self.mainTable.clear()
+        self.mainTable.setRowCount(0)
         shells = self.db.get_shell()
         for shell in shells:
             self.add_row(shell)
@@ -71,11 +71,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             rdata.append(item.text())
         return rdata
 
-    def add_row(self, data, show_columns=['url', 'pwd', 'sqlconf', 'geo', 'status', 'e_time']):
+    def add_row(self, data, row=None, show_columns=['url', 'pwd', 'sqlconf', 'geo', 'status', 'e_time']):
         # cc = self.mainTable.columnCount()
         self.mainTable.setColumnCount(len(show_columns))
-        rc = self.mainTable.rowCount()
-        self.mainTable.insertRow(rc)
+        if row and row < self.mainTable.rowCount():
+            self.mainTable.removeRow(row)
+            rc = row
+        else:
+            rc = self.mainTable.rowCount()
+            self.mainTable.insertRow(rc)
+
         cc = 0
         for k in show_columns:
             item = QTableWidgetItem(data.get(k, ''))
@@ -106,11 +111,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def on_shell_updated(self, shell):
         self.shell.update(shell)
+        self.shell.pop('c_time')
+        self.shell.pop('e_time')
         self.db.update_shell(self.shell.id, self.shell)
+        # current = self.mainTable.currentRow()
+        # self.add_row(self.shell, current)
         self.update_table()
 
     def delete_shell(self):
-        self.db.delete_shell(self.shell.get_id())
+        self.db.delete_shell(self.shell.id)
         # self.update_table()
         self.mainTable.removeRow(self.mainTable.currentRow())
 
@@ -123,7 +132,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def show_file(self):
         try:
             # f = FilePannel('http://172.17.0.2/test.php', 'a', 'php', coder='gbk', parent=self)
-            shell = FileManager(url='http://localhost/test.php', pwd='a', type='php', encoding='gbk')
+            # shell = FileManager(url='http://localhost/test.php', pwd='a', type='php', encoding='gbk')
+            # shell = FileManager(url=self.shell.url, pwd=self.shell.pwd, type=self.shell.type, encoding=self.shell.encoding)
+            shell = FileManager(**self.shell)
             f = FilePannel(shell, parent=self)
             f.init()
             f.sig_edit.connect(lambda fm, p: self.show_textEdit(fm, p, newfile=False, editable=True))

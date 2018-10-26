@@ -2,8 +2,8 @@
 
 class Shell(dict):
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    # def __init__(self, **kwargs):
+    #     super().__init__(**kwargs)
 
     def __getattr__(self, key):
         try:
@@ -21,7 +21,7 @@ class Shell(dict):
             pass
 
     def __repr__(self):
-        return self
+        return dict.__repr__(self)
 
     def __str__(self):
         return '<Shell ' + dict.__repr__(self) + '>'

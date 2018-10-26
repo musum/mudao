@@ -27,7 +27,7 @@ class SQLite:
     def getList(self, tableName, colums="*", condition="", orders="", limits=""):
         sql = "SELECT "+colums+" FROM " + tableName + " WHERE 1=1"
         _data = []
-        if type(condition) == dict:
+        if isinstance(condition, dict):
             for i in condition.keys():
                 sql += " AND "+i+"=?"
             _data = condition.values()
@@ -41,7 +41,7 @@ class SQLite:
     def getOne(self, tableName, colums="*", condition="", orders="", limits=""):
         sql = "SELECT "+colums+" FROM " + tableName + " WHERE 1=1"
         _data = []
-        if type(condition) == dict:
+        if isinstance(condition, dict):
             for i in condition.keys():
                 sql += " AND "+i+"=?"
             _data = condition.values()
@@ -61,7 +61,7 @@ class SQLite:
     def delete(self, tableName, condition):
         sql = "DELETE FROM " + tableName + " WHERE 1=1"
         _data = []
-        if type(condition) == dict:
+        if isinstance(condition, dict):
             for i in condition.keys():
                 sql += " AND "+i+"=?"
             _data = condition.values()
@@ -76,19 +76,19 @@ class SQLite:
         sql = "UPDATE " + tableName + " SET "
         _data = []
         #update data
-        if type(data) == dict:
+        if isinstance(data, dict):
             for i in data.keys():
                 sql += i+"=?,"
             sql = sql[:-1]
-            _data = data.values()
+            _data = list(data.values())
         else:
             sql = sql + data
         #condition
         sql += " WHERE 1=1 "
-        if type(condition) == dict:
+        if isinstance(condition, dict):
             for i in condition.keys():
                 sql += " AND "+i+"=?"
-            _data += condition.values()
+            _data += list(condition.values())
         else:
             sql = sql + condition
         status = self.execute(sql, _data)

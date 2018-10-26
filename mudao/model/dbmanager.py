@@ -10,19 +10,19 @@ class DBManager(ShellBase):
     def get_data(self, connstr, action, sql=None):
         if action.upper() not in ('DBLIST', 'TABLELIST', 'COLUMNLIST', 'EXECUTESQL'):
             return None
-        if self._type.lower() == 'php':
+        if self.type.lower() == 'php':
             dbtype, hst, usr, pwd, dbn = self.parse_connstr(connstr)
             key = 'DB_PHP' + dbtype.upper()
             if sql:
                 pl = CONF.get(key).get(action) % (hst, usr, pwd, dbn, sql)
             else:
                 pl = CONF.get(key).get(action) % (hst, usr, pwd, dbn)
-        elif self._type.lower() in ('asp', 'aspx'):
+        elif self.type.lower() in ('asp', 'aspx'):
             conn = self.parse_ado(connstr)
             if sql:
-                pl = CONF.get('DB_' + self._type.upper() + '_ADO').get(action) % (conn, sql)
+                pl = CONF.get('DB_' + self.type.upper() + '_ADO').get(action) % (conn, sql)
             else:
-                pl = CONF.get('DB_' + self._type.upper() + '_ADO').get(action) % conn
+                pl = CONF.get('DB_' + self.type.upper() + '_ADO').get(action) % conn
         params = self.generate(pl)
         return self.POST(params)
 
