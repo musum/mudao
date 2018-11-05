@@ -2,7 +2,9 @@ import re
 from configparser import ConfigParser
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QTreeWidgetItem, QTreeWidget
+from PyQt5.QtWidgets import QTreeWidgetItem, QTreeWidget, QMessageBox
+
+from mudao.utils.logger import logger as log
 
 
 def parse_caidao(conf):
@@ -207,6 +209,25 @@ def make_item(it, icon='folder'):
     item.setIcon(0, QIcon("./images/file_icons/%s_24px.png" % icon))
 
     return item
+
+
+def chk_data(ret, msg_widget=None):
+    log.debug(ret)
+    data = ''
+    if ret[0] != 200:
+        QMessageBox.information(None, ret[1], str(ret[2]))
+        return data
+    try:
+        data = ret[2]       # .decode(self.coder)
+        log.info('Get data:\n%s' % data)
+        if data == '1':
+            msg_widget.showMessage('Operation finished :)')
+        else:
+            msg_widget.showMessage('Operation failed :(')
+    except Exception as e:
+        QMessageBox.information(None, 'ERR', str(e))
+        log.exception(e)
+    return data
 
 
 class Config(ConfigParser):

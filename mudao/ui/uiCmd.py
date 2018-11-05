@@ -4,21 +4,70 @@ from PyQt5 import QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 # from PyQt5.QtCore import pyqtSignal as Signal
-
+from mudao.utils.logger import logger as log
 from mudao.ui.pannel.cmd import Ui_Terminal
+from mudao.utils.tool import chk_data
 
 
 class CmdPannel(QPlainTextEdit, Ui_Terminal):
-    def __init__(self, shell, path=None, parent=None):
+    def __init__(self, shell, path=None, parent=None, banner='BANER'):
         super(CmdPannel, self).__init__(parent)
         self.cursor = self.textCursor()
-        self.cursor.movePosition(self.cursor.End)
-        self.ensureCursorVisible()
+        self.setUndoRedoEnabled(False)
+        # Disable context menu
+        # This menu is useful for undo/redo, cut/copy/paste, del, select all,
+        # self.setContextMenuPolicy(Qt.NoContextMenu)
+
+        self.reset(banner)
+
+        self.mw = self.parentWidget()
+        # Change font, colour of text entry box
+        self.setStyleSheet(
+            """QPlainTextEdit {background-color: #333;
+                               color: #00FF00;
+                               # text-decoration: underline;
+                               font-family: Courier;}""")
 
         self.shell = shell
+        self.cmd_path = path
+        self.prompt = self.promptParagraph = None
+        self.isLock = False
+        self.history = []
+        self.webRoot = self.path = self.os = self.sep = None
 
         self.zoomsize = 2
         self.ctrlPressed = False
+        self.get_script_path()
+        self.setPrompt(self.webRoot + '> ')
+
+    def reset(self, banner):
+        self.clear()
+        self.appendPlainText(banner)
+        self.appendPlainText('')
+        self.history = []
+
+    def setPrompt(self, prompt, display=True):
+        self.prompt = prompt
+        if display:
+            self.displayPrompt()
+
+    def displayPrompt(self):
+        self.setUndoRedoEnabled(False)
+        self.insertText(self.prompt)
+        self.promptParagraph = self.cursor.blockNumber()
+        self.setUndoRedoEnabled(True)
+
+    def get_script_path(self):
+        self.mw.statusbar.showMessage('Get server info...')
+        info = chk_data(self.shell.getinfo(), self.mw.statusbar)
+        if info:
+            self.mw.statusbar.showMessage('Get server info OK :)')
+            self.webRoot, self.path, _ = info.split('\t')
+            self.os = 'lnx' if self.webRoot.startswith('/') else 'win'
+            self.sep = '/' if self.os is 'lnx' else '\\'
+
+        if not self.cmd_path:
+            self.cmd_path = 'sh' if self.os is 'lnx' else 'cmd'
 
     def wheelEvent(self, event):
         if self.ctrlPressed:
@@ -38,18 +87,73 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
         if event.key() == Qt.Key_Control:
             self.ctrlPressed = True
             print("The ctrl key is holding down")
-            return super().keyPressEvent(event)
-        self.insertText(event.text())
+            # return super().keyPressEvent(event)
+        if event.key() == Qt.Key_Backspace:
+            if self.handleBackspace() or not self.isSelectInEditionZone():
+                return
+            # return super().keyPressEvent(event)
+        return super().keyPressEvent(event)
+        # self.insertText(event.text())
 
     def keyReleaseEvent(self, event):
         # print(event.text())
-        if event.key() in (Qt.Key_Enter, Qt.Key_Return):
-            print('execute cmd')
-            print(self.get_lastline())
-
         if event.key() == Qt.Key_Control:
             self.ctrlPressed = False
             return super().keyReleaseEvent(event)
+
+        if event.key() in (Qt.Key_Enter, Qt.Key_Return):
+            cmd = self.getCommand()
+            print('execute: %s' % cmd)
+            if cmd:
+                self.execute(cmd)
+            else:
+                self.appendPlainText('')
+                self.cursor.movePosition(QtGui.QTextCursor.End)
+            self.displayPrompt()
+
+    def handleBackspace(self):
+        col = self.cursor.columnNumber()
+        blk = self.cursor.blockNumber()
+        if blk == self.promptParagraph and col == len(self.prompt):
+            return True
+        else:
+            return False
+
+    def getCommand(self):
+        cur = self.textCursor()
+        # self.cursor.movePosition(QtGui.QTextCursor.StartOfBlock)
+        cur.movePosition(QtGui.QTextCursor.StartOfBlock)
+        cur.movePosition(QtGui.QTextCursor.Right, QtGui.QTextCursor.MoveAnchor, len(self.prompt))
+        cur.movePosition(QtGui.QTextCursor.EndOfBlock, QtGui.QTextCursor.KeepAnchor)
+        # self.cursor.movePosition(QtGui.QTextCursor.EndOfBlock, QtGui.QTextCursor.KeepAnchor)
+        cmd = cur.selectedText()
+        cur.clearSelection()
+        return cmd
+
+    def replaceCommand(self, cmd):
+        # cursor = self.textCursor()
+        self.cursor.movePosition(QtGui.QTextCursor.StartOfLine)
+        self.cursor.movePosition(QtGui.QTextCursor.Right, QtGui.QTextCursor.MoveAnchor, len(self.prompt))
+        self.cursor.movePosition(QtGui.QTextCursor.EndOfBlock, QtGui.QTextCursor.KeepAnchor)
+        self.cursor.insertText(cmd)
+
+    def isInEditionZone(self, pos=None):
+        if pos:
+            self.cursor.setPosition(pos)
+        pra = self.cursor.blockNumber()
+        idx = self.cursor.columnNumber()
+        return pra > self.promptParagraph or (pra == self.promptParagraph and idx > len(self.prompt))
+
+    def isSelectInEditionZone(self):
+        st = self.cursor.selectionStart()
+        ed = self.cursor.selectionEnd()
+        for i in (st, ed):
+            self.cursor.setPosition(i)
+            pra = self.cursor.blockNumber()
+            idx = self.cursor.columnNumber()
+            if pra <= self.promptParagraph and (pra != self.promptParagraph or idx < len(self.prompt)):
+                return False
+        return True
 
     def get_lastline(self):
         # print(self.toPlainText())
@@ -61,3 +165,6 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
         self.cursor.insertText(text)
         self.setTextCursor(self.cursor)
         self.ensureCursorVisible()
+
+    def execute(self, cmd):
+        return chk_data(self.shell.execute(self.cmd_path, cmd), self.mw.statusbar)

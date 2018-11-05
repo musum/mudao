@@ -9,7 +9,7 @@ from mudao.ui.uiTextEdit import TextPannel
 from mudao.ui.uiCmd import CmdPannel
 
 from mudao.model.filemanager import FileManager
-from mudao.model import Box, Shell
+from mudao.model import Box, Shell, ShellBase
 from mudao.utils.logger import logger as log
 log.setLevel('DEBUG')
 
@@ -125,7 +125,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Terminal execute action
     def show_cmd(self):
-        cp = CmdPannel(self)
+        shell = ShellBase(**self.shell)
+        cp = CmdPannel(shell, parent=self)
         self.add_new_tab(cp, 'CMD')
 
     # File manage action

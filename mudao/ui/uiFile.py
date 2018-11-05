@@ -19,7 +19,7 @@ class FilePannel(QWidget, Ui_Form):
     sig_rename = Signal(object, int)
 
     def __init__(self, shell, parent=None):
-        super(FilePannel, self).__init__(parent)
+        super(FilePannel, self).__init__(parent=parent)
         self.setupUi(self)
         self.action_upload.triggered.connect(self.upload)
         self.action_download.triggered.connect(self.download)

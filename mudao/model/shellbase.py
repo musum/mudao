@@ -45,7 +45,7 @@ class ShellBase(Shell):
         params = self.generate(pl)
         return self.POST(params)
 
-    def shell(self, cmd_path, cmd):
+    def execute(self, cmd_path, cmd):
         pl = CONF.get('SHELL').get(self.type.upper()) % (cmd_path, cmd)
         params = self.generate(pl)
         return self.POST(params)
