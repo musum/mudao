@@ -3,33 +3,31 @@ from PyQt5 import QtGui
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-# from PyQt5.QtCore import pyqtSignal as Signal
 from mudao.utils.logger import logger as log
 from mudao.ui.pannel.cmd import Ui_Terminal
 from mudao.utils.tool import chk_data
 
 
 class CmdPannel(QPlainTextEdit, Ui_Terminal):
-    def __init__(self, shell, path=None, parent=None, banner='BANER'):
+    def __init__(self, shell, cmd_path=None, parent=None, banner=None):
         super(CmdPannel, self).__init__(parent)
         self.cursor = self.textCursor()
         self.setUndoRedoEnabled(False)
         # Disable context menu
         # This menu is useful for undo/redo, cut/copy/paste, del, select all,
-        # self.setContextMenuPolicy(Qt.NoContextMenu)
+        self.setContextMenuPolicy(Qt.NoContextMenu)
 
-        self.reset(banner)
-
-        self.mw = self.parentWidget()
         # Change font, colour of text entry box
+        # text-decoration: underline;
         self.setStyleSheet(
             """QPlainTextEdit {background-color: #333;
                                color: #00FF00;
-                               # text-decoration: underline;
                                font-family: Courier;}""")
 
+        self.mw = self.parentWidget()
         self.shell = shell
-        self.cmd_path = path
+        self.cmd_path = cmd_path
+        self.banner = banner
         self.prompt = self.promptParagraph = None
         self.isLock = False
         self.history = []
@@ -38,6 +36,7 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
         self.zoomsize = 2
         self.ctrlPressed = False
         self.get_script_path()
+        self.reset(self.banner)
         self.setPrompt(self.webRoot + '> ')
 
     def reset(self, banner):
@@ -53,6 +52,7 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
 
     def displayPrompt(self):
         self.setUndoRedoEnabled(False)
+        self.appendPlainText('')
         self.insertText(self.prompt)
         self.promptParagraph = self.cursor.blockNumber()
         self.setUndoRedoEnabled(True)
@@ -62,9 +62,11 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
         info = chk_data(self.shell.getinfo(), self.mw.statusbar)
         if info:
             self.mw.statusbar.showMessage('Get server info OK :)')
-            self.webRoot, self.path, _ = info.split('\t')
+            self.webRoot, disk, _ = info.split('\t')
             self.os = 'lnx' if self.webRoot.startswith('/') else 'win'
             self.sep = '/' if self.os is 'lnx' else '\\'
+            inf = ' '.join(('[ ', disk, _, ' ]'))
+            self.banner = '\n'.join((self.banner, inf)) if self.banner else inf
 
         if not self.cmd_path:
             self.cmd_path = 'sh' if self.os is 'lnx' else 'cmd'
@@ -84,32 +86,42 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
             return super().wheelEvent(event)
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Control:
-            self.ctrlPressed = True
-            print("The ctrl key is holding down")
+        # if event.key() == Qt.Key_Control:
+        #     self.ctrlPressed = True
+        #     print("The ctrl key is holding down")
             # return super().keyPressEvent(event)
         if event.key() == Qt.Key_Backspace:
             if self.handleBackspace() or not self.isSelectInEditionZone():
                 return
             # return super().keyPressEvent(event)
-        return super().keyPressEvent(event)
-        # self.insertText(event.text())
-
-    def keyReleaseEvent(self, event):
-        # print(event.text())
-        if event.key() == Qt.Key_Control:
-            self.ctrlPressed = False
-            return super().keyReleaseEvent(event)
-
         if event.key() in (Qt.Key_Enter, Qt.Key_Return):
             cmd = self.getCommand()
-            print('execute: %s' % cmd)
+            # print('execute: %s' % cmd)
             if cmd:
                 self.execute(cmd)
             else:
                 self.appendPlainText('')
                 self.cursor.movePosition(QtGui.QTextCursor.End)
             self.displayPrompt()
+            return
+        return super().keyPressEvent(event)
+        # self.insertText(event.text())
+
+    # def keyReleaseEvent(self, event):
+    #     # print(event.text())
+    #     if event.key() == Qt.Key_Control:
+    #         self.ctrlPressed = False
+    #         return super().keyReleaseEvent(event)
+
+        # if event.key() in (Qt.Key_Enter, Qt.Key_Return):
+        #     cmd = self.getCommand()
+        #     print('execute: %s' % cmd)
+        #     if cmd:
+        #         self.execute(cmd)
+        #     else:
+        #         self.appendPlainText('')
+        #         self.cursor.movePosition(QtGui.QTextCursor.End)
+        #     self.displayPrompt()
 
     def handleBackspace(self):
         col = self.cursor.columnNumber()
@@ -151,7 +163,7 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
             self.cursor.setPosition(i)
             pra = self.cursor.blockNumber()
             idx = self.cursor.columnNumber()
-            if pra <= self.promptParagraph and (pra != self.promptParagraph or idx < len(self.prompt)):
+            if pra < self.promptParagraph or (pra == self.promptParagraph and idx < len(self.prompt)):
                 return False
         return True
 
@@ -167,4 +179,6 @@ class CmdPannel(QPlainTextEdit, Ui_Terminal):
         self.ensureCursorVisible()
 
     def execute(self, cmd):
-        return chk_data(self.shell.execute(self.cmd_path, cmd), self.mw.statusbar)
+        ret = chk_data(self.shell.execute(self.cmd_path, cmd), self.mw.statusbar)
+        self.appendPlainText(ret)
+        return

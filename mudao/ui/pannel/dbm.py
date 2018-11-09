@@ -158,4 +158,4 @@ class Ui_Form(object):
         self.action_cut.setText(_translate("Form", "剪切"))
         self.action_cut.setToolTip(_translate("Form", "剪切文件"))
 
-import resource_rc
+import mudao.resource_rc

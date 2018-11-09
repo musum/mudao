@@ -3,13 +3,14 @@ import sys
 from PyQt5.QtWidgets import *
 
 from mudao.ui.pannel.MainWindow import Ui_MainWindow
+from mudao.ui.uiDB import DBManagerPannel
 from mudao.ui.uiShellConf import ShellConfPannel
 from mudao.ui.uiFile import FilePannel
 from mudao.ui.uiTextEdit import TextPannel
 from mudao.ui.uiCmd import CmdPannel
 
 from mudao.model.filemanager import FileManager
-from mudao.model import Box, Shell, ShellBase
+from mudao.model import Box, Shell, ShellBase, DBManager
 from mudao.utils.logger import logger as log
 log.setLevel('DEBUG')
 
@@ -110,9 +111,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         pannel.show()
 
     def on_shell_updated(self, shell):
+        # print(shell)
         self.shell.update(shell)
-        self.shell.pop('c_time')
-        self.shell.pop('e_time')
+        self.shell.pop('c_time', None)
+        self.shell.pop('e_time', None)
         self.db.update_shell(self.shell.id, self.shell)
         # current = self.mainTable.currentRow()
         # self.add_row(self.shell, current)
@@ -150,7 +152,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Database manage action
     def show_database(self):
-        pass
+        shell = DBManager(**self.shell)
+        dp = DBManagerPannel(shell, parent=self)
+        dp.sig_db_conf_submit.connect(self.on_shell_updated)
+        self.add_new_tab(dp, 'DBManager')
 
     def _right_menu(self, point):
         menu = QMenu()
