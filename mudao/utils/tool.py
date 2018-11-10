@@ -157,36 +157,36 @@ def parse_result(html, flag):
     return ''
 
 
-def add_item(data, root):
-    NEW = True
-    item = None
-    name = data[0] if isinstance(data, (tuple, list)) else str(data)
+# def add_item(data, root):
+#     NEW = True
+#     item = None
+#     name = data[0] if isinstance(data, (tuple, list)) else str(data)
+#
+#     if isinstance(root, QTreeWidget):
+#         for i in range(root.topLevelItemCount()):
+#             if name == root.topLevelItem(i).text(0):
+#                 item = root.topLevelItem(i)
+#                 NEW = False
+#                 break
+#         if NEW:
+#             item = make_item(data, 'disk')
+#             root.addTopLevelItem(item)
+#         item.setExpanded(True)
+#     elif isinstance(root, QTreeWidgetItem):
+#         for i in range(root.childCount()):
+#             if name == root.child(i).text(0):
+#                 item = root.child(i)
+#                 NEW = False
+#                 break
+#         if NEW:
+#             item = make_item(data)
+#             root.addChild(item)
+#         item.setExpanded(True)
+#     return item
 
-    if isinstance(root, QTreeWidget):
-        for i in range(root.topLevelItemCount()):
-            if name == root.topLevelItem(i).text(0):
-                item = root.topLevelItem(i)
-                NEW = False
-                break
-        if NEW:
-            item = make_item(data, 'disk')
-            root.addTopLevelItem(item)
-        item.setExpanded(True)
-    elif isinstance(root, QTreeWidgetItem):
-        for i in range(root.childCount()):
-            if name == root.child(i).text(0):
-                item = root.child(i)
-                NEW = False
-                break
-        if NEW:
-            item = make_item(data)
-            root.addChild(item)
-        item.setExpanded(True)
-    return item
 
-
-def make_item(it, icon='folder'):
-    if isinstance(it, (tuple, list)):
+def make_item(it, icon=None):
+    if not icon and isinstance(it, (tuple, list)):
         if it[0].endswith('/'):
             icon = 'folder'
         elif '.' in it[0]:
@@ -194,8 +194,12 @@ def make_item(it, icon='folder'):
         else:
             icon = 'binary'
 
-    if icon not in ('disk', 'folder', 'file', 'image'):
-        icon = 'binary'
+    if icon in ('database', 'table', 'column'):
+        icon_path = './images/db_icons/%s.png' % icon
+    elif icon in ('disk', 'folder', 'file', 'binary', 'image', 'jpg'):
+        icon_path = './images/file_icons/%s_24px.png' % icon
+    else:
+        icon_path = './images/default.png'
 
     item = QTreeWidgetItem()
     if isinstance(it, (tuple, list)):
@@ -206,7 +210,7 @@ def make_item(it, icon='folder'):
         it = str(it)
         it = it[:-1] if it.endswith('/') else it
         item.setText(0, it)
-    item.setIcon(0, QIcon("./images/file_icons/%s_24px.png" % icon))
+    item.setIcon(0, QIcon(icon_path))
 
     return item
 
@@ -220,14 +224,16 @@ def chk_data(ret, msg_widget=None):
     try:
         data = ret[2]       # .decode(self.coder)
         log.info('Get data:\n%s' % data)
-        if data == '1':
-            msg_widget.showMessage('Operation finished :)')
-        else:
+        if not msg_widget:
+            return data
+        if data == '-1':
             msg_widget.showMessage('Operation failed :(')
+        else:
+            msg_widget.showMessage('Operation finished :)')
+        return data
     except Exception as e:
         QMessageBox.information(None, 'ERR', str(e))
         log.exception(e)
-    return data
 
 
 class Config(ConfigParser):
