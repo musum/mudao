@@ -53,6 +53,9 @@ class DBManagerPannel(QWidget, Ui_Form):
         self.leftView.clear()
         self.reset_right_view()
 
+        # TODO: multi db host config
+        # conf_list = self.conf.split('\n\n')
+
         dbs = chk_data(self.dbm.database(self.conf), self.mw.statusbar)
         if dbs:
             for db in dbs.split('\t'):
@@ -78,7 +81,7 @@ class DBManagerPannel(QWidget, Ui_Form):
         self.current_obj = self.make_path(it)
         if len(self.current_obj.split('.')) == 1:
             db = self.current_obj
-            self.cbo_sql.setCurrentText('SHOW TABLES FROM `mysql`')
+            self.cbo_sql.setCurrentText('SHOW TABLES FROM `%s`' % db)
             tbls = chk_data(self.dbm.tables(self.conf, db), self.mw.statusbar)
             self.add_tables(tbls.split('\t'))
         elif len(self.current_obj.split('.')) == 2:
